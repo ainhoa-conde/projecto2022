@@ -1,4 +1,4 @@
-package proyecto;
+package clases;
 
 public class Contacto {
 	private String nombre;

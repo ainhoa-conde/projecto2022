@@ -1,4 +1,4 @@
-package proyecto;
+package ventanas;
 
 import java.awt.EventQueue;
 

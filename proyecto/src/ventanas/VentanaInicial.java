@@ -1,4 +1,4 @@
-package proyecto;
+package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import clases.BaseDatos;
+import clases.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
