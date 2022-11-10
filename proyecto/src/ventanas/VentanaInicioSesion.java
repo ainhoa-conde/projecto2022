@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JCalendar;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -17,6 +20,7 @@ public class VentanaInicioSesion extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior;
+	private JCalendar calendario;
 
 	/**
 	 * Launch the application.
@@ -91,6 +95,12 @@ public class VentanaInicioSesion extends JFrame {
 		
 		JPanel pDrchAbajo = new JPanel();
 		pCentralDrch.add(pDrchAbajo);
+		
+		JCalendar calendario = new JCalendar();
+		pDrchAbajo.add(calendario);
+		
+		JPanel eventos = new JPanel();
+		pDrchAbajo.add(eventos);
 	}
 
 }

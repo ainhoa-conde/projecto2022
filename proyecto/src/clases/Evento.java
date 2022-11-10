@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Evento {
 	
 	private ArrayList<Contacto> contacto = new ArrayList<Contacto>();
+	private String usuario;
 	private String fecha = "";
 	private String nombre = "";
 	private TipoEvento tipo;
@@ -14,9 +15,10 @@ public class Evento {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evento(ArrayList<Contacto> contacto, String fecha, String nombre, TipoEvento tipo, int duracion) {
+	public Evento(ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
 		super();
 		this.contacto = contacto;
+		this.usuario = usuario;
 		this.fecha = fecha;
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -28,6 +30,14 @@ public class Evento {
 	}
 	public void setContacto(ArrayList<Contacto> contacto) {
 		this.contacto = contacto;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getFecha() {
@@ -60,8 +70,7 @@ public class Evento {
 
 	@Override
 	public String toString() {
-		return "Evento [contacto=" + contacto + ", fecha=" + fecha + ", nombre=" + nombre + ", tipo=" + tipo
-				+ ", duracion=" + duracion + "]";
+		return fecha + "\t" + nombre + "\t" + tipo;
 	}
 	
 	

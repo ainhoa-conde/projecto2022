@@ -71,7 +71,7 @@ public class VentanaInicial extends JFrame {
 		ventanaActual = this;
 		ventanaSiguiente = new VentanaInicioSesion();
 		
-		con = BaseDatos.initBD("usuarios.db");
+		con = BaseDatos.initBD("proyecto.db");
 		BaseDatos.crearTablas(con);
 		
 		JPanel pNorte = new JPanel();

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class BaseDatos {
 
@@ -42,11 +43,11 @@ public class BaseDatos {
 		}
 		
 		public static void crearTablas(Connection con) {
-			String sql = "CREATE TABLE IF NOT EXISTS Usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
-			try {
-				Statement st = con.createStatement();
-				st.executeUpdate(sql);
-				st.close();
+			String sql1 = "CREATE TABLE IF NOT EXISTS Usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
+			String sql2 = "CREATE TABLE IF NOT EXISTS Evento (usuario String, contacto ArrayList<Contacto>, fecha String, nombre String, tipo TipoEvento, duracion Integer)";
+			try (Statement st = con.createStatement();){
+				st.executeUpdate(sql1);
+				st.executeUpdate(sql2); //no crea tabla
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -55,10 +56,18 @@ public class BaseDatos {
 		
 		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO Usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
-			try {
-				Statement st = con.createStatement();
+			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
-				st.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public static void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
+			String sql = "INSERT INTO Evento VALUES('"+contacto+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
+			try (Statement st = con.createStatement();){
+				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -68,14 +77,11 @@ public class BaseDatos {
 		public static boolean buscarUsuario(Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
 			boolean usuarioEncontrado = false;
-			try {
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql); //no deja crear usuarios
-				if(rs.next()) {
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
 					usuarioEncontrado = true;
 				}
-				rs.close();
-				st.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,10 +92,9 @@ public class BaseDatos {
 		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
 			Usuario u = null;
-			try {
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql);
-				if(rs.next()) {
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
 					String n = rs.getString("nombre");
 					String a = rs.getString("apellido");
 					String m = rs.getString("mail");
@@ -103,6 +108,28 @@ public class BaseDatos {
 			}
 			
 			return u;
+		}
+		
+		public static Evento obtenerDatosEvento (Connection con, String nombre) {
+			String sql = "SELECT * FROM Evento WHERE nombre='"+nombre+"'";
+			Evento ev = null;
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					ArrayList<Contacto> c = (ArrayList<Contacto>) rs.getArray("contacto");
+					String u = rs.getString("usuario");
+					String f = rs.getString("fecha");
+					String n = rs.getString("nombre");
+					//TipoEvento t = (TipoEvento)rs.getString("tipo");
+					int d = rs.getInt("duracion");
+					//ev = new Evento(c, u, f, n, t, d);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return ev;
 		}
 		
 		/*public static void eliminarUsuario(Connection con, String nomUsu) {
