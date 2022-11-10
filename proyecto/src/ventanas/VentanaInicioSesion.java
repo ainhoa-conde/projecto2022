@@ -1,26 +1,43 @@
 package ventanas;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import com.toedter.calendar.JCalendar;
+import clases.BaseDatos;
+import clases.Usuario;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.util.regex.Pattern;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 public class VentanaInicioSesion extends JFrame {
 
 	private JPanel contentPane;
-	private JFrame ventanaActual, ventanaAnterior;
-	private JCalendar calendario;
+	private JTextField txtNombreUsuario;
+	private JPasswordField txtContrasenia;
+	private JTextField txtNombre;
+	private JTextField txtApellido;
+	private JTextField txtMail;
+	private JTextField txtCreaNombreUsuario;
+	private JPasswordField txtCreaContrasenia;
+	private Connection con;
+	private JFrame ventanaActual, ventanaSiguiente;
 
 	/**
 	 * Launch the application.
@@ -42,65 +59,168 @@ public class VentanaInicioSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaInicioSesion() {
+		setTitle("¡BIENVENIDO!");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono_proyecto.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 450);
+		setBounds(200, 200, 500, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setBackground(Color.WHITE);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		ventanaActual = this;
+		ventanaSiguiente = new VentanaPrincipal();
 		
-		JPanel pCentral = new JPanel();
-		contentPane.add(pCentral, BorderLayout.CENTER);
-		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
+		con = BaseDatos.initBD("proyecto.db");
+		BaseDatos.crearTablas(con);
 		
-		JPanel pCentralIzq = new JPanel();
-		pCentral.add(pCentralIzq);
+		JPanel pNorte = new JPanel();
+		contentPane.add(pNorte, BorderLayout.NORTH);
+		pNorte.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JPanel pIzqArriba = new JPanel();
-		pCentralIzq.add(pIzqArriba);
-		ImageIcon imagen1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-		JLabel pIzqImagen = new JLabel(imagen1);
-		pIzqArriba.add(pIzqImagen);
+		JLabel lblNorteIzq = new JLabel("INICIO SESIÓN");
+		lblNorteIzq.setBackground(new Color(240, 240, 240));
+		lblNorteIzq.setForeground(new Color(128, 0, 255));
+		lblNorteIzq.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		pNorte.add(lblNorteIzq);
 		
-		JPanel pIzqAbajo = new JPanel();
-		pCentralIzq.add(pIzqAbajo);
-		pIzqAbajo.setLayout(new GridLayout(5, 1, 0, 0));
+		JLabel lblNorteDrch = new JLabel("RESGISTRO");
+		lblNorteDrch.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblNorteDrch.setForeground(new Color(128, 0, 255));
+		lblNorteDrch.setBackground(new Color(255, 255, 255));
+		pNorte.add(lblNorteDrch);
 		
-		JButton btnAgenda = new JButton("AGENDA");
-		pIzqAbajo.add(btnAgenda);
+		JPanel pSur = new JPanel();
+		contentPane.add(pSur, BorderLayout.SOUTH);
 		
-		JLabel lblEspacio1 = new JLabel("");
-		pIzqAbajo.add(lblEspacio1);
+		JButton btnInicioSesion = new JButton("INICIAR SESIÓN");
+		btnInicioSesion.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnInicioSesion.setBackground(new Color(0, 128, 255));
+		pSur.add(btnInicioSesion);
 		
-		JButton btnContactos = new JButton("CONTACTOS");
-		pIzqAbajo.add(btnContactos);
+		btnInicioSesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nomUsu = txtNombreUsuario.getText();
+				String contra = txtContrasenia.getText();
+				Usuario u = BaseDatos.obtenerDatosUsuario(con, nomUsu);
+				if (u!=null) {
+					if (u.getContrasenia().equals(contra)) {
+						JOptionPane.showMessageDialog(null, "Bienvenido", "SESIÓN INICIADA", JOptionPane.INFORMATION_MESSAGE);
+						ventanaSiguiente.setVisible(true);
+						ventanaActual.dispose();
+						
+					} else {
+						JOptionPane.showMessageDialog(null, "La contraseña no es correcta", "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "No existe un usuarion con ese nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+				txtNombreUsuario.setText("");
+				txtContrasenia.setText("");
+			}
+		});
 		
-		JLabel lblEspacio2 = new JLabel("");
-		pIzqAbajo.add(lblEspacio2);
+		JButton btnRegistrar = new JButton("REGISTRAR");
+		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnRegistrar.setBackground(new Color(0, 128, 255));
+		btnRegistrar.setForeground(new Color(0, 0, 0));
+		pSur.add(btnRegistrar);
 		
-		JButton btnCerrar = new JButton("CERRAR");
-		pIzqAbajo.add(btnCerrar);
+		btnRegistrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nom = txtNombre.getText();
+				String ape = txtApellido.getText();
+				String mail = txtMail.getText();
+				String comprobarMail = "[A-Za-z0-9]{1,}[@]?[a-z]{1,}[.]?[a-z]{2,}";
+				String nomUsu = txtCreaNombreUsuario.getText();
+				String cont = txtCreaContrasenia.getText();
+				
+				boolean bienMail = Pattern.matches(comprobarMail, mail);
+				if (!bienMail) {
+					JOptionPane.showMessageDialog(null, "El mail no tiene el formato correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+				} else {
+				
+					boolean existeUsuario = BaseDatos.buscarUsuario(con, nomUsu);
+					if (!existeUsuario) {
+						BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
+						JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+					txtNombre.setText("");
+					txtApellido.setText("");
+					txtMail.setText("");
+					txtCreaNombreUsuario.setText("");
+					txtCreaContrasenia.setText("");
+				}
+		}
+	});
 		
-		JPanel pCentralDrch = new JPanel();
-		pCentral.add(pCentralDrch);
-		pCentralDrch.setLayout(new GridLayout(2, 1, 0, 0));
+		JPanel pCentro = new JPanel();
+		contentPane.add(pCentro, BorderLayout.CENTER);
+		pCentro.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel pDrchArriba = new JPanel();
-		pCentralDrch.add(pDrchArriba);
+		JPanel pCentroIzq = new JPanel();
+		pCentro.add(pCentroIzq);
+		pCentroIzq.setLayout(new GridLayout(2, 2, 0, 0));
 		
-		JLabel lblCalendario = new JLabel("CALENDARIO");
-		pDrchArriba.add(lblCalendario);
+		JLabel lblNombreUsuario = new JLabel("NOMBRE USUARIO");
+		pCentroIzq.add(lblNombreUsuario);
 		
-		JPanel pDrchAbajo = new JPanel();
-		pCentralDrch.add(pDrchAbajo);
+		txtNombreUsuario = new JTextField();
+		pCentroIzq.add(txtNombreUsuario);
+		txtNombreUsuario.setColumns(10);
 		
-		JCalendar calendario = new JCalendar();
-		pDrchAbajo.add(calendario);
+		JLabel lblContrasenia = new JLabel("CONTRASEÑA");
+		pCentroIzq.add(lblContrasenia);
 		
-		JPanel eventos = new JPanel();
-		pDrchAbajo.add(eventos);
+		txtContrasenia = new JPasswordField();
+		pCentroIzq.add(txtContrasenia);
+		txtContrasenia.setColumns(10);
+		
+		JPanel pCentroDrch = new JPanel();
+		pCentro.add(pCentroDrch);
+		pCentroDrch.setLayout(new GridLayout(5, 2, 0, 0));
+		
+		JLabel lblNombre = new JLabel("NOMBRE");
+		pCentroDrch.add(lblNombre);
+		
+		txtNombre = new JTextField();
+		pCentroDrch.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		JLabel lblApellido = new JLabel("APELLIDO");
+		pCentroDrch.add(lblApellido);
+		
+		txtApellido = new JTextField();
+		pCentroDrch.add(txtApellido);
+		txtApellido.setColumns(10);
+		
+		JLabel lblMail = new JLabel("MAIL");
+		pCentroDrch.add(lblMail);
+		
+		txtMail = new JTextField();
+		pCentroDrch.add(txtMail);
+		txtMail.setColumns(10);
+		
+		JLabel lblCreaNombreUsuario = new JLabel("NOMBRE USUARIO");
+		pCentroDrch.add(lblCreaNombreUsuario);
+		
+		txtCreaNombreUsuario = new JTextField();
+		pCentroDrch.add(txtCreaNombreUsuario);
+		txtCreaNombreUsuario.setColumns(10);
+		
+		JLabel lblCreaContrasenia = new JLabel("CONTRASEÑA");
+		pCentroDrch.add(lblCreaContrasenia);
+		
+		txtCreaContrasenia = new JPasswordField();
+		pCentroDrch.add(txtCreaContrasenia);
+		txtCreaContrasenia.setColumns(10);
+		
 	}
 
 }
