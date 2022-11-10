@@ -36,8 +36,10 @@ public class VentanaInicioSesion extends JFrame {
 	private JTextField txtMail;
 	private JTextField txtCreaNombreUsuario;
 	private JPasswordField txtCreaContrasenia;
-	private Connection con;
 	private JFrame ventanaActual, ventanaSiguiente;
+	
+	private Connection con;
+	private BaseDatos bd;
 
 	/**
 	 * Launch the application.
@@ -59,6 +61,9 @@ public class VentanaInicioSesion extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaInicioSesion() {
+		bd = new BaseDatos();
+		con = bd.initBD("proyecto.db");
+		bd.crearTablas(con);
 		setTitle("¡BIENVENIDO!");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono_proyecto.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,9 +75,6 @@ public class VentanaInicioSesion extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		ventanaActual = this;
 		ventanaSiguiente = new VentanaPrincipal();
-		
-		con = BaseDatos.initBD("proyecto.db");
-		BaseDatos.crearTablas(con);
 		
 		JPanel pNorte = new JPanel();
 		contentPane.add(pNorte, BorderLayout.NORTH);
@@ -104,7 +106,7 @@ public class VentanaInicioSesion extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String nomUsu = txtNombreUsuario.getText();
 				String contra = txtContrasenia.getText();
-				Usuario u = BaseDatos.obtenerDatosUsuario(con, nomUsu);
+				Usuario u = bd.obtenerDatosUsuario(con, nomUsu);
 				if (u!=null) {
 					if (u.getContrasenia().equals(contra)) {
 						JOptionPane.showMessageDialog(null, "Bienvenido", "SESIÓN INICIADA", JOptionPane.INFORMATION_MESSAGE);
@@ -144,9 +146,9 @@ public class VentanaInicioSesion extends JFrame {
 					JOptionPane.showMessageDialog(null, "El mail no tiene el formato correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
 				} else {
 				
-					boolean existeUsuario = BaseDatos.buscarUsuario(con, nomUsu);
+					boolean existeUsuario = bd.buscarUsuario(con, nomUsu);
 					if (!existeUsuario) {
-						BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
+						bd.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
 						JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "ERROR", JOptionPane.ERROR_MESSAGE);

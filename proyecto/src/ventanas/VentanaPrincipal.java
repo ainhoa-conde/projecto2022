@@ -8,9 +8,12 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JCalendar;
 
+import clases.BaseDatos;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.sql.Connection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,6 +24,9 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior;
 	private JCalendar calendario;
+	
+	private Connection con;
+	private BaseDatos bd;
 
 	/**
 	 * Launch the application.

@@ -14,7 +14,7 @@ public class BaseDatos {
 		 * @param nombreBD : Nombre de la base de datos a la que nos vamos a conectar
 		 * @return Devuelve la conexión a la base de datos
 		 */
-		public static Connection initBD(String nombreBD) {
+		public Connection initBD(String nombreBD) {
 			Connection con = null;
 			try {
 				Class.forName("org.sqlite.JDBC");
@@ -31,7 +31,7 @@ public class BaseDatos {
 			return con;
 		}
 		
-		public static void closeBD(Connection con) {
+		public void closeBD(Connection con) {
 			if(con!=null) {
 				try {
 					con.close();
@@ -42,19 +42,21 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void crearTablas(Connection con) {
+		public void crearTablas(Connection con) {
 			String sql1 = "CREATE TABLE IF NOT EXISTS Usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
-			String sql2 = "CREATE TABLE IF NOT EXISTS Evento (usuario String, contacto ArrayList<Contacto>, fecha String, nombre String, tipo TipoEvento, duracion Integer)";
+			String sql2 = "CREATE TABLE IF NOT EXISTS Evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer)";
+			String sql3 = "CREATE TABLE IF NOT EXISTS Contacto (codEvento String, nombre String, mail String, telf String, favorito Boolean)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
-				st.executeUpdate(sql2); //no crea tabla
+				st.executeUpdate(sql2);
+				st.executeUpdate(sql3);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
-		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
+		public void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO Usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -64,7 +66,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
+		public void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
 			String sql = "INSERT INTO Evento VALUES('"+contacto+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -74,7 +76,17 @@ public class BaseDatos {
 			}
 		}
 		
-		public static boolean buscarUsuario(Connection con, String nomUsuario) {
+		public void insertarContacto(Connection con, String codEvento, String nombre, String mail, String telf, boolean favorito) {
+			String sql = "INSERT INTO Evento VALUES('"+codEvento+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
+			try (Statement st = con.createStatement();){
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public boolean buscarUsuario(Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
 			boolean usuarioEncontrado = false;
 			try (Statement st = con.createStatement();
@@ -89,7 +101,7 @@ public class BaseDatos {
 			return usuarioEncontrado;
 		}
 		
-		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
+		public Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
 			Usuario u = null;
 			try (Statement st = con.createStatement();
@@ -110,19 +122,25 @@ public class BaseDatos {
 			return u;
 		}
 		
-		public static Evento obtenerDatosEvento (Connection con, String nombre) {
-			String sql = "SELECT * FROM Evento WHERE nombre='"+nombre+"'";
+		public Evento obtenerDatosEvento (Connection con, String codigo) {
+			String sql = "SELECT * FROM Evento WHERE codigo='"+codigo+"'";
 			Evento ev = null;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
 				while(rs.next()) {
-					ArrayList<Contacto> c = (ArrayList<Contacto>) rs.getArray("contacto");
+					String c = rs.getString("codigo");
 					String u = rs.getString("usuario");
 					String f = rs.getString("fecha");
 					String n = rs.getString("nombre");
-					//TipoEvento t = (TipoEvento)rs.getString("tipo");
+					String t = rs.getString("tipo");
 					int d = rs.getInt("duracion");
-					//ev = new Evento(c, u, f, n, t, d);
+					if(t.equals(TipoEvento.CLASE)) {
+						TipoEvento te = TipoEvento.CLASE;
+						ev = new Evento(c, u, f, n, te, d);
+					} else if(t.equals(TipoEvento.OCIO)) {
+						TipoEvento te = TipoEvento.OCIO;
+						ev = new Evento(c, u, f, n, te, d);
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -132,8 +150,29 @@ public class BaseDatos {
 			return ev;
 		}
 		
-		/*public static void eliminarUsuario(Connection con, String nomUsu) {
-			String sentSQL = "DELETE FROM alumno WHERE nomUsu ='"+nomUsu+"'";
+		public Contacto obtenerDatosContacto (Connection con, String nombre) {
+			String sql = "SELECT * FROM Contacto WHERE nombre='"+nombre+"'";
+			Contacto c = null;
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					String ce = rs.getString("codEvento");
+					String n = rs.getString("nombre");
+					String m = rs.getString("mail");
+					String t = rs.getString("telf");
+					boolean b = rs.getBoolean("favorito");
+					c = new Contacto(ce, n, m, t, b);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return c;
+		}
+		
+		public void eliminarUsuario(Connection con, String nomUsu) {
+			String sentSQL = "DELETE FROM Usuario WHERE nomUsu ='"+nomUsu+"'";
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
@@ -142,6 +181,29 @@ public class BaseDatos {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
-
+		}
+		
+		public void eliminarContacto(Connection con, String nombre) {
+			String sentSQL = "DELETE FROM Contacto WHERE nombre ='"+nombre+"'";
+			try {
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate(sentSQL);
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public void eliminarEvento(Connection con, String codigo) {
+			String sentSQL = "DELETE FROM Evento WHERE codigo ='"+codigo+"'";
+			try {
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate(sentSQL);
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 }

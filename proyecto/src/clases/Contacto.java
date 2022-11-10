@@ -1,10 +1,33 @@
 package clases;
 
 public class Contacto {
+	private String codEvento;
 	private String nombre;
 	private String mail;
 	private String telf;
 	private boolean favorito;
+	
+	public Contacto() {
+		super();
+	}
+	
+	public Contacto(String codEvento, String nombre, String mail, String telf, boolean favorito) {
+		super();
+		this.codEvento = codEvento;
+		this.nombre = nombre;
+		this.mail = mail;
+		this.telf = telf;
+		this.favorito = favorito;
+	}
+	
+	public String getCodEvento() {
+		return codEvento;
+	}
+
+	public void setCodEvento(String codEvento) {
+		this.codEvento = codEvento;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
