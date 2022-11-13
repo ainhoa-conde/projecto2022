@@ -13,16 +13,19 @@ import clases.BaseDatos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	private JFrame ventanaActual, ventanaAnterior;
+	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	private JCalendar calendario;
 	
 	private Connection con;
@@ -48,7 +51,7 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 500, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -56,6 +59,8 @@ public class VentanaPrincipal extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		//ventanaActual = this;
+		//ventanaAnterior = new VentanaInicioSesion();
 		
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
@@ -107,6 +112,16 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel eventos = new JPanel();
 		pDrchAbajo.add(eventos);
+		
+		/*btnCerrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+				ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
+			}
+		});*/
 	}
 
 }
