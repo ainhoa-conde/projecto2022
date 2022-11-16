@@ -224,5 +224,4 @@ public class VentanaInicioSesion extends JFrame {
 		txtCreaContrasenia.setColumns(10);
 		
 	}
-
 }

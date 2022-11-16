@@ -51,7 +51,7 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -59,8 +59,6 @@ public class VentanaPrincipal extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		//ventanaActual = this;
-		//ventanaAnterior = new VentanaInicioSesion();
 		
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
@@ -113,15 +111,17 @@ public class VentanaPrincipal extends JFrame {
 		JPanel eventos = new JPanel();
 		pDrchAbajo.add(eventos);
 		
-		/*btnCerrar.addActionListener(new ActionListener() {
+		btnCerrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = new VentanaInicioSesion();
+				ventanaActual = VentanaPrincipal.this;
 				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
 			}
-		});*/
+		});
 	}
 
 }
