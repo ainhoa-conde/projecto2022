@@ -13,6 +13,7 @@ import clases.BaseDatos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -53,9 +54,13 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 560);
+		setTitle("Vista calendario");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.WHITE);
+		
+		
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
