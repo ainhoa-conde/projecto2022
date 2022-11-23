@@ -5,18 +5,27 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import clases.BaseDatos;
 
 public class VentanaAgenda extends JFrame{
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
+	
+	private Connection con;
+	private BaseDatos bd;
 	
 	
 	public static void main(String[] args) {
@@ -38,6 +47,7 @@ public class VentanaAgenda extends JFrame{
 		setBounds(100, 100, 650, 560);
 		setTitle("Agenda");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.WHITE);
 		
@@ -72,9 +82,26 @@ public class VentanaAgenda extends JFrame{
 		JLabel lblEspacio1 = new JLabel("");
 		pDchAbajo.add(lblEspacio1);
 		
-		JButton btnEliminar = new JButton("ELIMIAR");
-		pDchAbajo.add(btnEliminar);
+		JButton btnEliminarEvento = new JButton("ELIMINAR");
+		pDchAbajo.add(btnEliminarEvento);
 		
+		JLabel lblEspacio2 = new JLabel("");
+		pDchAbajo.add(lblEspacio2);
+		
+		JButton btnCerrar = new JButton("CERRAR");
+		pDchAbajo.add(btnCerrar);
+		
+		btnCerrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = new VentanaPrincipal();
+				ventanaActual = VentanaAgenda.this;
+				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+				ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
+			}
+		});
 		
 	}
 	
