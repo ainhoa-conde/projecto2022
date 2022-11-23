@@ -52,7 +52,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 450);
+		setBounds(100, 100, 650, 560);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.WHITE);
@@ -75,7 +75,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel pIzqAbajo = new JPanel();
 		pCentralIzq.add(pIzqAbajo);
-		pIzqAbajo.setLayout(new GridLayout(5, 1, 0, 0));
+		pIzqAbajo.setLayout(new GridLayout(7, 1, 0, 0));
 		
 		JButton btnAgenda = new JButton("AGENDA");
 		pIzqAbajo.add(btnAgenda);
@@ -122,6 +122,22 @@ public class VentanaPrincipal extends JFrame {
 				ventanaActual.dispose();
 			}
 		});
+		
+		JLabel lblEspacio3 = new JLabel("");
+		pIzqAbajo.add(lblEspacio3);
+		
+		JButton btnEliminarUsuario = new JButton("ELIMINAR CUENTA");
+		pIzqAbajo.add(btnEliminarUsuario);
+		
+		btnEliminarUsuario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//bd.eliminarUsuario(con, bd.);
+				
+			}
+		});
+		
 	}
 
 }
