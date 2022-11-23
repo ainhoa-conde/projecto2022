@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 
 public class VentanaInicioSesion extends JFrame {
 
+	//Elementos de la ventana
 	private JPanel contentPane;
 	private JTextField txtNombreUsuario;
 	private JPasswordField txtContrasenia;
@@ -38,6 +39,7 @@ public class VentanaInicioSesion extends JFrame {
 	private JPasswordField txtCreaContrasenia;
 	private JFrame ventanaActual, ventanaSiguiente;
 	
+	//Base de datos
 	private Connection con;
 	private BaseDatos bd;
 
@@ -64,6 +66,8 @@ public class VentanaInicioSesion extends JFrame {
 		bd = new BaseDatos();
 		con = bd.initBD("proyecto.db");
 		bd.crearTablas(con);
+		
+		//Elementos base + funcionalidad de la ventana
 		setTitle("¡BIENVENIDO!");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono_proyecto.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,11 +75,13 @@ public class VentanaInicioSesion extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		//Guardar la ventana actual y la ventana que se abrirá al iniciar sesión
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		ventanaActual = this;
 		ventanaSiguiente = new VentanaPrincipal();
 		
+		//Panel Norte: título de inicio sesión + registro
 		JPanel pNorte = new JPanel();
 		contentPane.add(pNorte, BorderLayout.NORTH);
 		pNorte.setLayout(new GridLayout(1, 0, 0, 0));
@@ -92,6 +98,7 @@ public class VentanaInicioSesion extends JFrame {
 		lblNorteDrch.setBackground(new Color(255, 255, 255));
 		pNorte.add(lblNorteDrch);
 		
+		//Panel Sur: botones de inicio sesión + registro
 		JPanel pSur = new JPanel();
 		contentPane.add(pSur, BorderLayout.SOUTH);
 		
@@ -162,6 +169,7 @@ public class VentanaInicioSesion extends JFrame {
 		}
 	});
 		
+		//Panel Centro Izq.: Sección de inicio de sesión
 		JPanel pCentro = new JPanel();
 		contentPane.add(pCentro, BorderLayout.CENTER);
 		pCentro.setLayout(new GridLayout(0, 2, 0, 0));
@@ -184,6 +192,7 @@ public class VentanaInicioSesion extends JFrame {
 		pCentroIzq.add(txtContrasenia);
 		txtContrasenia.setColumns(10);
 		
+		//Panel Centro Drch.: Sección registro
 		JPanel pCentroDrch = new JPanel();
 		pCentro.add(pCentroDrch);
 		pCentroDrch.setLayout(new GridLayout(5, 2, 0, 0));

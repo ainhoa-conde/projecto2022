@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 
 public class VentanaPrincipal extends JFrame {
 
+	//Elementos de la ventana
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	private JCalendar calendario;
@@ -52,6 +53,7 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
+		//Elementos base y funcionalidad de la ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 560);
 		setTitle("Vista calendario");
@@ -65,6 +67,7 @@ public class VentanaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		//Panel Central: Contenedor para todos los elementos
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
@@ -72,12 +75,14 @@ public class VentanaPrincipal extends JFrame {
 		JPanel pCentralIzq = new JPanel();
 		pCentral.add(pCentralIzq);
 		
+		//Panel Izq. Arriba: Imagen de TaskMan
 		JPanel pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
 		ImageIcon imagen1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
 		JLabel pIzqImagen = new JLabel(imagen1);
 		pIzqArriba.add(pIzqImagen);
 		
+		//Panel Izq. Abajo: Botones "agenda", "contactos", "cerrar" y "eliminar usuario"
 		JPanel pIzqAbajo = new JPanel();
 		pCentralIzq.add(pIzqAbajo);
 		pIzqAbajo.setLayout(new GridLayout(7, 1, 0, 0));
@@ -97,6 +102,14 @@ public class VentanaPrincipal extends JFrame {
 		JButton btnCerrar = new JButton("CERRAR");
 		pIzqAbajo.add(btnCerrar);
 		
+		JLabel lblEspacio3 = new JLabel("");
+		pIzqAbajo.add(lblEspacio3);
+		
+		JButton btnEliminarUsuario = new JButton("ELIMINAR CUENTA");
+		pIzqAbajo.add(btnEliminarUsuario);
+		
+		
+		//Panel Drch.: JLabel y JCalendar
 		JPanel pCentralDrch = new JPanel();
 		pCentral.add(pCentralDrch);
 		pCentralDrch.setLayout(new GridLayout(2, 1, 0, 0));
@@ -116,6 +129,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel eventos = new JPanel();
 		pDrchAbajo.add(eventos);
 		
+		
 		btnCerrar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -128,16 +142,14 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		
-		JLabel lblEspacio3 = new JLabel("");
-		pIzqAbajo.add(lblEspacio3);
 		
-		JButton btnEliminarUsuario = new JButton("ELIMINAR CUENTA");
-		pIzqAbajo.add(btnEliminarUsuario);
 		
+		//Eventos
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//TODO crear funcion buscarNickUsuario() en BaseDatos
 				//bd.eliminarUsuario(con, bd.);
 				
 			}
