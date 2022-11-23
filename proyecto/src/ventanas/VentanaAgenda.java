@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -43,6 +44,7 @@ public class VentanaAgenda extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		//Panel Central: Contenedor para todos los elementos
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new GridLayout());
@@ -53,16 +55,25 @@ public class VentanaAgenda extends JFrame{
 		JPanel pCentralDch = new JPanel();
 		pCentral.add(pCentralDch);
 		
+		//Panel Dch. Arriba: Imagen TaskMan
 		JPanel pDchArriba = new JPanel();
 		pCentralDch.add(pDchArriba);
 		ImageIcon imagen = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
 		JLabel pDchImagen = new JLabel(imagen);
 		pDchArriba.add(pDchImagen);
 		
+		//Panel Dch. Abajo: Botones "añadir" y "eliminar"
 		JPanel pDchAbajo = new JPanel();
 		pCentralDch.add(pDchAbajo);
 		
+		JButton btnAnyadir = new JButton("AÑADIR");
+		pDchAbajo.add(btnAnyadir);
 		
+		JLabel lblEspacio1 = new JLabel("");
+		pDchAbajo.add(lblEspacio1);
+		
+		JButton btnEliminar = new JButton("ELIMIAR");
+		pDchAbajo.add(btnEliminar);
 		
 		
 	}
