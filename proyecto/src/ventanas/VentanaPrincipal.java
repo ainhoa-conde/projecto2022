@@ -29,9 +29,15 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	private JCalendar calendario;
+
 	
 	private Connection con;
 	private BaseDatos bd;
+	
+  
+	
+
+	
 
 	/**
 	 * Launch the application.
@@ -53,6 +59,7 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
+		
 		//Elementos base y funcionalidad de la ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 560);
@@ -61,8 +68,6 @@ public class VentanaPrincipal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.WHITE);
-		
-		
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -129,7 +134,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel eventos = new JPanel();
 		pDrchAbajo.add(eventos);
 		
-		
+		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -143,14 +148,35 @@ public class VentanaPrincipal extends JFrame {
 		});
 		
 		
+		btnAgenda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = VentanaPrincipal.this;
+				ventanaActual = new VentanaAgenda();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+			}
+		});
 		
-		//Eventos
+		
+		btnContactos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = VentanaPrincipal.this;
+				ventanaActual = new VentanaContactos();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+			}
+		});
+		
+		
 		btnEliminarUsuario.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO crear funcion buscarNickUsuario() en BaseDatos
-				//bd.eliminarUsuario(con, bd.);
+				//bd.eliminarUsuario(con, "");
 				
 			}
 		});

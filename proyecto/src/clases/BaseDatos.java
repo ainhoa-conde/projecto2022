@@ -122,6 +122,7 @@ public class BaseDatos {
 			return u;
 		}
 		
+		
 		public Evento obtenerDatosEvento (Connection con, String codigo) {
 			String sql = "SELECT * FROM Evento WHERE codigo='"+codigo+"'";
 			Evento ev = null;

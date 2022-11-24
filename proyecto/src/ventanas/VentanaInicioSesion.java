@@ -39,6 +39,8 @@ public class VentanaInicioSesion extends JFrame {
 	private JPasswordField txtCreaContrasenia;
 	private JFrame ventanaActual, ventanaSiguiente;
 	
+
+	
 	//Base de datos
 	private Connection con;
 	private BaseDatos bd;
