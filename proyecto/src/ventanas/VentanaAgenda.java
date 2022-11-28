@@ -76,13 +76,13 @@ public class VentanaAgenda extends JFrame{
 		JPanel pDchAbajo = new JPanel();
 		pCentralDch.add(pDchAbajo);
 		
-		JButton btnAnyadir = new JButton("AÑADIR");
+		JButton btnAnyadir = new JButton("AÑADIR EVENTO");
 		pDchAbajo.add(btnAnyadir);
 		
 		JLabel lblEspacio1 = new JLabel("");
 		pDchAbajo.add(lblEspacio1);
 		
-		JButton btnEliminarEvento = new JButton("ELIMINAR");
+		JButton btnEliminarEvento = new JButton("ELIMINAR EVENTO");
 		pDchAbajo.add(btnEliminarEvento);
 		
 		JLabel lblEspacio2 = new JLabel("");

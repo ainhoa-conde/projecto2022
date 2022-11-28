@@ -3,10 +3,15 @@ package ventanas;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -45,8 +50,47 @@ public class VentanaContactos extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		//Panel Central: Contenedor para todos lo elementos
+		JPanel pCentral = new JPanel();
+		contentPane.add(pCentral, BorderLayout.CENTER);
+		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
 		
+		JPanel pCentralIzq = new JPanel();
+		pCentral.add(pCentralIzq);
 		
+		//Panel Izq. Arriba: Imagen de TaskMan
+		JPanel pIzqArriba = new JPanel();
+		pCentralIzq.add(pIzqArriba);
+		ImageIcon imagen = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+		pIzqArriba.add(pIzqArriba);
+		
+		//Panel Izq. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
+		JPanel pIzqAbajo = new JPanel();
+		pCentralIzq.add(pIzqAbajo);
+		pIzqAbajo.setLayout(new GridLayout(7, 1, 0, 0));
+		
+		JButton btnAnyadir = new JButton("AÑADIR CONTACTO");
+		pIzqAbajo.add(btnAnyadir);
+		
+		JLabel lblEspacio1 = new JLabel("");
+		pIzqAbajo.add(lblEspacio1);
+		
+		JButton btnEliminar = new JButton("ELIMINAR CONTACTO");
+		pIzqAbajo.add(btnEliminar);
+		
+		JLabel lblEspacio2 = new JLabel();
+		pIzqAbajo.add(lblEspacio2);
+		
+		JButton btnEditar = new JButton("EDITAR CONTACTO");
+		pIzqAbajo.add(btnEditar);
+		
+		JLabel lblEspacio3 = new JLabel();
+		pIzqAbajo.add(lblEspacio3);
+		
+		JButton btnCerrar = new JButton("CERRAR");
+		pIzqAbajo.add(btnCerrar);
+		
+		//Panel Drch
 		
 		
 		
