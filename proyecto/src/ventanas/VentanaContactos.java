@@ -62,7 +62,8 @@ public class VentanaContactos extends JFrame{
 		JPanel pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
 		ImageIcon imagen = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-		pIzqArriba.add(pIzqArriba);
+		JLabel pnlIzqImagen = new JLabel(imagen);
+		pIzqArriba.add(pnlIzqImagen);
 		
 		//Panel Izq. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pIzqAbajo = new JPanel();
