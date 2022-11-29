@@ -134,7 +134,7 @@ public class VentanaAgenda extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior = new VentanaPrincipal();
 				ventanaActual = VentanaAgenda.this;
-				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Redirigiendo a la agenda", " ", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
 			}
