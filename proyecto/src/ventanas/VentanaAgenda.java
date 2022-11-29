@@ -68,6 +68,7 @@ public class VentanaAgenda extends JFrame{
 		
 		JList<Evento> lista = new JList<Evento>();
 		DefaultListModel<Evento> modelo = new DefaultListModel<>();
+		modelo.addElement(null);
 		
 		lista.setModel(modelo);
 		lista.setSize(500, 500);
