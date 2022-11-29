@@ -92,7 +92,18 @@ public class VentanaContactos extends JFrame{
 		pIzqAbajo.add(btnCerrar);
 		
 		//Panel Drch
+		JPanel pCentralDrch = new JPanel();
+		pCentral.add(pCentralDrch);
 		
+		//Panel Drch. Arriba: Contactos
+		JPanel pDrchArriba = new JPanel();
+		pCentralDrch.add(pDrchArriba);
+		pDrchArriba.setLayout(new GridLayout(7, 1, 0, 2));
+		
+		//Panel Drch. Abajo: Favoritos
+		JPanel pDrchAbajo = new JPanel();
+		pCentralDrch.add(pDrchAbajo);
+		pDrchAbajo.setLayout(new GridLayout(7, 1, 0 , 1));
 		
 		
 	}
