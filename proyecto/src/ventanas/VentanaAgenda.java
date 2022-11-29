@@ -8,24 +8,33 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import clases.BaseDatos;
+import clases.Evento;
 
 public class VentanaAgenda extends JFrame{
 
 	private JPanel contentPane;
-	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
+	private JFrame ventanaActual, ventanaAnterior;
 	
 	private Connection con;
 	private BaseDatos bd;
+	
+	private JList<Evento> lista;
+	private DefaultListModel<Evento> modeloLista;
+	private JScrollPane scrollLista;
 	
 	
 	public static void main(String[] args) {
@@ -91,6 +100,13 @@ public class VentanaAgenda extends JFrame{
 		JButton btnCerrar = new JButton("CERRAR");
 		pDchAbajo.add(btnCerrar);
 		
+		//Panel CentralIzq: JList eventos
+		modeloLista = new DefaultListModel<>();
+		lista = new JList<>(modeloLista);
+		scrollLista = new JScrollPane(lista);
+		//cargarLista();
+		pCentralIzq.add(scrollLista);
+		
 		//Eventos
 		
 		btnCerrar.addActionListener(new ActionListener() {
@@ -105,5 +121,13 @@ public class VentanaAgenda extends JFrame{
 		});
 		
 	}
+	
+	//public void cargarLista() {
+		//ArrayList<Evento> ev = bd.obtenerDatosEvento(con, usuario);
+		//for(Evento e: ev) {
+			//modeloLista.addElement(e);
+			//System.out.println(e);
+		//}
+	//}
 	
 }
