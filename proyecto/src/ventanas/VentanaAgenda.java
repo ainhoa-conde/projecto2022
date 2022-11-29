@@ -115,9 +115,11 @@ public class VentanaAgenda extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
+				ventanaAnterior = VentanaAgenda.this;
+				ventanaActual = new VentanaEvento();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+				}
 		});
 		
 		

@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +23,7 @@ public class VentanaEvento extends JFrame{
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtFecha;
-	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
+	private JFrame ventanaActual, ventanaAnterior;
 	
 	private Connection com;
 	private BaseDatos bd;
@@ -71,12 +74,36 @@ public class VentanaEvento extends JFrame{
 		JPanel pCentralDrch = new JPanel();
 		pCentral.add(pCentralDrch);
 		
+		//Panel Drch Arriba
+		JPanel pDrchArriba = new JPanel();
+		pCentralDrch.add(pDrchArriba);
+		pDrchArriba.setLayout(new GridLayout(7, 1, 0, 0));
+		
 		JLabel lblFecha = new JLabel("AÑADE UNA FECHA: ");
 		pCentralDrch.add(lblFecha);
 		
 		txtFecha = new JTextField();
 		pCentralDrch.add(txtFecha);
 		txtFecha.setColumns(10);
+		
+		//Panel Drch Abajo
+		JPanel pDrchAbajo = new JPanel();
+		pCentralDrch.add(pDrchAbajo);
+		pDrchAbajo.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		JButton btnConfirmar = new JButton("CONFIRMAR");
+		pDrchAbajo.add(btnConfirmar);
+		
+		btnConfirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = VentanaEvento.this;
+				ventanaActual = new VentanaAgenda();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+			}
+		});
 		
 		
 	}
