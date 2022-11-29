@@ -1,21 +1,22 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Evento {
 	
 	private String codigo;
 	private String usuario;
-	private String fecha = "";
-	private String nombre = "";
+	private Date fecha;
+	private String nombre;
 	private TipoEvento tipo;
-	private int duracion = 0;
+	private int duracion;
 	
 	public Evento() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evento(String codigo,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
+	public Evento(String codigo,String usuario, Date fecha, String nombre, TipoEvento tipo, int duracion) {
 		super();
 		this.codigo = codigo;
 		this.usuario = usuario;
@@ -41,10 +42,10 @@ public class Evento {
 		this.usuario = usuario;
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

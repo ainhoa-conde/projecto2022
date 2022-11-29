@@ -1,11 +1,14 @@
-	package clases;
+package clases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BaseDatos {
 
@@ -131,7 +134,9 @@ public class BaseDatos {
 				while(rs.next()) {
 					String c = rs.getString("codigo");
 					String u = rs.getString("usuario");
-					String f = rs.getString("fecha");
+					String fecha = rs.getString("fecha");
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+					Date f = sdf.parse(fecha);
 					String n = rs.getString("nombre");
 					String t = rs.getString("tipo");
 					int d = rs.getInt("duracion");
@@ -144,6 +149,9 @@ public class BaseDatos {
 					}
 				}
 			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
