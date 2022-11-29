@@ -9,15 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import clases.BaseDatos;
+import clases.Evento;
 
 public class VentanaAgenda extends JFrame{
 
@@ -59,8 +62,16 @@ public class VentanaAgenda extends JFrame{
 		contentPane.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new GridLayout());
 		
+		//Panel Izq: lista de eventos
 		JPanel pCentralIzq = new JPanel();
 		pCentral.add(pCentralIzq);
+		
+		JList<Evento> lista = new JList<Evento>();
+		DefaultListModel<Evento> modelo = new DefaultListModel<>();
+		
+		lista.setModel(modelo);
+		lista.setSize(500, 500);
+		
 		
 		JPanel pCentralDch = new JPanel();
 		pCentral.add(pCentralDch);
@@ -75,6 +86,7 @@ public class VentanaAgenda extends JFrame{
 		//Panel Dch. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pDchAbajo = new JPanel();
 		pCentralDch.add(pDchAbajo);
+		pDchAbajo.setLayout(new GridLayout(7, 1 , 0, 0));
 		
 		JButton btnAnyadirEvento = new JButton("AÑADIR EVENTO");
 		pDchAbajo.add(btnAnyadirEvento);
