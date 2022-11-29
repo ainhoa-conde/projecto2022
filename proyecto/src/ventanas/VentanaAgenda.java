@@ -43,7 +43,7 @@ public class VentanaAgenda extends JFrame{
 	}
 	
 	public VentanaAgenda() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 1000, 560);
 		setTitle("Agenda");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
@@ -91,13 +91,14 @@ public class VentanaAgenda extends JFrame{
 		JButton btnCerrar = new JButton("CERRAR");
 		pDchAbajo.add(btnCerrar);
 		
+		//Eventos
+		
 		btnCerrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior = new VentanaPrincipal();
 				ventanaActual = VentanaAgenda.this;
-				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
 			}

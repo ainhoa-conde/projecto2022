@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import javax.swing.ImageIcon;
@@ -20,7 +22,7 @@ import clases.BaseDatos;
 public class VentanaContactos extends JFrame{
 
 	private JPanel contentPane;
-	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
+	private JFrame ventanaActual, ventanaAnterior;
 	
 	private Connection con;
 	private BaseDatos bd;
@@ -93,7 +95,17 @@ public class VentanaContactos extends JFrame{
 		
 		//Panel Drch
 		
-		
+		//Eventos
+		btnCerrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = new VentanaPrincipal();
+				ventanaActual = VentanaContactos.this;
+				ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
+			}
+		});
 		
 	}
 	
