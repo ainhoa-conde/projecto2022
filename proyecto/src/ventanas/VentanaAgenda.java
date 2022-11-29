@@ -72,12 +72,12 @@ public class VentanaAgenda extends JFrame{
 		JLabel pDchImagen = new JLabel(imagen);
 		pDchArriba.add(pDchImagen);
 		
-		//Panel Dch. Abajo: Botones "añadir" y "eliminar"
+		//Panel Dch. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pDchAbajo = new JPanel();
 		pCentralDch.add(pDchAbajo);
 		
-		JButton btnAnyadir = new JButton("AÑADIR EVENTO");
-		pDchAbajo.add(btnAnyadir);
+		JButton btnAnyadirEvento = new JButton("AÑADIR EVENTO");
+		pDchAbajo.add(btnAnyadirEvento);
 		
 		JLabel lblEspacio1 = new JLabel("");
 		pDchAbajo.add(lblEspacio1);
@@ -88,8 +88,45 @@ public class VentanaAgenda extends JFrame{
 		JLabel lblEspacio2 = new JLabel("");
 		pDchAbajo.add(lblEspacio2);
 		
+		JButton btnEditarEvento = new JButton("EDITAR EVENTO");
+		pDchAbajo.add(btnEditarEvento);
+		
+		JLabel lblEspacio3 = new JLabel();
+		pDchAbajo.add(lblEspacio3);
+		
 		JButton btnCerrar = new JButton("CERRAR");
 		pDchAbajo.add(btnCerrar);
+		
+		
+		btnAnyadirEvento.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		btnEliminarEvento.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+	
+		btnEditarEvento.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		
 		btnCerrar.addActionListener(new ActionListener() {
 			
