@@ -94,18 +94,28 @@ public class VentanaEvento extends JFrame{
 		JButton btnConfirmar = new JButton("CONFIRMAR");
 		pDrchAbajo.add(btnConfirmar);
 		
+		JButton btnCerrar = new JButton("CERRAR");
+		pDrchAbajo.add(btnCerrar);
+		
 		btnConfirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nom = txtNombre.getText();
+				String fecha = txtFecha.getText();
+			}
+		});
+		
+		btnCerrar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior = VentanaEvento.this;
 				ventanaActual = new VentanaAgenda();
 				ventanaActual.setVisible(true);
-				ventanaAnterior.dispose();
+				ventanaAnterior.dispose();				
 			}
 		});
-		
-		
 	}
 	
 }
