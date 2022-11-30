@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 
 import javax.swing.DefaultListModel;
@@ -128,9 +130,43 @@ public class VentanaAgenda extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				JLabel aviso = new JLabel("Haz click en el evento que quieres eliminar");
+				pCentral.add(aviso);
+				//hacer que se actualice la ventana
+				
+				
 				
 			}
 		});
+		
+		btnEliminarEvento.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {	
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2) {
+					String evento = getComponentAt(getMousePosition()).toString();
+					String[] ev = evento.split("");  //depende como aparezca el evento cambiamos la separacion y la posicion del nombre
+					//Joptionpane confirmacion y meter la llamada a eliminarevento en el if
+					  
+					bd.eliminarEvento(con, ev[1]);  //seleccionar la posicion dependiendo donde esta el codigo
+				}
+				
+			}
+		});
+
 		
 	
 		btnEditarEvento.addActionListener(new ActionListener() {
