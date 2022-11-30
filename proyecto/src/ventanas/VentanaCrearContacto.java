@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -50,14 +51,52 @@ public class VentanaCrearContacto extends JFrame{
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		
-		
 		//Panel Central
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
 		
 		
+		//Panel izquierdo
+		JPanel pCentralIzq = new JPanel();
+		pCentral.add(pCentralIzq);
+		
+		JPanel pIzqArriba = new JPanel();
+		pCentralIzq.add(pIzqArriba);
+		pIzqArriba.setLayout(new GridLayout(7, 1, 0, 0));
+		
+		JLabel lblNombre = new JLabel("NOMBRE Y APELLIDO: ");
+		pIzqArriba.add(lblNombre);
+		
+		JPanel pIzqCentro = new JPanel();
+		pCentralIzq.add(pIzqCentro);
+		pIzqCentro.setLayout(new GridLayout(4, 1, 0, 0));
+		
+		JLabel lblMail = new JLabel("CORREO: ");
+		pIzqCentro.add(lblMail);
+		
+		JPanel pIzqAbajo = new JPanel();
+		pCentralIzq.add(pIzqAbajo);
+		pIzqAbajo.setLayout(new GridLayout(4, 1, 0, 0));
+		
+		JLabel lblTelefono = new JLabel("TELEFONO: ");
+		pIzqAbajo.add(lblTelefono);
+	
+		//Panel Derecha
+		JPanel pCentralDrch = new JPanel();
+		pCentral.add(pCentralDrch);
+				
+		txtNombre = new JTextField();
+		pCentralDrch.add(txtNombre);
+		txtNombre.setColumns(10);
+				
+		txtTelefono = new JTextField();
+		pCentralDrch.add(txtTelefono);
+		txtTelefono.setColumns(10);
+				
+		txtMail = new JTextField();
+		pCentralDrch.add(txtMail);
+		txtMail.setColumns(10);
 		
 	}
 	
