@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -72,20 +73,20 @@ public class VentanaContactos extends JFrame{
 		pCentralIzq.add(pIzqAbajo);
 		pIzqAbajo.setLayout(new GridLayout(7, 1, 0, 0));
 		
-		JButton btnAnyadir = new JButton("AÑADIR CONTACTO");
-		pIzqAbajo.add(btnAnyadir);
+		JButton btnAnyadirContacto = new JButton("AÑADIR CONTACTO");
+		pIzqAbajo.add(btnAnyadirContacto);
 		
 		JLabel lblEspacio1 = new JLabel("");
 		pIzqAbajo.add(lblEspacio1);
 		
-		JButton btnEliminar = new JButton("ELIMINAR CONTACTO");
-		pIzqAbajo.add(btnEliminar);
+		JButton btnEliminarContacto = new JButton("ELIMINAR CONTACTO");
+		pIzqAbajo.add(btnEliminarContacto);
 		
 		JLabel lblEspacio2 = new JLabel();
 		pIzqAbajo.add(lblEspacio2);
 		
-		JButton btnEditar = new JButton("EDITAR CONTACTO");
-		pIzqAbajo.add(btnEditar);
+		JButton btnEditarContacto = new JButton("EDITAR CONTACTO");
+		pIzqAbajo.add(btnEditarContacto);
 		
 		JLabel lblEspacio3 = new JLabel();
 		pIzqAbajo.add(lblEspacio3);
@@ -93,7 +94,14 @@ public class VentanaContactos extends JFrame{
 		JButton btnCerrar = new JButton("CERRAR");
 		pIzqAbajo.add(btnCerrar);
 		
-		//Panel Drch
+		btnAnyadirContacto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {
@@ -102,10 +110,44 @@ public class VentanaContactos extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior = new VentanaPrincipal();
 				ventanaActual = VentanaContactos.this;
+				JOptionPane.showMessageDialog(null, "Redirigiendo a la agenda", " ", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
 			}
 		});
+
+		btnEliminarContacto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		btnEditarContacto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		//Panel Drch
+		JPanel pCentralDrch = new JPanel();
+		pCentral.add(pCentralDrch);
+		
+		//Panel Drch. Arriba: Contactos
+		JPanel pDrchArriba = new JPanel();
+		pCentralDrch.add(pDrchArriba);
+		pDrchArriba.setLayout(new GridLayout(7, 1, 0, 2));
+		
+		//Panel Drch. Abajo: Favoritos
+		JPanel pDrchAbajo = new JPanel();
+		pCentralDrch.add(pDrchAbajo);
+		pDrchAbajo.setLayout(new GridLayout(7, 1, 0 , 1));
 		
 	}
 	
