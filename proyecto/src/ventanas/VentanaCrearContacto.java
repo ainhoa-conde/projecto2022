@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,8 +42,8 @@ public class VentanaCrearContacto extends JFrame{
 	
 	public VentanaCrearContacto() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(500, 300, 500, 200);
-		setTitle("Evento");
+		setBounds(500, 300, 300, 250);
+		setTitle("EVENTO");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,49 +55,44 @@ public class VentanaCrearContacto extends JFrame{
 		//Panel Central
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
-		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
-		
-		
-		//Panel izquierdo
-		JPanel pCentralIzq = new JPanel();
-		pCentral.add(pCentralIzq);
-		
-		JPanel pIzqArriba = new JPanel();
-		pCentralIzq.add(pIzqArriba);
-		pIzqArriba.setLayout(new GridLayout(7, 1, 0, 0));
+		pCentral.setLayout(new GridLayout(8, 2, 0, 0));
 		
 		JLabel lblNombre = new JLabel("NOMBRE Y APELLIDO: ");
-		pIzqArriba.add(lblNombre);
+		pCentral.add(lblNombre);
 		
-		JPanel pIzqCentro = new JPanel();
-		pCentralIzq.add(pIzqCentro);
-		pIzqCentro.setLayout(new GridLayout(4, 1, 0, 0));
+		txtNombre = new JTextField();
+		pCentral.add(txtNombre);
+		txtNombre.setColumns(10);
 		
 		JLabel lblMail = new JLabel("CORREO: ");
-		pIzqCentro.add(lblMail);
+		pCentral.add(lblMail);
 		
-		JPanel pIzqAbajo = new JPanel();
-		pCentralIzq.add(pIzqAbajo);
-		pIzqAbajo.setLayout(new GridLayout(4, 1, 0, 0));
+		txtTelefono = new JTextField();
+		pCentral.add(txtTelefono);
+		txtTelefono.setColumns(10);
 		
 		JLabel lblTelefono = new JLabel("TELEFONO: ");
-		pIzqAbajo.add(lblTelefono);
+		pCentral.add(lblTelefono);
 	
-		//Panel Derecha
-		JPanel pCentralDrch = new JPanel();
-		pCentral.add(pCentralDrch);
-				
-		txtNombre = new JTextField();
-		pCentralDrch.add(txtNombre);
-		txtNombre.setColumns(10);
-				
-		txtTelefono = new JTextField();
-		pCentralDrch.add(txtTelefono);
-		txtTelefono.setColumns(10);
-				
 		txtMail = new JTextField();
-		pCentralDrch.add(txtMail);
+		pCentral.add(txtMail);
 		txtMail.setColumns(10);
+		
+		JPanel pSur = new JPanel();
+		contentPane.add(pSur, BorderLayout.SOUTH);
+		pSur.setLayout(new GridLayout(1, 1, 0, 0));
+		
+		JButton btnConfirmar = new JButton("CONFIRMAR");
+		pSur.add(btnConfirmar);
+		
+		JButton btnCerrar = new JButton("CERRAR");
+		pSur.add(btnCerrar);
+				
+		
+				
+		
+				
+		
 		
 	}
 	
