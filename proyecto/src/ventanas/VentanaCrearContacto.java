@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import javax.swing.JButton;
@@ -88,7 +90,25 @@ public class VentanaCrearContacto extends JFrame{
 		JButton btnCerrar = new JButton("CERRAR");
 		pSur.add(btnCerrar);
 				
+		btnConfirmar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
+		btnCerrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = VentanaCrearContacto.this;
+				ventanaActual = new VentanaContactos();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+			}
+		});
 				
 		
 				
