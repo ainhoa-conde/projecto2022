@@ -4,11 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JCalendar;
 
 import clases.BaseDatos;
+import clases.Evento;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,9 +20,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 public class VentanaPrincipal extends JFrame {
@@ -34,10 +38,10 @@ public class VentanaPrincipal extends JFrame {
 	private Connection con;
 	private BaseDatos bd;
 	
-  
-	
-
-	
+	//Elementos JList
+	private JList<Evento> lista;
+	private DefaultListModel<Evento> modeloLista;
+	private JScrollPane scrollLista;
 
 	/**
 	 * Launch the application.
@@ -133,6 +137,11 @@ public class VentanaPrincipal extends JFrame {
 		
 		JPanel eventos = new JPanel();
 		pDrchAbajo.add(eventos);
+		
+		modeloLista = new DefaultListModel<>();
+		lista = new JList<Evento>(modeloLista);
+		scrollLista = new JScrollPane(lista);
+		eventos.add(scrollLista);
 		
 		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {

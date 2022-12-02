@@ -69,18 +69,16 @@ public class VentanaAgenda extends JFrame{
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new GridLayout());
-		
-		//Panel Izq: lista de eventos
+
+		//Panel CentralIzq: JList eventos
 		JPanel pCentralIzq = new JPanel();
 		pCentral.add(pCentralIzq);
 		
-		JList<Evento> lista = new JList<Evento>();
-		DefaultListModel<Evento> modelo = new DefaultListModel<>();
-		modelo.addElement(null);
-		
-		lista.setModel(modelo);
-		lista.setSize(500, 500);
-		
+		modeloLista = new DefaultListModel<>();
+		lista = new JList<>(modeloLista);
+		scrollLista = new JScrollPane(lista);
+		//cargarLista();
+		pCentralIzq.add(scrollLista);
 		
 		JPanel pCentralDch = new JPanel();
 		pCentral.add(pCentralDch);
@@ -117,13 +115,6 @@ public class VentanaAgenda extends JFrame{
 		
 		JButton btnCerrar = new JButton("CERRAR");
 		pDchAbajo.add(btnCerrar);
-		
-		//Panel CentralIzq: JList eventos
-		modeloLista = new DefaultListModel<>();
-		lista = new JList<>(modeloLista);
-		scrollLista = new JScrollPane(lista);
-		//cargarLista();
-		pCentralIzq.add(scrollLista);
 		
 		//Eventos
 		
