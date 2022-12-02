@@ -1,0 +1,182 @@
+package ventanas;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JCalendar;
+
+import clases.BaseDatos;
+import clases.Evento;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import java.awt.Font;
+
+public class VentanaP extends JFrame {
+
+	//Elementos de la ventana
+	private JPanel contentPane;
+	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
+	private JCalendar calendario;
+
+	
+	private Connection con;
+	private BaseDatos bd;
+	private DefaultListModel<Evento> modeloLista;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaPrincipal frame = new VentanaPrincipal();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaP() {
+		
+		//Elementos base y funcionalidad de la ventana
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 650, 560);
+		setTitle("Vista calendario");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.WHITE);
+
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		//Panel Central: Contenedor para todos los elementos
+		JPanel pCentral = new JPanel();
+		contentPane.add(pCentral, BorderLayout.CENTER);
+		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		JPanel pCentralIzq = new JPanel();
+		pCentral.add(pCentralIzq);
+		
+		//Panel Izq. Arriba: Imagen de TaskMan
+		JPanel pIzqArriba = new JPanel();
+		pCentralIzq.add(pIzqArriba);
+		ImageIcon imagen1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+		JLabel pIzqImagen = new JLabel(imagen1);
+		pIzqArriba.add(pIzqImagen);
+		
+		//Panel Izq. Abajo: Botones "agenda", "contactos", "cerrar" y "eliminar usuario"
+		JPanel pIzqAbajo = new JPanel();
+		pCentralIzq.add(pIzqAbajo);
+		pIzqAbajo.setLayout(new GridLayout(7, 1, 0, 0));
+		
+		JButton btnAgenda = new JButton("AGENDA");
+		pIzqAbajo.add(btnAgenda);
+		
+		JLabel lblEspacio1 = new JLabel("");
+		pIzqAbajo.add(lblEspacio1);
+		
+		JButton btnContactos = new JButton("CONTACTOS");
+		pIzqAbajo.add(btnContactos);
+		
+		JLabel lblEspacio2 = new JLabel("");
+		pIzqAbajo.add(lblEspacio2);
+		
+		JButton btnCerrar = new JButton("CERRAR");
+		pIzqAbajo.add(btnCerrar);
+		
+		JLabel lblEspacio3 = new JLabel("");
+		pIzqAbajo.add(lblEspacio3);
+		
+		JButton btnEliminarUsuario = new JButton("ELIMINAR CUENTA");
+		pIzqAbajo.add(btnEliminarUsuario);
+		
+		
+		//Panel Drch.: JLabel y JCalendar
+		JPanel pCentralDrch = new JPanel();
+		pCentral.add(pCentralDrch);
+		pCentralDrch.setLayout(new GridLayout(2, 1, 0, 0));
+		
+		JTextField txtCalendario = new JTextField("CALENDARIO");
+		txtCalendario.setFont(new Font("Tahoma", Font.BOLD, 15));
+		pCentralDrch.add(txtCalendario);
+		
+		JPanel pDrchAbajo = new JPanel();
+		pCentralDrch.add(pDrchAbajo);
+		pDrchAbajo.add(calendario);
+		
+		//Eventos
+		btnCerrar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = new VentanaInicioSesion();
+				ventanaActual = VentanaP.this;
+				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+				ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
+			}
+		});
+		
+		
+		btnAgenda.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = VentanaP.this;
+				ventanaActual = new VentanaAgenda();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+			}
+		});
+		
+		
+		btnContactos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaAnterior = VentanaP.this;
+				ventanaActual = new VentanaContactos();
+				ventanaActual.setVisible(true);
+				ventanaAnterior.dispose();
+			}
+		});
+		
+		
+		btnEliminarUsuario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicioSesion vis = new VentanaInicioSesion();
+				BaseDatos.eliminarUsuario(con, vis.nombreUsuario());
+				
+			}
+		});
+		
+	}
+
+}
