@@ -126,9 +126,9 @@ public class BaseDatos {
 		}
 		
 		
-		public static Evento obtenerDatosEvento (Connection con, String codigo) {
-			String sql = "SELECT * FROM Evento WHERE codigo='"+codigo+"'";
-			Evento ev = null;
+		public static ArrayList<Evento> obtenerEventosUsuario (Connection con, String usuario) {
+			String sql = "SELECT * FROM Evento WHERE usuario='"+usuario+"'";
+			ArrayList<Evento> ale = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
 				while(rs.next()) {
@@ -142,10 +142,12 @@ public class BaseDatos {
 					int d = rs.getInt("duracion");
 					if(t.equals(TipoEvento.CLASE)) {
 						TipoEvento te = TipoEvento.CLASE;
-						ev = new Evento(c, u, f, n, te, d);
+						Evento ev = new Evento(c, u, f, n, te, d);
+						ale.add(ev);
 					} else if(t.equals(TipoEvento.OCIO)) {
 						TipoEvento te = TipoEvento.OCIO;
-						ev = new Evento(c, u, f, n, te, d);
+						Evento ev = new Evento(c, u, f, n, te, d);
+						ale.add(ev);
 					}
 				}
 			} catch (SQLException e) {
@@ -156,7 +158,7 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 			
-			return ev;
+			return ale;
 		}
 		
 		public static Contacto obtenerDatosContacto (Connection con, String nombre) {
@@ -178,6 +180,28 @@ public class BaseDatos {
 			}
 			
 			return c;
+		}
+		
+		public static ArrayList<Contacto> obtenerContactosUsuario (Connection con, String usuario) {
+			String sql = "SELECT * FROM Contacto WHERE usuario='"+usuario+"'";
+			ArrayList<Contacto> alc = new ArrayList<>();
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					String ce = rs.getString("codEvento");
+					String n = rs.getString("nombre");
+					String m = rs.getString("mail");
+					String t = rs.getString("telf");
+					boolean b = rs.getBoolean("favorito");
+					Contacto c = new Contacto(ce, n, m, t, b);
+					alc.add(c);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			return alc;
 		}
 		
 		public static void eliminarUsuario(Connection con, String nomUsu) {
