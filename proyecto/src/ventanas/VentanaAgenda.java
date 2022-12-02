@@ -77,7 +77,7 @@ public class VentanaAgenda extends JFrame{
 		modeloLista = new DefaultListModel<>();
 		lista = new JList<>(modeloLista);
 		scrollLista = new JScrollPane(lista);
-		cargarLista();
+		//cargarLista();
 		pCentralIzq.add(scrollLista);
 		
 		JPanel pCentralDch = new JPanel();
@@ -166,7 +166,7 @@ public class VentanaAgenda extends JFrame{
 					String[] ev = evento.split("");  //depende como aparezca el evento cambiamos la separacion y la posicion del nombre
 					//Joptionpane confirmacion y meter la llamada a eliminarevento en el if
 					  
-					bd.eliminarEvento(con, ev[1]);  //seleccionar la posicion dependiendo donde esta el codigo
+					BaseDatos.eliminarEvento(con, ev[1]);  //seleccionar la posicion dependiendo donde esta el codigo
 				}
 				
 			}
@@ -197,13 +197,15 @@ public class VentanaAgenda extends JFrame{
 		
 	}
 	
-	public void cargarLista() {
-		VentanaInicioSesion vis = new VentanaInicioSesion();
-		ArrayList<Evento> le = new ArrayList<Evento>();
-		Evento ev = BaseDatos.obtenerDatosEvento(con, vis.nombreUsuario());
-		if(vis.nombreUsuario().equals(ev.getUsuario())) {
-			le.add(ev);
-		}
-	}
+	/*
+	 * public void cargarLista() { 
+	 * 	VentanaInicioSesion vis = new VentanaInicioSesion();
+	 * ArrayList<Evento> le = new ArrayList<Evento>();
+	 * Evento ev = BaseDatos.obtenerDatosEvento(con, vis.nombreUsuario());
+	 * if(vis.nombreUsuario().equals(ev.getUsuario())){
+	 *  le.add(ev); 
+	 *  } 
+	 * }
+	 */
 	
 }

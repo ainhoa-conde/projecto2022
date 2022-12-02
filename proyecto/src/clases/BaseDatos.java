@@ -17,7 +17,7 @@ public class BaseDatos {
 		 * @param nombreBD : Nombre de la base de datos a la que nos vamos a conectar
 		 * @return Devuelve la conexión a la base de datos
 		 */
-		public Connection initBD(String nombreBD) {
+		public static Connection initBD(String nombreBD) {
 			Connection con = null;
 			try {
 				Class.forName("org.sqlite.JDBC");
