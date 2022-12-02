@@ -177,7 +177,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaInicioSesion vis = new VentanaInicioSesion();
-				bd.eliminarUsuario(con, vis.nombreUsuario());
+				BaseDatos.eliminarUsuario(con, vis.nombreUsuario());
 				
 			}
 		});
