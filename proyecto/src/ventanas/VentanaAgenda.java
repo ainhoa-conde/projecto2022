@@ -77,7 +77,7 @@ public class VentanaAgenda extends JFrame{
 		modeloLista = new DefaultListModel<>();
 		lista = new JList<>(modeloLista);
 		scrollLista = new JScrollPane(lista);
-		//cargarLista();
+		cargarLista();
 		pCentralIzq.add(scrollLista);
 		
 		JPanel pCentralDch = new JPanel();
@@ -197,12 +197,13 @@ public class VentanaAgenda extends JFrame{
 		
 	}
 	
-	//public void cargarLista() {
-		//ArrayList<Evento> ev = bd.obtenerDatosEvento(con, usuario);
-		//for(Evento e: ev) {
-			//modeloLista.addElement(e);
-			//System.out.println(e);
-		//}
-	//}
+	public void cargarLista() {
+		VentanaInicioSesion vis = new VentanaInicioSesion();
+		ArrayList<Evento> le = new ArrayList<Evento>();
+		Evento ev = BaseDatos.obtenerDatosEvento(con, vis.nombreUsuario());
+		if(vis.nombreUsuario().equals(ev.getUsuario())) {
+			le.add(ev);
+		}
+	}
 	
 }
