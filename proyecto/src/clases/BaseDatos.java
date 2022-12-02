@@ -17,7 +17,7 @@ public class BaseDatos {
 		 * @param nombreBD : Nombre de la base de datos a la que nos vamos a conectar
 		 * @return Devuelve la conexión a la base de datos
 		 */
-		public Connection initBD(String nombreBD) {
+		public static Connection initBD(String nombreBD) {
 			Connection con = null;
 			try {
 				Class.forName("org.sqlite.JDBC");
@@ -34,7 +34,7 @@ public class BaseDatos {
 			return con;
 		}
 		
-		public void closeBD(Connection con) {
+		public static void closeBD(Connection con) {
 			if(con!=null) {
 				try {
 					con.close();
@@ -45,7 +45,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public void crearTablas(Connection con) {
+		public static void crearTablas(Connection con) {
 			String sql1 = "CREATE TABLE IF NOT EXISTS Usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS Evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer)";
 			String sql3 = "CREATE TABLE IF NOT EXISTS Contacto (codEvento String, nombre String, mail String, telf String, favorito Boolean)";
@@ -59,7 +59,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
+		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO Usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -69,7 +69,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
+		public static void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
 			String sql = "INSERT INTO Evento VALUES('"+contacto+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -79,7 +79,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public void insertarContacto(Connection con, String codEvento, String nombre, String mail, String telf, boolean favorito) {
+		public static void insertarContacto(Connection con, String codEvento, String nombre, String mail, String telf, boolean favorito) {
 			String sql = "INSERT INTO Evento VALUES('"+codEvento+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -89,7 +89,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public boolean buscarUsuario(Connection con, String nomUsuario) {
+		public static boolean buscarUsuario(Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
 			boolean usuarioEncontrado = false;
 			try (Statement st = con.createStatement();
@@ -104,7 +104,7 @@ public class BaseDatos {
 			return usuarioEncontrado;
 		}
 		
-		public Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
+		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
 			Usuario u = null;
 			try (Statement st = con.createStatement();
@@ -126,7 +126,7 @@ public class BaseDatos {
 		}
 		
 		
-		public Evento obtenerDatosEvento (Connection con, String codigo) {
+		public static Evento obtenerDatosEvento (Connection con, String codigo) {
 			String sql = "SELECT * FROM Evento WHERE codigo='"+codigo+"'";
 			Evento ev = null;
 			try (Statement st = con.createStatement();
@@ -159,7 +159,7 @@ public class BaseDatos {
 			return ev;
 		}
 		
-		public Contacto obtenerDatosContacto (Connection con, String nombre) {
+		public static Contacto obtenerDatosContacto (Connection con, String nombre) {
 			String sql = "SELECT * FROM Contacto WHERE nombre='"+nombre+"'";
 			Contacto c = null;
 			try (Statement st = con.createStatement();
@@ -180,7 +180,7 @@ public class BaseDatos {
 			return c;
 		}
 		
-		public void eliminarUsuario(Connection con, String nomUsu) {
+		public static void eliminarUsuario(Connection con, String nomUsu) {
 			String sentSQL = "DELETE FROM Usuario WHERE nomUsu ='"+nomUsu+"'";
 			try {
 				Statement stmt = con.createStatement();
@@ -192,7 +192,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public void eliminarContacto(Connection con, String nombre) {
+		public static void eliminarContacto(Connection con, String nombre) {
 			String sentSQL = "DELETE FROM Contacto WHERE nombre ='"+nombre+"'";
 			try {
 				Statement stmt = con.createStatement();
@@ -204,7 +204,7 @@ public class BaseDatos {
 			}
 		}
 		
-		public void eliminarEvento(Connection con, String codigo) {
+		public static void eliminarEvento(Connection con, String codigo) {
 			String sentSQL = "DELETE FROM Evento WHERE codigo ='"+codigo+"'";
 			try {
 				Statement stmt = con.createStatement();
