@@ -23,7 +23,7 @@ import clases.BaseDatos;
 public class VentanaContactos extends JFrame{
 
 	private JPanel contentPane;
-	private JFrame ventanaActual, ventanaAnterior;
+	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	
 	private Connection con;
 	private BaseDatos bd;
@@ -94,15 +94,6 @@ public class VentanaContactos extends JFrame{
 		JButton btnCerrar = new JButton("CERRAR");
 		pIzqAbajo.add(btnCerrar);
 		
-		btnAnyadirContacto.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
 		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {
 			
@@ -113,6 +104,18 @@ public class VentanaContactos extends JFrame{
 				JOptionPane.showMessageDialog(null, "Redirigiendo a la agenda", " ", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
+			}
+		});
+		
+		btnAnyadirContacto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ventanaSiguiente = new VentanaCrearContacto();
+				ventanaActual = VentanaContactos.this;
+				ventanaSiguiente.setVisible(true);
+				ventanaActual.dispose();
+				
 			}
 		});
 
