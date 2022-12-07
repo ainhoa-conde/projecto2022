@@ -133,6 +133,7 @@ public class VentanaPrincipal extends JFrame {
 		pCentralDrch.add(pDrchAbajo);
 		
 		JCalendar calendario = new JCalendar();
+		//calendario.setBounds(500, 500, 500, 500);
 		pDrchAbajo.add(calendario);
 		
 		modeloLista = new DefaultListModel<>();
