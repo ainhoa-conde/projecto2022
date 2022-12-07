@@ -127,12 +127,11 @@ public class VentanaPrincipal extends JFrame {
 		JLabel lblCalendario = new JLabel("CALENDARIO");
 		pDrchArriba.add(lblCalendario);
 		
-		JPanel pDrchAbajo = new JPanel();
+		JPanel pDrchAbajo = new JPanel(new BorderLayout());
 		pCentralDrch.add(pDrchAbajo);
 		
 		JCalendar calendario = new JCalendar();
-		//calendario.setSize(60, 100);
-		pDrchAbajo.add(calendario);
+		pDrchAbajo.add(calendario, BorderLayout.CENTER);
 		
 		modeloLista = new DefaultListModel<>();
 		lista = new JList<Evento>(modeloLista);
