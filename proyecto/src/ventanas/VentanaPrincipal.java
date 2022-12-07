@@ -135,13 +135,10 @@ public class VentanaPrincipal extends JFrame {
 		JCalendar calendario = new JCalendar();
 		pDrchAbajo.add(calendario);
 		
-		JPanel eventos = new JPanel();
-		pDrchAbajo.add(eventos);
-		
 		modeloLista = new DefaultListModel<>();
 		lista = new JList<Evento>(modeloLista);
 		scrollLista = new JScrollPane(lista);
-		eventos.add(scrollLista);
+		pDrchArriba.add(scrollLista);
 		
 		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {
