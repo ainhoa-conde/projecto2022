@@ -46,9 +46,9 @@ public class BaseDatos {
 		}
 		
 		public static void crearTablas(Connection con) {
-			String sql1 = "CREATE TABLE IF NOT EXISTS Usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
-			String sql2 = "CREATE TABLE IF NOT EXISTS Evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer)";
-			String sql3 = "CREATE TABLE IF NOT EXISTS Contacto (codEvento String, nombre String, mail String, telf String, favorito Boolean)";
+			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
+			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer)";
+			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codEvento String, nombre String, mail String, telf String, favorito Boolean)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
 				st.executeUpdate(sql2);
@@ -60,7 +60,7 @@ public class BaseDatos {
 		}
 		
 		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
-			String sql = "INSERT INTO Usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
+			String sql = "INSERT INTO usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -70,7 +70,7 @@ public class BaseDatos {
 		}
 		
 		public static void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
-			String sql = "INSERT INTO Evento VALUES('"+contacto+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
+			String sql = "INSERT INTO evento VALUES('"+contacto+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -80,7 +80,7 @@ public class BaseDatos {
 		}
 		
 		public static void insertarContacto(Connection con, String codEvento, String nombre, String mail, String telf, boolean favorito) {
-			String sql = "INSERT INTO Evento VALUES('"+codEvento+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
+			String sql = "INSERT INTO evento VALUES('"+codEvento+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -90,7 +90,7 @@ public class BaseDatos {
 		}
 		
 		public static boolean buscarUsuario(Connection con, String nomUsuario) {
-			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
+			String sql = "SELECT * FROM usuario WHERE nomUsuario='"+nomUsuario+"'";
 			boolean usuarioEncontrado = false;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -105,7 +105,7 @@ public class BaseDatos {
 		}
 		
 		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
-			String sql = "SELECT * FROM Usuario WHERE nomUsuario='"+nomUsuario+"'";
+			String sql = "SELECT * FROM usuario WHERE nomUsuario='"+nomUsuario+"'";
 			Usuario u = null;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -127,7 +127,7 @@ public class BaseDatos {
 		
 		
 		public static ArrayList<Evento> obtenerEventosUsuario (Connection con, String usuario) {
-			String sql = "SELECT * FROM Evento WHERE usuario='"+usuario+"'";
+			String sql = "SELECT * FROM evento WHERE usuario='"+usuario+"'";
 			ArrayList<Evento> ale = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -162,7 +162,7 @@ public class BaseDatos {
 		}
 		
 		public static Contacto obtenerDatosContacto (Connection con, String nombre) {
-			String sql = "SELECT * FROM Contacto WHERE nombre='"+nombre+"'";
+			String sql = "SELECT * FROM contacto WHERE nombre='"+nombre+"'";
 			Contacto c = null;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -183,7 +183,7 @@ public class BaseDatos {
 		}
 		
 		public static ArrayList<Contacto> obtenerContactosUsuario (Connection con, String usuario) {
-			String sql = "SELECT * FROM Contacto WHERE usuario='"+usuario+"'";
+			String sql = "SELECT * FROM contacto WHERE usuario='"+usuario+"'";
 			ArrayList<Contacto> alc = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -205,7 +205,7 @@ public class BaseDatos {
 		}
 		
 		public static void eliminarUsuario(Connection con, String nomUsu) {
-			String sentSQL = "DELETE FROM Usuario WHERE nomUsu ='"+nomUsu+"'";
+			String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsu+"'";
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
@@ -217,7 +217,7 @@ public class BaseDatos {
 		}
 		
 		public static void eliminarContacto(Connection con, String nombre) {
-			String sentSQL = "DELETE FROM Contacto WHERE nombre ='"+nombre+"'";
+			String sentSQL = "DELETE FROM contacto WHERE nombre ='"+nombre+"'";
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
@@ -229,7 +229,7 @@ public class BaseDatos {
 		}
 		
 		public static void eliminarEvento(Connection con, String codigo) {
-			String sentSQL = "DELETE FROM Evento WHERE codigo ='"+codigo+"'";
+			String sentSQL = "DELETE FROM evento WHERE codigo ='"+codigo+"'";
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);

@@ -34,8 +34,6 @@ public class VentanaPrincipal extends JFrame {
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	private JCalendar calendario;
 
-	
-	private Connection con;
 	private BaseDatos bd;
 	
 	//Elementos JList
@@ -133,7 +131,7 @@ public class VentanaPrincipal extends JFrame {
 		pCentralDrch.add(pDrchAbajo);
 		
 		JCalendar calendario = new JCalendar();
-		//calendario.setBounds(500, 500, 500, 500);
+		//calendario.setSize(60, 100);
 		pDrchAbajo.add(calendario);
 		
 		modeloLista = new DefaultListModel<>();
@@ -183,9 +181,12 @@ public class VentanaPrincipal extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ventanaSiguiente = new VentanaInicioSesion();
+				ventanaActual = VentanaPrincipal.this;
 				VentanaInicioSesion vis = new VentanaInicioSesion();
-				BaseDatos.eliminarUsuario(con, vis.nombreUsuario());
-				
+				BaseDatos.eliminarUsuario(BaseDatos.initBD("proyecto"), vis.nombreUsuario());
+				ventanaSiguiente.setVisible(true);
+				ventanaActual.dispose();		
 			}
 		});
 		

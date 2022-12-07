@@ -66,8 +66,8 @@ public class VentanaInicioSesion extends JFrame {
 	 */
 	public VentanaInicioSesion() {
 		bd = new BaseDatos();
-		con = bd.initBD("proyecto.db");
-		bd.crearTablas(con);
+		con = BaseDatos.initBD("proyecto.db");
+		BaseDatos.crearTablas(con);
 		
 		//Elementos base + funcionalidad de la ventana
 		setTitle("¡BIENVENIDO!");
