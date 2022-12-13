@@ -11,6 +11,7 @@ import com.toedter.calendar.JCalendar;
 
 import clases.BaseDatos;
 import clases.Evento;
+import clases.Utilidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,7 +19,16 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -40,7 +50,7 @@ public class VentanaPrincipal extends JFrame {
 	private JList<Evento> lista;
 	private DefaultListModel<Evento> modeloLista;
 	private JScrollPane scrollLista;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -182,10 +192,23 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				ventanaSiguiente = new VentanaInicioSesion();
 				ventanaActual = VentanaPrincipal.this;
-				VentanaInicioSesion vis = new VentanaInicioSesion();
-				BaseDatos.eliminarUsuario(BaseDatos.initBD("proyecto"), vis.nombreUsuario());
+				BaseDatos.eliminarUsuario(BaseDatos.initBD("proyecto.db"), VentanaInicioSesion.nombreUsuario());
 				ventanaSiguiente.setVisible(true);
 				ventanaActual.dispose();		
+			}
+		});
+		
+		calendario.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				Date d = calendario.getDate();
+				String fecha = Utilidades.sdf.format(d);
+				ArrayList<Evento> eventos = BaseDatos.obtenerEventosFechaUsuario(BaseDatos.initBD("proyecto.db"), VentanaInicioSesion.nombreUsuario(), fecha);
+				modeloLista.removeAllElements();
+				for(Evento e: eventos) {
+					modeloLista.addElement(e);
+				}
 			}
 		});
 		

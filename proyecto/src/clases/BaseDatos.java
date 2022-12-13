@@ -161,6 +161,34 @@ public class BaseDatos {
 			return ale;
 		}
 		
+		public static ArrayList<Evento> obtenerEventosFechaUsuario (Connection con, String us, String fe) {
+			String sql = "SELECT * FROM evento WHERE fecha='"+fe+"' and usuario='"+us+"'";
+			ArrayList<Evento> ale = new ArrayList<>();
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					String c = rs.getString("codigo");
+					String u = rs.getString("usuario");
+					String fecha = rs.getString("fecha");
+					//SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+					//Date f = sdf.parse(fecha);
+					Date f = Utilidades.sdf.parse(fecha);
+					String n = rs.getString("nombre");
+					String t = rs.getString("tipo");
+					int d = rs.getInt("duracion");
+					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d);
+					ale.add(ev);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return ale;
+		}
+		
 		public static Contacto obtenerDatosContacto (Connection con, String nombre) {
 			String sql = "SELECT * FROM contacto WHERE nombre='"+nombre+"'";
 			Contacto c = null;
