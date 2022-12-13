@@ -140,15 +140,8 @@ public class BaseDatos {
 					String n = rs.getString("nombre");
 					String t = rs.getString("tipo");
 					int d = rs.getInt("duracion");
-					if(t.equals(TipoEvento.CLASE)) {
-						TipoEvento te = TipoEvento.CLASE;
-						Evento ev = new Evento(c, u, f, n, te, d);
-						ale.add(ev);
-					} else if(t.equals(TipoEvento.OCIO)) {
-						TipoEvento te = TipoEvento.OCIO;
-						Evento ev = new Evento(c, u, f, n, te, d);
-						ale.add(ev);
-					}
+					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d);
+					ale.add(ev);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
