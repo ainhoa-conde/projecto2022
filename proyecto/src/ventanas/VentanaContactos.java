@@ -101,7 +101,6 @@ public class VentanaContactos extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior = new VentanaPrincipal();
 				ventanaActual = VentanaContactos.this;
-				JOptionPane.showMessageDialog(null, "Redirigiendo a la agenda", " ", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
 			}
