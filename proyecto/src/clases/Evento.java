@@ -10,6 +10,7 @@ public class Evento {
 	private String nombre;
 	private TipoEvento tipo;
 	private int duracion;
+	private boolean completo;
 	
 	public Evento() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +24,16 @@ public class Evento {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.duracion = duracion;
+		this.completo = false;
+	}
+
+	
+	public boolean isCompleto() {
+		return completo;
+	}
+
+	public void setCompleto(boolean completo) {
+		this.completo = completo;
 	}
 
 	public String getCodigo() {
@@ -71,6 +82,6 @@ public class Evento {
 
 	@Override
 	public String toString() {
-		return codigo + " " + Utilidades.sdf.format(fecha) + " " + nombre + " " + tipo;
+		return codigo + " " + Utilidades.sdf.format(fecha) + " " + nombre + " " + tipo + " "+ completo;
 	}	
 }

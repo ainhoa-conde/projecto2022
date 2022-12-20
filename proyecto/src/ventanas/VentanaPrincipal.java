@@ -33,6 +33,7 @@ import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -50,6 +51,7 @@ public class VentanaPrincipal extends JFrame {
 	private JList<Evento> lista;
 	private DefaultListModel<Evento> modeloLista;
 	private JScrollPane scrollLista;
+	
 	
 	/**
 	 * Launch the application.
