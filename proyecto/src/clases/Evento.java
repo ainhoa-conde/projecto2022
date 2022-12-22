@@ -16,7 +16,7 @@ public class Evento {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evento(String codigo,String usuario, Date fecha, String nombre, TipoEvento tipo, int duracion) {
+	public Evento(String codigo,String usuario, Date fecha, String nombre, TipoEvento tipo, int duracion, boolean com) {
 		super();
 		this.codigo = codigo;
 		this.usuario = usuario;
@@ -24,7 +24,7 @@ public class Evento {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.duracion = duracion;
-		this.completo = false;
+		this.completo = com;
 	}
 
 	

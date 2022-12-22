@@ -140,7 +140,11 @@ public class BaseDatos {
 					String n = rs.getString("nombre");
 					String t = rs.getString("tipo");
 					int d = rs.getInt("duracion");
-					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d);
+					String v = rs.getString("completo");
+					boolean com = false;
+					if(v.equals("true"))
+						com = true;
+					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d,com);
 					ale.add(ev);
 				}
 			} catch (SQLException e) {
@@ -169,7 +173,11 @@ public class BaseDatos {
 					String n = rs.getString("nombre");
 					String t = rs.getString("tipo");
 					int d = rs.getInt("duracion");
-					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d);
+					String v = rs.getString("completo");
+					boolean com = false;
+					if(v.equals("true"))
+						com = true;
+					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d, com);
 					ale.add(ev);
 				}
 			} catch (SQLException e) {

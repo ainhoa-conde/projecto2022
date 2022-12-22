@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -23,6 +25,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.event.TableColumnModelListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -42,8 +49,7 @@ public class VentanaAgenda extends JFrame{
 	private DefaultTableModel modeloTabla;
 	private JScrollPane scrollTabla;
 	
-	private int fila=-1, columna = -1;
-	private String codigo="";
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -79,23 +85,12 @@ public class VentanaAgenda extends JFrame{
 		JPanel pCentralIzq = new JPanel();
 		pCentral.add(pCentralIzq);
 		
-		/*class MyTableCellRenderer extends JCheckBox implements TableCellRenderer {
-		    @Override
-		    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		       return this;
-		    }
-
-		}*/
-		
+				
 		modeloTabla = new DefaultTableModel();
 		tabla = new JTable(modeloTabla);
 		scrollTabla = new JScrollPane(tabla);
 		String [] titulos = {"CÓDIGO","NOMBRE","DURACIÓN","ACOMPAÑANTE","COMPLETO"};
 		modeloTabla.setColumnIdentifiers(titulos);
-		TableColumnModel cm = tabla.getColumnModel();
-		
-		/*cm.addColumn(new TableColumn(0, 10, new MyTableCellRenderer(), null));
-		cm.moveColumn(cm.getColumnCount() - 1, 0);*/
 		cargarModelo();
 		pCentralIzq.add(scrollTabla);
 		
@@ -197,56 +192,52 @@ public class VentanaAgenda extends JFrame{
 			}
 		});
 		
-		tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+		tabla.getModel().addTableModelListener(new TableModelListener() {
+			
+			@Override
+			public void tableChanged(TableModelEvent e) {
+				int fila = e.getFirstRow();
+				int col = e.getColumn();
+				if(col == 4) {
+					String cod = (String) modeloTabla.getValueAt(fila, 0);
+					boolean valor = (Boolean) modeloTabla.getValueAt(fila, 4);
+					BaseDatos.updateCompleto(VentanaInicioSesion.con, cod, valor);
+				}
+			}
+		});
+		
+		/*tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
 			
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
 					int row, int column) {
 				Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				if(column == 4) {
-					String codigo = (String)modeloTabla.getValueAt(row, 0);
-					boolean completo = BaseDatos.getCompleto(VentanaInicioSesion.con, codigo);
-					System.out.println(codigo+" "+completo);
-					JCheckBox cb = new JCheckBox();
-					if(row==fila && column == columna) {
-						System.out.println("CAMBIA");
-						if(cb.isSelected()) {
-							cb.setSelected(false);
-							BaseDatos.updateCompleto(VentanaInicioSesion.con,codigo,false);
-						}
-						else {
-							cb.setSelected(true);
-							BaseDatos.updateCompleto(VentanaInicioSesion.con,codigo,true);
-						}
-						
-					}
-					c = cb;
+				boolean valor = (Boolean) modeloTabla.getValueAt(row, 4);
+				if(valor==true) {
+					table.setOpaque(false);
+					c.setBackground(new Color(112, 219, 147));
+				} else {
+					c.setBackground(new Color(255, 64, 64));
 				}
-				
-				return c;
+				return null;
 			}
-		});
-		
-		tabla.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				fila = tabla.rowAtPoint(e.getPoint());
-				columna = tabla.columnAtPoint(e.getPoint());
-				codigo = (String)modeloTabla.getValueAt(fila, 0);
-				System.out.println("CLICK EN: "+fila+"-"+columna);
-				tabla.repaint();
-			}
-		});
-		
+		});*/
 	}
 	
+	private void addCheckBox(int col, JTable t) {
+		TableColumn tc = t.getColumnModel().getColumn(col);
+		tc.setCellEditor(t.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(t.getDefaultRenderer(Boolean.class));
+	}
 	private void cargarModelo() {
 		ArrayList<Evento> a = BaseDatos.obtenerEventosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
+		int f = 0;
 		for(Evento e: a) {
-			Object [] fila = {e.getCodigo(),e.getNombre(),e.getDuracion(),e.getUsuario(),new JCheckBox()};
+			Object [] fila = {e.getCodigo(),e.getNombre(),e.getDuracion(),e.getUsuario()};
 			modeloTabla.addRow(fila);
+			addCheckBox(4, tabla);
+			modeloTabla.setValueAt(e.isCompleto(), f, 4);
+			f++;
 		}
 	}
 }
