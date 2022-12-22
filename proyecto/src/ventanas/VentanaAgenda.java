@@ -21,7 +21,9 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import clases.BaseDatos;
 import clases.Evento;
@@ -38,6 +40,9 @@ public class VentanaAgenda extends JFrame{
 	private DefaultListModel<Evento> modeloLista;
 	private JScrollPane scrollLista;
 	
+	private JTable tabla;
+	private DefaultTableModel modeloTabla;
+	private JScrollPane scrollTabla;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -70,15 +75,19 @@ public class VentanaAgenda extends JFrame{
 		contentPane.add(pCentral, BorderLayout.CENTER);
 		pCentral.setLayout(new GridLayout());
 
-		//Panel CentralIzq: JList eventos
+		//Panel CentralIzq: JTable eventos
 		JPanel pCentralIzq = new JPanel();
 		pCentral.add(pCentralIzq);
 		
 		modeloLista = new DefaultListModel<>();
 		lista = new JList<>(modeloLista);
 		scrollLista = new JScrollPane(lista);
-		//cargarLista();
-		pCentralIzq.add(scrollLista);
+		//pCentralIzq.add(scrollLista);
+		
+		modeloTabla = new DefaultTableModel();
+		tabla = new JTable(modeloTabla);
+		scrollTabla = new JScrollPane(tabla);
+		pCentralIzq.add(scrollTabla);
 		
 		JPanel pCentralDch = new JPanel();
 		pCentral.add(pCentralDch);
@@ -195,16 +204,4 @@ public class VentanaAgenda extends JFrame{
 		});
 		
 	}
-	
-	/*
-	 * public void cargarLista() { 
-	 * 	VentanaInicioSesion vis = new VentanaInicioSesion();
-	 * ArrayList<Evento> le = new ArrayList<Evento>();
-	 * Evento ev = BaseDatos.obtenerDatosEvento(con, vis.nombreUsuario());
-	 * if(vis.nombreUsuario().equals(ev.getUsuario())){
-	 *  le.add(ev); 
-	 *  } 
-	 * }
-	 */
-	
 }
