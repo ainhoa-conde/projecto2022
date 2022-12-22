@@ -47,7 +47,7 @@ public class BaseDatos {
 		
 		public static void crearTablas(Connection con) {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
-			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer)";
+			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
 			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codEvento String, nombre String, mail String, telf String, favorito Boolean)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
@@ -259,5 +259,39 @@ public class BaseDatos {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		public static void updateCompleto(Connection con, String codigo, boolean estado) {
+			String sentSQL;
+			if(estado)
+			 sentSQL= "UPDATE evento SET completo='true' WHERE codigo ='"+codigo+"'";
+			else
+				sentSQL= "UPDATE evento SET completo='false' WHERE codigo ='"+codigo+"'";
+			try {
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate(sentSQL);
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public static boolean getCompleto(Connection con, String codigo) {
+			String sentSQL = "SELECT completo FROM evento WHERE codigo='"+codigo+"'";
+			boolean completo = false;
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sentSQL);
+				if(rs.next()) {
+					String com = rs.getString("completo");
+					if(com.equals("true"))
+						completo = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return completo;
 		}
 }

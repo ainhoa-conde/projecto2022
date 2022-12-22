@@ -45,10 +45,11 @@ public class VentanaInicioSesion extends JFrame {
 	private JTextField txtCreaNombreUsuario;
 	private JPasswordField txtCreaContrasenia;
 	private JFrame ventanaActual, ventanaSiguiente;
-	private static String nombre;
+	static String nombre;
 
 	// Base de datos
-	private Connection con;
+	static
+	Connection con;
 
 	/**
 	 * Launch the application.
