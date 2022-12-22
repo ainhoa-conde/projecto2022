@@ -27,7 +27,6 @@ public class VentanaCrearContacto extends JFrame{
 	private JTextField txtTelefono;
 	
 	private Connection con;
-	private BaseDatos bd;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

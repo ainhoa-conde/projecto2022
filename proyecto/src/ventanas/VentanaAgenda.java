@@ -7,18 +7,14 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.sql.Connection;
-import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,7 +22,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import clases.BaseDatos;
-import clases.Evento;
 
 public class VentanaAgenda extends JFrame{
 
@@ -34,11 +29,6 @@ public class VentanaAgenda extends JFrame{
 	private JFrame ventanaActual, ventanaAnterior;
 	
 	private Connection con;
-	private BaseDatos bd;
-	
-	private JList<Evento> lista;
-	private DefaultListModel<Evento> modeloLista;
-	private JScrollPane scrollLista;
 	
 	private JTable tabla;
 	private DefaultTableModel modeloTabla;
@@ -78,11 +68,6 @@ public class VentanaAgenda extends JFrame{
 		//Panel CentralIzq: JTable eventos
 		JPanel pCentralIzq = new JPanel();
 		pCentral.add(pCentralIzq);
-		
-		modeloLista = new DefaultListModel<>();
-		lista = new JList<>(modeloLista);
-		scrollLista = new JScrollPane(lista);
-		//pCentralIzq.add(scrollLista);
 		
 		modeloTabla = new DefaultTableModel();
 		tabla = new JTable(modeloTabla);
@@ -143,7 +128,6 @@ public class VentanaAgenda extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				JLabel aviso = new JLabel("Haz click en el evento que quieres eliminar");
 				pCentral.add(aviso);
 				//hacer que se actualice la ventana
@@ -153,20 +137,7 @@ public class VentanaAgenda extends JFrame{
 			}
 		});
 		
-		btnEliminarEvento.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {	
-			}
-			@Override
-			public void mousePressed(MouseEvent e) {
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
+		btnEliminarEvento.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -180,8 +151,6 @@ public class VentanaAgenda extends JFrame{
 				
 			}
 		});
-
-		
 	
 		btnEditarEvento.addActionListener(new ActionListener() {
 			

@@ -25,8 +25,7 @@ public class VentanaEvento extends JFrame{
 	private JTextField txtFecha;
 	private JFrame ventanaActual, ventanaAnterior;
 	
-	private Connection com;
-	private BaseDatos bd;
+	private Connection con;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

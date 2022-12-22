@@ -26,7 +26,6 @@ public class VentanaContactos extends JFrame{
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	
 	private Connection con;
-	private BaseDatos bd;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

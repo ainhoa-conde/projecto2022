@@ -49,7 +49,6 @@ public class VentanaInicioSesion extends JFrame {
 
 	// Base de datos
 	private Connection con;
-	private BaseDatos bd;
 
 	/**
 	 * Launch the application.
@@ -72,7 +71,6 @@ public class VentanaInicioSesion extends JFrame {
 	 */
 	public VentanaInicioSesion() {
 
-		bd = new BaseDatos();
 		con = BaseDatos.initBD("proyecto.db");
 		BaseDatos.crearTablas(con);
 
@@ -226,7 +224,7 @@ public class VentanaInicioSesion extends JFrame {
 	private void iniciarSesion() {
 		String nomUsu = txtNombreUsuario.getText();
 		String contra = txtContrasenia.getText();
-		Usuario u = bd.obtenerDatosUsuario(con, nomUsu);
+		Usuario u = BaseDatos.obtenerDatosUsuario(con, nomUsu);
 		if (u != null) {
 			if (u.getContrasenia().equals(contra)) {
 				nombre = nomUsu;
@@ -260,9 +258,9 @@ public class VentanaInicioSesion extends JFrame {
 					JOptionPane.ERROR_MESSAGE);
 		} else {
 
-			boolean existeUsuario = bd.buscarUsuario(con, nomUsu);
+			boolean existeUsuario = BaseDatos.buscarUsuario(con, nomUsu);
 			if (!existeUsuario) {
-				bd.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
+				BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
 				JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
