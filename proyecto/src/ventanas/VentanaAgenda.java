@@ -21,16 +21,13 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 import clases.BaseDatos;
 import clases.Evento;
 
-public class VentanaAgenda extends JFrame{
+public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior;
@@ -210,6 +207,18 @@ public class VentanaAgenda extends JFrame{
 			return label;
 			
 		});
+		
+		tabla.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int fila = tabla.getSelectedRow();
+				boolean valor = (Boolean) modeloTabla.getValueAt(fila, 4);
+				
+			}
+		});
+		
+		
 
 	}
 	

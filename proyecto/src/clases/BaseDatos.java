@@ -167,8 +167,6 @@ public class BaseDatos {
 					String c = rs.getString("codigo");
 					String u = rs.getString("usuario");
 					String fecha = rs.getString("fecha");
-					//SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					//Date f = sdf.parse(fecha);
 					Date f = Utilidades.sdf.parse(fecha);
 					String n = rs.getString("nombre");
 					String t = rs.getString("tipo");
