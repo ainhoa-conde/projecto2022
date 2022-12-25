@@ -2,32 +2,23 @@ package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.TableColumnModelEvent;
-import javax.swing.event.TableColumnModelListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -206,22 +197,20 @@ public class VentanaAgenda extends JFrame{
 			}
 		});
 		
-		/*tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-			
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-					int row, int column) {
-				Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				boolean valor = (Boolean) modeloTabla.getValueAt(row, 4);
-				if(valor==true) {
-					table.setOpaque(false);
-					c.setBackground(new Color(112, 219, 147));
-				} else {
-					c.setBackground(new Color(255, 64, 64));
-				}
-				return null;
+		tabla.setDefaultRenderer(Object.class, (table,value,isSelected,hasFocus,row,column)->{
+			JLabel label = new JLabel(value.toString());
+			boolean valor = (Boolean) modeloTabla.getValueAt(row, 4);
+			if(valor==true) {
+				label.setOpaque(true);
+				label.setBackground(new Color(112, 219, 147));
+			}else {
+				label.setOpaque(true);
+				label.setBackground(new Color(255, 64, 64));
 			}
-		});*/
+			return label;
+			
+		});
+
 	}
 	
 	private void addCheckBox(int col, JTable t) {
