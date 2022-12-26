@@ -212,8 +212,10 @@ public class VentanaAgenda extends JFrame {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int fila = tabla.getSelectedRow();
-				boolean valor = (Boolean) modeloTabla.getValueAt(fila, 4);
+				int col = tabla.getSelectedColumn();
+				if(col==4) {
+					tabla.repaint();
+				}
 				
 			}
 		});
