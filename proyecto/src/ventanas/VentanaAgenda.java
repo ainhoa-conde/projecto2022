@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -36,7 +37,6 @@ public class VentanaAgenda extends JFrame {
 	private JTable tabla;
 	private DefaultTableModel modeloTabla;
 	private JScrollPane scrollTabla;
-	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -124,11 +124,12 @@ public class VentanaAgenda extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ventanaAnterior = VentanaAgenda.this;
-				ventanaActual = new VentanaEvento();
-				ventanaActual.setVisible(true);
-				ventanaAnterior.dispose();
-				}
+				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
+				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
+						null, new Object[] {"opción 1", "opción 2"}, "opción 1");
+				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento, siguiendo el formato HH:mm: ", JOptionPane.QUESTION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+			}
 		});
 		
 		

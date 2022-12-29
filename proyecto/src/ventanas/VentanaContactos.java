@@ -109,11 +109,19 @@ public class VentanaContactos extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ventanaSiguiente = new VentanaCrearContacto();
-				ventanaActual = VentanaContactos.this;
-				ventanaSiguiente.setVisible(true);
-				ventanaActual.dispose();
+				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo contacto: ", JOptionPane.QUESTION_MESSAGE);
+				String mail = JOptionPane.showInputDialog("Introduce el mail del contacto: ", JOptionPane.QUESTION_MESSAGE);
+				String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);
+				int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
+				boolean favorito;
 				
+				if(JOptionPane.OK_OPTION == fav) {
+					favorito = true;
+				} else {
+					favorito = false;
+				}
+				
+				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 
