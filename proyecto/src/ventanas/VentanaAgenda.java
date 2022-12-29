@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,18 +28,22 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import clases.BaseDatos;
+import clases.Contacto;
 import clases.Evento;
+import clases.TipoEvento;
 
 public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior;
+	private BaseDatos bd;
 	
 	
 	private JTable tabla;
 	private DefaultTableModel modeloTabla;
 	private JScrollPane scrollTabla;
 	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -124,10 +130,14 @@ public class VentanaAgenda extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//seleccionar fecha en un calendario
+				String fecha = ""; //placeholder
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
-						null, new Object[] {"opción 1", "opción 2"}, "opción 1");
+						null, new Object[] {"OCIO", "CLASE"}, "OCIO");
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento, siguiendo el formato HH:mm: ", JOptionPane.QUESTION_MESSAGE);
+				BaseDatos.insertarEvento(BaseDatos.initBD("proyecto.db"), new ArrayList<Contacto>(), VentanaInicioSesion.nombreUsuario(),fecha, nombre,(TipoEvento) tipo, Integer.parseInt(duracion));
+				
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 			}
 		});

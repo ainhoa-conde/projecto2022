@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,12 +21,15 @@ import javax.swing.border.EmptyBorder;
 
 import clases.BaseDatos;
 
+
 public class VentanaContactos extends JFrame{
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
+	private BaseDatos bd;
 	
 	private Connection con;
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -120,6 +124,8 @@ public class VentanaContactos extends JFrame{
 				} else {
 					favorito = false;
 				}
+				
+				//BaseDatos.insertarContacto(BaseDatos.initBD("proyecto.db"), codEvento, nombre, mail, telefono, favorito);
 				
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 			}
