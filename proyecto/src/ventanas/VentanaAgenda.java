@@ -131,13 +131,12 @@ public class VentanaAgenda extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//seleccionar fecha en un calendario
-				String fecha = ""; //placeholder
+				String fecha = JOptionPane.showInputDialog("Introduce el la fecha del evento, siguiendo el formato dd/MM/yyyy: ", JOptionPane.QUESTION_MESSAGE);
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
 						null, new Object[] {"OCIO", "CLASE"}, "OCIO");
-				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento, siguiendo el formato HH:mm: ", JOptionPane.QUESTION_MESSAGE);
-				BaseDatos.insertarEvento(BaseDatos.initBD("proyecto.db"), new ArrayList<Contacto>(), VentanaInicioSesion.nombreUsuario(),fecha, nombre,(TipoEvento) tipo, Integer.parseInt(duracion));
-				
+				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
+				//BaseDatos.insertarEvento(BaseDatos.initBD("proyecto.db"), new ArrayList<Contacto>(), VentanaInicioSesion.nombreUsuario(),fecha, nombre,TipoEvento.valueOf(tipo.toString()), Integer.parseInt(duracion));
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
