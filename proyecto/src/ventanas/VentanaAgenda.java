@@ -136,7 +136,6 @@ public class VentanaAgenda extends JFrame {
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
 				BaseDatos.insertarEvento(VentanaInicioSesion.con, Evento.codigo, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-				tabla.repaint();
 			}
 		});
 		
