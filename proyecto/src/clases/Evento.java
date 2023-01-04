@@ -52,8 +52,8 @@ public class Evento {
 		this.usuario = usuario;
 	}
 
-	public Date getFecha() {
-		return fecha;
+	public String getFecha() {
+		return Utilidades.sdf.format(fecha);
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
