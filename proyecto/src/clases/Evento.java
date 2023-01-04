@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Evento {
 	
-	private String codigo;
+	public static int codigo;
 	private String usuario;
 	private Date fecha;
 	private String nombre;
@@ -16,8 +16,9 @@ public class Evento {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evento(String codigo,String usuario, Date fecha, String nombre, TipoEvento tipo, int duracion, boolean com) {
+	public Evento(int codigo,String usuario, Date fecha, String nombre, TipoEvento tipo, int duracion, boolean com) {
 		super();
+		codigo++;
 		this.codigo = codigo;
 		this.usuario = usuario;
 		this.fecha = fecha;
@@ -36,11 +37,11 @@ public class Evento {
 		this.completo = completo;
 	}
 
-	public String getCodigo() {
+	public int getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
+	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 

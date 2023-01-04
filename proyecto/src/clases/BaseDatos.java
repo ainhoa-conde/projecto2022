@@ -69,8 +69,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void insertarEvento(Connection con,String usuario, String fecha, String nombre, String tipo, int duracion) {
-			String sql = "INSERT INTO evento VALUES('"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
+		public static void insertarEvento(Connection con, int codigo, String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
+			String sql = "INSERT INTO evento VALUES('"+codigo+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"','"+completo+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -132,7 +132,7 @@ public class BaseDatos {
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
 				while(rs.next()) {
-					String c = rs.getString("codigo");
+					int c = rs.getInt("codigo");
 					String u = rs.getString("usuario");
 					String fecha = rs.getString("fecha");
 					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -164,7 +164,7 @@ public class BaseDatos {
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
 				while(rs.next()) {
-					String c = rs.getString("codigo");
+					int c = rs.getInt("codigo");
 					String u = rs.getString("usuario");
 					String fecha = rs.getString("fecha");
 					Date f = Utilidades.sdf.parse(fecha);
