@@ -135,7 +135,7 @@ public class VentanaAgenda extends JFrame {
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
 						null, new Object[] {"OCIO", "CLASE"}, "OCIO");
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
-				//BaseDatos.insertarEvento(BaseDatos.initBD("proyecto.db"), new ArrayList<Contacto>(), VentanaInicioSesion.nombreUsuario(),fecha, nombre,TipoEvento.valueOf(tipo.toString()), Integer.parseInt(duracion));
+				BaseDatos.insertarEvento(VentanaInicioSesion.con, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion));
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
@@ -150,21 +150,6 @@ public class VentanaAgenda extends JFrame {
 				//hacer que se actualice la ventana
 				
 				
-				
-			}
-		});
-		
-		btnEliminarEvento.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount() == 2) {
-					String evento = getComponentAt(getMousePosition()).toString();
-					String[] ev = evento.split("");  //depende como aparezca el evento cambiamos la separacion y la posicion del nombre
-					//Joptionpane confirmacion y meter la llamada a eliminarevento en el if
-					  
-					BaseDatos.eliminarEvento(VentanaInicioSesion.con, ev[1]);  //seleccionar la posicion dependiendo donde esta el codigo
-				}
 				
 			}
 		});

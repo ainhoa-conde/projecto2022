@@ -69,8 +69,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void insertarEvento(Connection con, ArrayList<Contacto> contacto,String usuario, String fecha, String nombre, TipoEvento tipo, int duracion) {
-			String sql = "INSERT INTO evento VALUES('"+contacto+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
+		public static void insertarEvento(Connection con,String usuario, String fecha, String nombre, String tipo, int duracion) {
+			String sql = "INSERT INTO evento VALUES('"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
