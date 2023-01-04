@@ -42,6 +42,7 @@ public class VentanaAgenda extends JFrame {
 	private DefaultTableModel modeloTabla;
 	private JScrollPane scrollTabla;
 	
+	private int filaSeleccionada = -1;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -134,8 +135,12 @@ public class VentanaAgenda extends JFrame {
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
 						null, new Object[] {"OCIO", "CLASE"}, "OCIO");
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
-				BaseDatos.insertarEvento(VentanaInicioSesion.con, Evento.codigo, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
+				BaseDatos.insertarEvento(VentanaInicioSesion.con, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+				while(modeloTabla.getRowCount()>0) {
+					modeloTabla.removeRow(0);
+				}
+				cargarModelo();
 			}
 		});
 		
@@ -144,12 +149,11 @@ public class VentanaAgenda extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JLabel aviso = new JLabel("Haz click en el evento que quieres eliminar");
-				pCentral.add(aviso);
-				//hacer que se actualice la ventana
-				
-				
-				
+				if(filaSeleccionada!=-1) {
+					Integer codigo = (Integer)modeloTabla.getValueAt(filaSeleccionada, 0);
+					modeloTabla.removeRow(filaSeleccionada);
+					BaseDatos.eliminarEvento(VentanaInicioSesion.con, codigo);
+				}
 			}
 		});
 	
@@ -206,6 +210,7 @@ public class VentanaAgenda extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int col = tabla.getSelectedColumn();
+				filaSeleccionada = tabla.getSelectedRow();
 				if(col==5) {
 					tabla.repaint();
 				}

@@ -58,7 +58,20 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 		}
-		
+		public static int getMaxCodigo(Connection con) {
+			String sql = "SELECT MAX(codigo) FROM evento";
+			int max = 0;
+			try (Statement st = con.createStatement();){
+				ResultSet rs = st.executeQuery(sql);
+				if(rs.next()) {
+					max = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return max;
+		}
 		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
 			try (Statement st = con.createStatement();){
@@ -69,7 +82,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void insertarEvento(Connection con, int codigo, String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
+		public static void insertarEvento(Connection con ,String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
+			int codigo = getMaxCodigo(con) + 1;
 			String sql = "INSERT INTO evento VALUES('"+codigo+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"','"+completo+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -255,8 +269,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void eliminarEvento(Connection con, String codigo) {
-			String sentSQL = "DELETE FROM evento WHERE codigo ='"+codigo+"'";
+		public static void eliminarEvento(Connection con, int codigo) {
+			String sentSQL = "DELETE FROM evento WHERE codigo ="+codigo;
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
