@@ -36,7 +36,6 @@ public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior;
-	private BaseDatos bd;
 	
 	
 	private JTable tabla;
@@ -83,7 +82,7 @@ public class VentanaAgenda extends JFrame {
 		modeloTabla = new DefaultTableModel();
 		tabla = new JTable(modeloTabla);
 		scrollTabla = new JScrollPane(tabla);
-		String [] titulos = {"CÓDIGO","NOMBRE","DURACIÓN","ACOMPAÑANTE","COMPLETO"};
+		String [] titulos = {"CÓDIGO","NOMBRE","FECHA","DURACIÓN","TIPO", "COMPLETO"};
 		modeloTabla.setColumnIdentifiers(titulos);
 		cargarModelo();
 		pCentralIzq.add(scrollTabla);
@@ -199,7 +198,7 @@ public class VentanaAgenda extends JFrame {
 				int col = e.getColumn();
 				if(col == 4) {
 					String cod = (String) modeloTabla.getValueAt(fila, 0);
-					boolean valor = (Boolean) modeloTabla.getValueAt(fila, 4);
+					boolean valor = (Boolean) modeloTabla.getValueAt(fila, 5);
 					BaseDatos.updateCompleto(VentanaInicioSesion.con, cod, valor);
 				}
 			}
@@ -207,7 +206,7 @@ public class VentanaAgenda extends JFrame {
 		
 		tabla.setDefaultRenderer(Object.class, (table,value,isSelected,hasFocus,row,column)->{
 			JLabel label = new JLabel(value.toString());
-			boolean valor = (Boolean) modeloTabla.getValueAt(row, 4);
+			boolean valor = (Boolean) modeloTabla.getValueAt(row, 5);
 			if(valor==true) {
 				label.setOpaque(true);
 				label.setBackground(new Color(112, 219, 147));
@@ -224,7 +223,7 @@ public class VentanaAgenda extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int col = tabla.getSelectedColumn();
-				if(col==4) {
+				if(col==5) {
 					tabla.repaint();
 				}
 				
@@ -244,10 +243,10 @@ public class VentanaAgenda extends JFrame {
 		ArrayList<Evento> a = BaseDatos.obtenerEventosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
 		int f = 0;
 		for(Evento e: a) {
-			Object [] fila = {e.getCodigo(),e.getNombre(),e.getDuracion(),e.getUsuario()};
+			Object [] fila = {e.getCodigo(),e.getNombre(), e.getFecha(),e.getDuracion(), e.getTipo(), e.getUsuario()};
 			modeloTabla.addRow(fila);
-			addCheckBox(4, tabla);
-			modeloTabla.setValueAt(e.isCompleto(), f, 4);
+			addCheckBox(5, tabla);
+			modeloTabla.setValueAt(e.isCompleto(), f, 5);
 			f++;
 		}
 	}

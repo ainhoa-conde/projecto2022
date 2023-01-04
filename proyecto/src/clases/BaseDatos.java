@@ -48,7 +48,7 @@ public class BaseDatos {
 		public static void crearTablas(Connection con) {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
-			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codEvento String, nombre String, mail String, telf String, favorito Boolean)";
+			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codEvento String, nombre String, mail String, telf String, favorito String)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
 				st.executeUpdate(sql2);
