@@ -249,8 +249,6 @@ public class VentanaAgenda extends JFrame {
 			}
 		});
 		
-		
-
 	}
 	
 	private void addCheckBox(int col, JTable t) {
