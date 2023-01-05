@@ -124,6 +124,14 @@ public class VentanaAgenda extends JFrame {
 		JButton btnCerrar = new JButton("CERRAR");
 		pDchAbajo.add(btnCerrar);
 		
+		//Panel Sur: Botón "Eliminar todos los eventos"
+		
+		JPanel pSur = new JPanel();
+		contentPane.add(pSur, BorderLayout.SOUTH);
+		
+		JButton btnEliminarTodosEventos = new JButton("ELIMINAR TODOS LOS EVENTOS");
+		pSur.add(btnEliminarTodosEventos);
+		
 		//Eventos
 		
 		btnAnyadirEvento.addActionListener(new ActionListener() {
@@ -184,6 +192,19 @@ public class VentanaAgenda extends JFrame {
 				ventanaActual = VentanaAgenda.this;
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
+			}
+		});
+		
+		btnEliminarTodosEventos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int confirmacion = JOptionPane.showConfirmDialog(btnEliminarTodosEventos, "¿Está seguro de que quiere eliminar todos los datos?");
+				if(confirmacion==0) {
+					while(modeloTabla.getRowCount()>0) {
+						modeloTabla.removeRow(0);
+					}
+				}
 			}
 		});
 		
