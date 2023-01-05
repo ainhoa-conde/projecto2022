@@ -280,8 +280,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void updateEvento(Connection con, int codigo, String usuario, String fecha, String nombre, String tipo, int duracion) {
-			String sentSQL = "UPDATE evento SET usuario = '"+usuario+"', fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = '"+duracion+"', WHERE codigo ='"+codigo+"";
+		public static void updateEvento(Connection con, int codigo, String fecha, String nombre, String tipo, int duracion) {
+			String sentSQL = "UPDATE evento SET fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = '"+duracion+"', WHERE codigo ='"+codigo+"";
 			try {
 				Statement st = con.createStatement();
 				st.executeUpdate(sentSQL);
