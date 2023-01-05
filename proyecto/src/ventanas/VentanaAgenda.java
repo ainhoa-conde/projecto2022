@@ -183,8 +183,8 @@ public class VentanaAgenda extends JFrame {
 			public void tableChanged(TableModelEvent e) {
 				int fila = e.getFirstRow();
 				int col = e.getColumn();
-				if(col == 4) {
-					String cod = (String) modeloTabla.getValueAt(fila, 0);
+				if(col == 5) {
+					int cod = Integer.parseInt((String)modeloTabla.getValueAt(fila, 0));
 					boolean valor = (Boolean) modeloTabla.getValueAt(fila, 5);
 					BaseDatos.updateCompleto(VentanaInicioSesion.con, cod, valor);
 				}

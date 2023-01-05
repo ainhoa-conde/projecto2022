@@ -276,17 +276,27 @@ public class BaseDatos {
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
-		public static void updateCompleto(Connection con, String codigo, boolean estado) {
+		public static void updateEvento(Connection con, int codigo, String usuario, String fecha, String nombre, String tipo, int duracion) {
+			String sentSQL = "UPDATE evento SET usuario = '"+usuario+"', fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = '"+duracion+"', WHERE codigo ='"+codigo+"";
+			try {
+				Statement st = con.createStatement();
+				st.executeUpdate(sentSQL);
+				st.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void updateCompleto(Connection con, int codigo, boolean estado) {
 			String sentSQL;
 			if(estado)
-			 sentSQL= "UPDATE evento SET completo='true' WHERE codigo ='"+codigo+"'";
+			 sentSQL= "UPDATE evento SET completo='true' WHERE codigo ="+codigo;
 			else
-				sentSQL= "UPDATE evento SET completo='false' WHERE codigo ='"+codigo+"'";
+				sentSQL= "UPDATE evento SET completo='false' WHERE codigo ="+codigo;
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
@@ -297,8 +307,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static boolean getCompleto(Connection con, String codigo) {
-			String sentSQL = "SELECT completo FROM evento WHERE codigo='"+codigo+"'";
+		public static boolean getCompleto(Connection con, int codigo) {
+			String sentSQL = "SELECT completo FROM evento WHERE codigo="+codigo;
 			boolean completo = false;
 			try {
 				Statement stmt = con.createStatement();
