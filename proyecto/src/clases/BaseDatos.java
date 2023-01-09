@@ -141,7 +141,7 @@ public class BaseDatos {
 		
 		
 		public static ArrayList<Evento> obtenerEventosUsuario (Connection con, String usuario) {
-			String sql = "SELECT * FROM evento WHERE usuario='"+usuario+"'";
+			String sql = "SELECT * FROM evento WHERE usuario='"+usuario+"' ORDER BY fecha";
 			ArrayList<Evento> ale = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -149,8 +149,7 @@ public class BaseDatos {
 					int c = rs.getInt("codigo");
 					String u = rs.getString("usuario");
 					String fecha = rs.getString("fecha");
-					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-					Date f = sdf.parse(fecha);
+					Date f = Utilidades.sdf.parse(fecha);
 					String n = rs.getString("nombre");
 					String t = rs.getString("tipo");
 					int d = rs.getInt("duracion");
@@ -158,7 +157,7 @@ public class BaseDatos {
 					boolean com = false;
 					if(v.equals("true"))
 						com = true;
-					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d,com);
+					Evento ev = new Evento(c, u, f, n, t, d,com);
 					ale.add(ev);
 				}
 			} catch (SQLException e) {
@@ -189,7 +188,7 @@ public class BaseDatos {
 					boolean com = false;
 					if(v.equals("true"))
 						com = true;
-					Evento ev = new Evento(c, u, f, n, TipoEvento.valueOf(t), d, com);
+					Evento ev = new Evento(c, u, f, n, t, d, com);
 					ale.add(ev);
 				}
 			} catch (SQLException e) {

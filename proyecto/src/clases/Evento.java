@@ -2,13 +2,13 @@ package clases;
 
 import java.util.Date;
 
-public class Evento {
+public class Evento  {
 	
-	public static int codigo;
+	public int codigo;
 	private String usuario;
 	private Date fecha;
 	private String nombre;
-	private TipoEvento tipo;
+	private String tipo;
 	private int duracion;
 	private boolean completo;
 	
@@ -16,9 +16,8 @@ public class Evento {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Evento(int codigo,String usuario, Date fecha, String nombre, TipoEvento tipo, int duracion, boolean com) {
+	public Evento(int codigo,String usuario, Date fecha, String nombre, String tipo, int duracion, boolean com) {
 		super();
-		codigo++;
 		this.codigo = codigo;
 		this.usuario = usuario;
 		this.fecha = fecha;
@@ -67,10 +66,10 @@ public class Evento {
 		this.nombre = nombre;
 	}
 
-	public TipoEvento getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
-	public void setTipo(TipoEvento tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

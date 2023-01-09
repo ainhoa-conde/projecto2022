@@ -27,12 +27,13 @@ import javax.swing.table.TableColumn;
 
 import clases.BaseDatos;
 import clases.Evento;
+import clases.TipoEvento;
+import clases.TipoEventos;
 
 public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior;
-	
 	
 	private JTable tabla;
 	private DefaultTableModel modeloTabla;
@@ -117,6 +118,12 @@ public class VentanaAgenda extends JFrame {
 		JLabel lblEspacio3 = new JLabel();
 		pDchAbajo.add(lblEspacio3);
 		
+		JButton btnAniadirTipoEvento = new JButton("AÑADIR TIPO DE EVENTO");
+		pDchAbajo.add(btnAniadirTipoEvento);
+		
+		JLabel lblEspacio4 = new JLabel();
+		pDchAbajo.add(lblEspacio4);
+		
 		JButton btnCerrar = new JButton("CERRAR");
 		pDchAbajo.add(btnCerrar);
 		
@@ -130,21 +137,37 @@ public class VentanaAgenda extends JFrame {
 		
 		//Eventos
 		
+		btnAniadirTipoEvento.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String nuevoTipo = JOptionPane.showInputDialog("Introduce el nuevo tipo de evento: ");
+				nuevoTipo = nuevoTipo.toUpperCase();
+				if(TipoEventos.getTipoEventos().esta(nuevoTipo)==-1) {
+					TipoEventos.getTipoEventos().aniadirTipo(nuevoTipo);
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Ese tipo de evento ya existe", "TIPO REPETIDO", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		btnAnyadirEvento.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String fecha = JOptionPane.showInputDialog("Introduce el la fecha del evento, siguiendo el formato dd/MM/yyyy: ", JOptionPane.QUESTION_MESSAGE);
+				String fecha = JOptionPane.showInputDialog("Introduce el la fecha del evento, siguiendo el formato yyyy/MM/dd: ", JOptionPane.QUESTION_MESSAGE);
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
-						null, new Object[] {"OCIO", "CLASE"}, "OCIO");
+						null, TipoEventos.getTipoEventos().getTipos(), TipoEventos.getTipoEventos().getTipos()[0]);
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
-				BaseDatos.insertarEvento(VentanaInicioSesion.con, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
-				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-				while(modeloTabla.getRowCount()>0) {
-					modeloTabla.removeRow(0);
+				if(fecha!=null && nombre!=null && tipo!=null && duracion!=null) {
+					BaseDatos.insertarEvento(VentanaInicioSesion.con, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
+					JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+					while(modeloTabla.getRowCount()>0) {
+						modeloTabla.removeRow(0);
+					}
+					cargarModelo();
 				}
-				cargarModelo();
 			}
 		});
 		
@@ -211,7 +234,7 @@ public class VentanaAgenda extends JFrame {
 				int fila = e.getFirstRow();
 				int col = e.getColumn();
 				if(col == 5) {
-					int cod = Integer.parseInt((String)modeloTabla.getValueAt(fila, 0));
+					int cod = ((Integer)modeloTabla.getValueAt(fila, 0));
 					boolean valor = (Boolean) modeloTabla.getValueAt(fila, 5);
 					BaseDatos.updateCompleto(VentanaInicioSesion.con, cod, valor);
 				}
