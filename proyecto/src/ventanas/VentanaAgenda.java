@@ -98,7 +98,7 @@ public class VentanaAgenda extends JFrame {
 		//Panel Dch. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pDchAbajo = new JPanel();
 		pCentralDch.add(pDchAbajo);
-		pDchAbajo.setLayout(new GridLayout(7, 1 , 0, 0));
+		pDchAbajo.setLayout(new GridLayout(9, 1 , 0, 0));
 		
 		JButton btnAnyadirEvento = new JButton("AÑADIR EVENTO");
 		pDchAbajo.add(btnAnyadirEvento);
