@@ -19,21 +19,14 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -44,8 +37,6 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JFrame ventanaActual, ventanaAnterior, ventanaSiguiente;
 	private JCalendar calendario;
-
-	private BaseDatos bd;
 	
 	//Elementos JList
 	private JList<Evento> lista;
@@ -142,7 +133,7 @@ public class VentanaPrincipal extends JFrame {
 		JPanel pDrchAbajo = new JPanel(new BorderLayout());
 		pCentralDrch.add(pDrchAbajo);
 		
-		JCalendar calendario = new JCalendar();
+		calendario = new JCalendar();
 		pDrchAbajo.add(calendario, BorderLayout.CENTER);
 		
 		modeloLista = new DefaultListModel<>();

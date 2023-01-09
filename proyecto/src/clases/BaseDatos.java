@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 
 public class BaseDatos {
 
@@ -245,20 +244,6 @@ public class BaseDatos {
 			} 
 			return alc;
 		}
-		
-		/*public HashSet<TipoEvento> obtenerTipos(Connection con) {
-			String sql = "SELECT * FROM tipo";
-			try {
-				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql);
-				while(rs.next()) {
-					String nombre = rs.getCursorName();
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}*/
 		
 		public static void eliminarUsuario(Connection con, String nomUsu) {
 			String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsu+"'";

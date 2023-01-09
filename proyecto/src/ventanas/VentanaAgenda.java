@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,9 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import clases.BaseDatos;
-import clases.Contacto;
 import clases.Evento;
-import clases.TipoEvento;
 
 public class VentanaAgenda extends JFrame {
 
@@ -256,6 +252,7 @@ public class VentanaAgenda extends JFrame {
 		tc.setCellEditor(t.getDefaultEditor(Boolean.class));
 		tc.setCellRenderer(t.getDefaultRenderer(Boolean.class));
 	}
+	
 	private void cargarModelo() {
 		ArrayList<Evento> a = BaseDatos.obtenerEventosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
 		int f = 0;
