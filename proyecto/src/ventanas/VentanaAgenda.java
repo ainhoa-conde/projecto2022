@@ -191,7 +191,7 @@ public class VentanaAgenda extends JFrame {
 				String fecha = JOptionPane.showInputDialog("Introduce el la fecha del evento, siguiendo el formato dd/MM/yyyy: ", JOptionPane.QUESTION_MESSAGE);
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
-						null, new Object[] {"OCIO", "CLASE"}, "OCIO");
+						null, TipoEventos.getTipoEventos().getTipos(), TipoEventos.getTipoEventos().getTipos()[0]);
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
 				BaseDatos.updateEvento(VentanaInicioSesion.con, 0, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion));
 				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
