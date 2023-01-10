@@ -49,9 +49,7 @@ public class BaseDatos {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
 			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (usuario String, nombre String, mail String, telf String, favorito String)";
-			//Crear tabla tipo con campo nombre
-			//Método que devuelva un ArrayList de todos los tipo de la tabla
-			//Método que reciba el nombre de un tipo y lo guarde en la tabla
+			String sql4 = "CREATE TABLE IF NOT EXISTS tipo (nombre String)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
 				st.executeUpdate(sql2);
@@ -99,6 +97,16 @@ public class BaseDatos {
 		public static void insertarContacto(Connection con, String usuario, String nombre, String mail, String telf, String favorito) {
 			int codigo = getMaxCodigo(con) + 1;
 			String sql = "INSERT INTO contacto VALUES('"+codigo+"','"+usuario+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
+			try (Statement st = con.createStatement();){
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		public static void insertarTipoEvento(Connection con, String nombre) {
+			String sql = "INSERT INTO tipo VALUES('"+nombre+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -314,6 +322,23 @@ public class BaseDatos {
 				e.printStackTrace();
 			} 
 			return alc;
+		}
+		
+		public static ArrayList<String> obtenerTodosTipoEvento(Connection con) {
+			String sql = "SELECT * FROM tipo";
+			ArrayList<String> ate = new ArrayList<>();
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);) {
+				while(rs.next()) {
+					String nombre = rs.getString("nombre");
+					ate.add(nombre);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return ate;
 		}
 		
 		public static void eliminarUsuario(Connection con, String nomUsu) {
