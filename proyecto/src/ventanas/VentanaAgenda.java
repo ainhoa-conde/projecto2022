@@ -188,20 +188,21 @@ public class VentanaAgenda extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String fecha = JOptionPane.showInputDialog("Introduce el la fecha del evento, siguiendo el formato dd/MM/yyyy: ", JOptionPane.QUESTION_MESSAGE);
+				String fecha = JOptionPane.showInputDialog("Introduce la nueva fecha del evento, siguiendo el formato yyyy/MM/dd: ", JOptionPane.QUESTION_MESSAGE);
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
 				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
 						null, TipoEventos.getTipoEventos().getTipos(), TipoEventos.getTipoEventos().getTipos()[0]);
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
-				BaseDatos.updateEvento(VentanaInicioSesion.con, 0, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion));
-				JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+				int row = tabla.getSelectedRow();
+				Integer codigo = (Integer )modeloTabla.getValueAt(row, 0);
+				BaseDatos.updateEvento(VentanaInicioSesion.con, String.valueOf(codigo), fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion));
+				JOptionPane.showMessageDialog(null, "El evento se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 				while(modeloTabla.getRowCount()>0) {
 					modeloTabla.removeRow(0);
 				}
 				cargarModelo();
 			}
 		});
-		
 		
 		btnCerrar.addActionListener(new ActionListener() {
 			

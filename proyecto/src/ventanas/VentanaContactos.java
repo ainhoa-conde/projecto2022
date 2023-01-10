@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -34,6 +36,8 @@ public class VentanaContactos extends JFrame{
 	private JScrollPane scrollTabla;
 	
 	private int filaSeleccionada = -1;
+	
+	private ArrayList<Contacto> al;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -100,6 +104,22 @@ public class VentanaContactos extends JFrame{
 		
 		JButton btnCerrar = new JButton("CERRAR");
 		pIzqAbajo.add(btnCerrar);
+		
+		//Panel Drch
+		JPanel pCentralDrch = new JPanel();
+		pCentral.add(pCentralDrch);
+				
+		//Panel Drch. Arriba: Lista de contactos
+		JPanel pDrchArriba = new JPanel();
+		pCentralDrch.add(pDrchArriba);
+				
+		modeloTabla = new DefaultTableModel();
+		tabla = new JTable(modeloTabla);
+		scrollTabla = new JScrollPane(tabla);
+		String [] titulos = {"NOMBRE", "MAIL", "TELÉFONO"};
+		modeloTabla.setColumnIdentifiers(titulos);
+		cargarModelo();
+		pCentralDrch.add(scrollTabla);
 		
 		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {
@@ -199,30 +219,37 @@ public class VentanaContactos extends JFrame{
 						}
 					}
 				}
+				while(modeloTabla.getRowCount()>0) {
+					modeloTabla.removeRow(0);
+				}
+				cargarModelo();
 			}
 		});
 		
-		//Panel Drch
-		JPanel pCentralDrch = new JPanel();
-		pCentral.add(pCentralDrch);
+		tabla.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				filaSeleccionada = tabla.getSelectedRow();
+			}
+		});
 		
-		//Panel Drch. Arriba: Lista de contactos
-		JPanel pDrchArriba = new JPanel();
-		pCentralDrch.add(pDrchArriba);
-		
-		modeloTabla = new DefaultTableModel();
-		tabla = new JTable(modeloTabla);
-		scrollTabla = new JScrollPane(tabla);
-		String [] titulos = {"NOMBRE", "MAIL", "TELÉFONO"};
-		modeloTabla.setColumnIdentifiers(titulos);
-		cargarModelo();
-		pCentralDrch.add(scrollTabla);
+		tabla.setDefaultRenderer(Object.class, (table,value,isSelected,hasFocus,row,column)->{
+			JLabel label = new JLabel(value.toString());
+			boolean valor = al.get(row).isFavorito();
+			if(valor==true) {
+				label.setOpaque(true);
+				label.setBackground(new Color(201, 100, 217));
+			}
+			return label;
+			
+		});
 		
 	}
 	
 	//Función que carga los contactoa a la lista
 	private void cargarModelo() {
-		ArrayList<Contacto> al = BaseDatos.obtenerContactosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
+		al = BaseDatos.obtenerContactosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
 		for(Contacto c: al) {
 			Object [] fila = {c.getNombre(), c.getMail(), c.getTelf()};
 			modeloTabla.addRow(fila);

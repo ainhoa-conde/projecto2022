@@ -49,6 +49,9 @@ public class BaseDatos {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
 			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (usuario String, nombre String, mail String, telf String, favorito String)";
+			//Crear tabla tipo con campo nombre
+			//Método que devuelva un ArrayList de todos los tipo de la tabla
+			//Método que reciba el nombre de un tipo y lo guarde en la tabla
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
 				st.executeUpdate(sql2);
@@ -348,8 +351,9 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void updateEvento(Connection con, int codigo, String fecha, String nombre, String tipo, int duracion) {
-			String sentSQL = "UPDATE evento SET fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = '"+duracion+"', WHERE codigo ='"+codigo+"";
+		public static void updateEvento(Connection con, String codigo, String fecha, String nombre, String tipo, int duracion) {
+			String sentSQL = "UPDATE evento SET fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = "+duracion+" WHERE codigo ='"+codigo+"'";
+			System.out.println(sentSQL);
 			try {
 				Statement st = con.createStatement();
 				st.executeUpdate(sentSQL);
