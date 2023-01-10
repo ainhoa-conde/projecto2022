@@ -1,7 +1,8 @@
 package clases;
 
 public class Contacto {
-	private String codEvento;
+	private int codigo;
+	private String usuario;
 	private String nombre;
 	private String mail;
 	private String telf;
@@ -11,23 +12,31 @@ public class Contacto {
 		super();
 	}
 	
-	public Contacto(String codEvento, String nombre, String mail, String telf, boolean favorito) {
+	public Contacto(int codigo, String usuario, String nombre, String mail, String telf, boolean favorito) {
 		super();
-		this.codEvento = codEvento;
+		this.codigo = codigo;
+		this.usuario = usuario;
 		this.nombre = nombre;
 		this.mail = mail;
 		this.telf = telf;
 		this.favorito = favorito;
 	}
 	
-	public String getCodEvento() {
-		return codEvento;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setCodEvento(String codEvento) {
-		this.codEvento = codEvento;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
-
+	
+	public String getusuario() {
+		return usuario;
+	}
+	public void setusuario(String usuario) {
+		this.usuario = usuario;
+	
+	}
 	public String getNombre() {
 		return nombre;
 	}

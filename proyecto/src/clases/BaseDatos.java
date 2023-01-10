@@ -48,7 +48,7 @@ public class BaseDatos {
 		public static void crearTablas(Connection con) {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
-			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codEvento String, nombre String, mail String, telf String, favorito String)";
+			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (usuario String, nombre String, mail String, telf String, favorito String)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
 				st.executeUpdate(sql2);
@@ -93,8 +93,9 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void insertarContacto(Connection con, String codEvento, String nombre, String mail, String telf, boolean favorito) {
-			String sql = "INSERT INTO evento VALUES('"+codEvento+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
+		public static void insertarContacto(Connection con, String usuario, String nombre, String mail, String telf, String favorito) {
+			int codigo = getMaxCodigo(con) + 1;
+			String sql = "INSERT INTO contacto VALUES('"+codigo+"','"+usuario+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -116,6 +117,66 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 			return usuarioEncontrado;
+		}
+		
+		public static boolean buscarMailUsuario(Connection con, String mail) {
+			String sql = "SELECT * FROM usuario WHERE mail='"+mail+"'";
+			boolean mailEncontrado = false;
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					mailEncontrado = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return mailEncontrado;
+		}
+		
+		public static boolean buscarContacto(Connection con, String nombre) {
+			String sql = "SELECT * FROM contacto WHERE nombre='"+nombre+"'";
+			boolean contactoEncontrado = false;
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					contactoEncontrado = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return contactoEncontrado;
+		}
+		
+		public static boolean buscarMailContacto(Connection con, String mail) {
+			String sql = "SELECT * FROM contacto WHERE mail='"+mail+"'";
+			boolean mailEncontrado = false;
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					mailEncontrado = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return mailEncontrado;
+		}
+		
+		public static boolean buscartelefonoContacto(Connection con, String telf) {
+			String sql = "SELECT * FROM contacto WHERE telf='"+telf+"'";
+			boolean telfEncontrado = false;
+			try (Statement st = con.createStatement();
+				ResultSet rs = st.executeQuery(sql);){
+				while(rs.next()) {
+					telfEncontrado = true;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return telfEncontrado;
 		}
 		
 		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
@@ -207,12 +268,16 @@ public class BaseDatos {
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
 				while(rs.next()) {
-					String ce = rs.getString("codEvento");
+					int cod = rs.getInt("codigo");
+					String u = rs.getString("usuario");
 					String n = rs.getString("nombre");
 					String m = rs.getString("mail");
 					String t = rs.getString("telf");
-					boolean b = rs.getBoolean("favorito");
-					c = new Contacto(ce, n, m, t, b);
+					String b = rs.getString("favorito");
+					boolean fav = false;
+					if(b.equals("true"))
+						fav = true;
+					c = new Contacto(cod, u, n, m, t, fav);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -228,12 +293,16 @@ public class BaseDatos {
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
 				while(rs.next()) {
-					String ce = rs.getString("codEvento");
+					int cod = rs.getInt("codigo");
+					String u = rs.getString("usuario");
 					String n = rs.getString("nombre");
 					String m = rs.getString("mail");
 					String t = rs.getString("telf");
-					boolean b = rs.getBoolean("favorito");
-					Contacto c = new Contacto(ce, n, m, t, b);
+					String b = rs.getString("favorito");
+					boolean fav = false;
+					if(b.equals("true"))
+						fav = true;
+					Contacto c = new Contacto(cod, u, n, m, t, fav);
 					alc.add(c);
 				}
 				
@@ -281,6 +350,17 @@ public class BaseDatos {
 		
 		public static void updateEvento(Connection con, int codigo, String fecha, String nombre, String tipo, int duracion) {
 			String sentSQL = "UPDATE evento SET fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = '"+duracion+"', WHERE codigo ='"+codigo+"";
+			try {
+				Statement st = con.createStatement();
+				st.executeUpdate(sentSQL);
+				st.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		public static void updateContacto(Connection con, int codigo, String nombre, String mail, String telf, String favorito) {
+			String sentSQL = "UPDATE contacto SET nombre = '"+nombre+"', mail = '"+mail+"', telf = '"+telf+"', favorito = '"+favorito+"', WHERE codigo ='"+codigo+"";
 			try {
 				Statement st = con.createStatement();
 				st.executeUpdate(sentSQL);

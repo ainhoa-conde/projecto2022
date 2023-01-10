@@ -255,9 +255,15 @@ public class VentanaInicioSesion extends JFrame {
 
 			boolean existeUsuario = BaseDatos.buscarUsuario(con, nomUsu);
 			if (!existeUsuario) {
-				BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
-				JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO",
-						JOptionPane.INFORMATION_MESSAGE);
+				boolean existeMail = BaseDatos.buscarMailUsuario(con, mail);
+				if (!existeMail) {
+					BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
+					JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese mail", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+				
 			} else {
 				JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
