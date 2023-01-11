@@ -209,12 +209,18 @@ public class VentanaContactos extends JFrame{
 								favorito = "true";
 								BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), nombre, mail, telefono, favorito);
 								JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-							
+								while(modeloTabla.getRowCount()>0) {
+									modeloTabla.removeRow(0);
+								}
+								cargarModelo();
 							} else {
 								favorito = "false";
 								BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), nombre, mail, telefono, favorito);
 								JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-							
+								while(modeloTabla.getRowCount()>0) {
+									modeloTabla.removeRow(0);
+								}
+								cargarModelo();
 							}
 						}
 					}
