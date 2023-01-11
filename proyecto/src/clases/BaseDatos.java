@@ -161,21 +161,6 @@ public class BaseDatos {
 			return mailEncontrado;
 		}
 		
-		public static boolean buscarMailContacto(Connection con, String mail) {
-			String sql = "SELECT * FROM contacto WHERE mail='"+mail+"'";
-			boolean mailEncontrado = false;
-			try (Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql);){
-				while(rs.next()) {
-					mailEncontrado = true;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return mailEncontrado;
-		}
-		
 		public static boolean buscartelefonoContacto(Connection con, String telf) {
 			String sql = "SELECT * FROM contacto WHERE telf='"+telf+"'";
 			boolean telfEncontrado = false;

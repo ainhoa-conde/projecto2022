@@ -139,34 +139,25 @@ public class VentanaContactos extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo contacto: ", JOptionPane.QUESTION_MESSAGE);
 				String mail = JOptionPane.showInputDialog("Introduce el mail del contacto: ", JOptionPane.QUESTION_MESSAGE);
-				boolean existeMail = BaseDatos.buscarMailContacto(VentanaInicioSesion.con, mail);
-				if(existeMail) {
-					JOptionPane.showMessageDialog(null, "Ya existe un contacto con ese mail", "ERROR", JOptionPane.ERROR_MESSAGE);
+				String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);						boolean existeTelf = BaseDatos.buscartelefonoContacto(VentanaInicioSesion.con, telefono);
+				if(existeTelf) {
+					JOptionPane.showMessageDialog(null, "Ya existe un contacto con ese teléfono", "ERROR", JOptionPane.ERROR_MESSAGE);
 				} else {
-					String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);						boolean existeTelf = BaseDatos.buscartelefonoContacto(VentanaInicioSesion.con, telefono);
-					if(existeTelf) {
-						JOptionPane.showMessageDialog(null, "Ya existe un contacto con ese teléfono", "ERROR", JOptionPane.ERROR_MESSAGE);
+					int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
+					String favorito;
+					if(JOptionPane.OK_OPTION == fav) {
+						favorito = "true";
+						BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
+						JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 					} else {
-						int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
-						String favorito;
-						if(JOptionPane.OK_OPTION == fav) {
-							favorito = "true";
-							BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
-							JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-							while(modeloTabla.getRowCount()>0) {
-								modeloTabla.removeRow(0);
-							}
-							cargarModelo();
-						} else {
-							favorito = "false";
-							BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
-							JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-							while(modeloTabla.getRowCount()>0) {
-								modeloTabla.removeRow(0);
-							}
-							cargarModelo();
-						}
+						favorito = "false";
+						BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
+						JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 					}
+					while(modeloTabla.getRowCount()>0) {
+						modeloTabla.removeRow(0);
+					}
+					cargarModelo();
 				}
 			}
 	});
