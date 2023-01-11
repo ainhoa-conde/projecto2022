@@ -145,7 +145,7 @@ public class VentanaAgenda extends JFrame {
 				nuevoTipo = nuevoTipo.toUpperCase();
 				if(TipoEventos.getTipoEventos().esta(nuevoTipo)==-1) {
 					TipoEventos.getTipoEventos().aniadirTipo(nuevoTipo);
-					BaseDatos.insertarTipoEvento(VentanaInicioSesion.con, nuevoTipo);
+					BaseDatos.insertarTipoEvento(VentanaInicioSesion.con, nuevoTipo, VentanaInicioSesion.nombre);
 					
 				}else {
 					JOptionPane.showMessageDialog(null, "Ese tipo de evento ya existe", "TIPO REPETIDO", JOptionPane.ERROR_MESSAGE);

@@ -49,11 +49,12 @@ public class BaseDatos {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
 			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codigo String, usuario String, nombre String, mail String, telf String, favorito String)";
-			String sql4 = "CREATE TABLE IF NOT EXISTS tipo (nombre String)";
+			String sql4 = "CREATE TABLE IF NOT EXISTS tipo (nombre String, usuario String)";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql1);
 				st.executeUpdate(sql2);
 				st.executeUpdate(sql3);
+				st.executeUpdate(sql4);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -121,8 +122,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void insertarTipoEvento(Connection con, String nombre) {
-			String sql = "INSERT INTO tipo VALUES('"+nombre+"')";
+		public static void insertarTipoEvento(Connection con, String nombre, String usuario) {
+			String sql = "INSERT INTO tipo VALUES('"+nombre+"','"+usuario+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
@@ -310,8 +311,8 @@ public class BaseDatos {
 			return alc;
 		}
 		
-		public static ArrayList<String> obtenerTodosTipoEvento(Connection con) {
-			String sql = "SELECT * FROM tipo";
+		public static ArrayList<String> obtenerTodosTipoEventoUsuario(Connection con, String usuario) {
+			String sql = "SELECT * FROM tipo WHERE usuario = '"+usuario+"'";
 			ArrayList<String> ate = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);) {
