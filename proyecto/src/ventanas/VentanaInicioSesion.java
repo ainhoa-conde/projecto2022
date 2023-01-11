@@ -243,36 +243,41 @@ public class VentanaInicioSesion extends JFrame {
 		String nom = txtNombre.getText();
 		String ape = txtApellido.getText();
 		String mail = txtMail.getText();
+		String comprobarUsuario= "[A-Za-z0-9]{3,}";
 		String comprobarMail = "[A-Za-z0-9]{1,}[@]?[a-z]{1,}[.]?[a-z]{2,}";
 		String nomUsu = txtCreaNombreUsuario.getText();
 		String cont = txtCreaContrasenia.getText();
-
+		boolean bienUsuario = Pattern.matches(comprobarUsuario, nomUsu);
 		boolean bienMail = Pattern.matches(comprobarMail, mail);
 		if (!bienMail) {
 			JOptionPane.showMessageDialog(null, "El mail no tiene el formato correcto", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		} else {
-
-			boolean existeUsuario = BaseDatos.buscarUsuario(con, nomUsu);
-			if (!existeUsuario) {
-				boolean existeMail = BaseDatos.buscarMailUsuario(con, mail);
-				if (!existeMail) {
-					BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
-					JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
-				JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese mail", "ERROR",
+			if (!bienUsuario) {
+				JOptionPane.showMessageDialog(null, "El usuario no tiene el formato correcto", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
-				
 			} else {
-				JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "ERROR",
-						JOptionPane.ERROR_MESSAGE);
+				boolean existeUsuario = BaseDatos.buscarUsuario(con, nomUsu);
+				if (!existeUsuario) {
+					boolean existeMail = BaseDatos.buscarMailUsuario(con, mail);
+					if (!existeMail) {
+						BaseDatos.insertarUsuario(con, nom, ape, mail, nomUsu, cont);
+						JOptionPane.showMessageDialog(null, "Registro realizado con éxito", "REGISTRADO",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese mail", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				
+				} else {
+					JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				txtNombre.setText("");
+				txtApellido.setText("");
+				txtMail.setText("");
+				txtCreaNombreUsuario.setText("");
+				txtCreaContrasenia.setText("");
 			}
-			txtNombre.setText("");
-			txtApellido.setText("");
-			txtMail.setText("");
-			txtCreaNombreUsuario.setText("");
-			txtCreaContrasenia.setText("");
 		}
 	}
 

@@ -196,7 +196,7 @@ public class VentanaAgenda extends JFrame {
 						null, TipoEventos.getTipoEventos().getTipos(), TipoEventos.getTipoEventos().getTipos()[0]);
 				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
 				int row = tabla.getSelectedRow();
-				Integer codigo = (Integer )modeloTabla.getValueAt(row, 0);
+				Integer codigo = (Integer)modeloTabla.getValueAt(row, 0);
 				BaseDatos.updateEvento(VentanaInicioSesion.con, String.valueOf(codigo), fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion));
 				JOptionPane.showMessageDialog(null, "El evento se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 				while(modeloTabla.getRowCount()>0) {
