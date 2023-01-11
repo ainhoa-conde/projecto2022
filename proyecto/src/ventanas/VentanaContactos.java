@@ -207,12 +207,12 @@ public class VentanaContactos extends JFrame{
 							String favorito;
 							if(JOptionPane.OK_OPTION == fav) {
 								favorito = "true";
-								BaseDatos.updateContacto(VentanaInicioSesion.con, 0, nombre, mail, telefono, favorito);
+								BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), nombre, mail, telefono, favorito);
 								JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 							
 							} else {
 								favorito = "false";
-								BaseDatos.updateContacto(VentanaInicioSesion.con, 0, nombre, mail, telefono, favorito);
+								BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), nombre, mail, telefono, favorito);
 								JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
 							
 							}
