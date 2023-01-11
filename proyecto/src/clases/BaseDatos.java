@@ -59,7 +59,7 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 		}
-		public static int getMaxCodigo(Connection con) {
+		public static int getMaxCodigoEvento(Connection con) {
 			String sql = "SELECT MAX(codigo) FROM evento";
 			int max = 0;
 			try (Statement st = con.createStatement();){
@@ -73,6 +73,22 @@ public class BaseDatos {
 			}
 			return max;
 		}
+		
+		public static int getMaxCodigoContacto(Connection con) {
+			String sql = "SELECT MAX(codigo) FROM contacto";
+			int max = 0;
+			try (Statement st = con.createStatement();){
+				ResultSet rs = st.executeQuery(sql);
+				if(rs.next()) {
+					max = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return max;
+		}
+		
 		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
 			try (Statement st = con.createStatement();){
@@ -84,7 +100,7 @@ public class BaseDatos {
 		}
 		
 		public static void insertarEvento(Connection con ,String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
-			int codigo = getMaxCodigo(con) + 1;
+			int codigo = getMaxCodigoEvento(con) + 1;
 			String sql = "INSERT INTO evento VALUES('"+codigo+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"','"+completo+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -95,7 +111,7 @@ public class BaseDatos {
 		}
 		
 		public static void insertarContacto(Connection con, String usuario, String nombre, String mail, String telf, String favorito) {
-			int codigo = getMaxCodigo(con) + 1;
+			int codigo = getMaxCodigoContacto(con) + 1;
 			String sql = "INSERT INTO contacto VALUES('"+codigo+"','"+usuario+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
@@ -143,21 +159,6 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 			return mailEncontrado;
-		}
-		
-		public static boolean buscarContacto(Connection con, String nombre) {
-			String sql = "SELECT * FROM contacto WHERE nombre='"+nombre+"'";
-			boolean contactoEncontrado = false;
-			try (Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery(sql);){
-				while(rs.next()) {
-					contactoEncontrado = true;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return contactoEncontrado;
 		}
 		
 		public static boolean buscarMailContacto(Connection con, String mail) {
@@ -388,8 +389,8 @@ public class BaseDatos {
 			}
 		}
 		
-		public static void updateContacto(Connection con, int codigo, String nombre, String mail, String telf, String favorito) {
-			String sentSQL = "UPDATE contacto SET nombre = '"+nombre+"', mail = '"+mail+"', telf = '"+telf+"', favorito = '"+favorito+"', WHERE codigo ='"+codigo+"";
+		public static void updateContacto(Connection con, int codigo, String usuario, String nombre, String mail, String telf, String favorito) {
+			String sentSQL = "UPDATE contacto SET nombre = '"+nombre+"', mail = '"+mail+"', telf = '"+telf+"', favorito = '"+favorito+"' WHERE codigo ="+codigo+" AND usuario = '"+usuario+"'";
 			try {
 				Statement st = con.createStatement();
 				st.executeUpdate(sentSQL);
