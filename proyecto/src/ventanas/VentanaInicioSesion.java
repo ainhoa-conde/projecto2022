@@ -19,6 +19,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -236,7 +237,7 @@ public class VentanaInicioSesion extends JFrame {
 		}
 		txtNombreUsuario.setText("");
 		txtContrasenia.setText("");
-
+		txtNombreUsuario.requestFocus();
 	}
 
 	private void registrarse() {
@@ -272,13 +273,14 @@ public class VentanaInicioSesion extends JFrame {
 					JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese nombre", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				txtNombre.setText("");
-				txtApellido.setText("");
-				txtMail.setText("");
-				txtCreaNombreUsuario.setText("");
-				txtCreaContrasenia.setText("");
 			}
 		}
+		txtNombre.setText("");
+		txtApellido.setText("");
+		txtMail.setText("");
+		txtCreaNombreUsuario.setText("");
+		txtCreaContrasenia.setText("");
+		txtNombre.requestFocus();
 	}
 
 	public static String nombreUsuario() {
