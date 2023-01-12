@@ -109,7 +109,7 @@ public class VentanaPrincipal extends JFrame {
 		JLabel lblEspacio2 = new JLabel("");
 		pIzqAbajo.add(lblEspacio2);
 		
-		JButton btnCerrar = new JButton("CERRAR");
+		JButton btnCerrar = new JButton("CERRAR SESIÓN");
 		pIzqAbajo.add(btnCerrar);
 		
 		JLabel lblEspacio3 = new JLabel("");
