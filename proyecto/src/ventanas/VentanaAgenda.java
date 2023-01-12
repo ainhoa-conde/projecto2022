@@ -246,16 +246,16 @@ public class VentanaAgenda extends JFrame {
 								cargarModelo();
 							}
 							else {
-								JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
 							}
 						}else {
-							JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
 						}
 					}else {
-						JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
 					}
 				}else {
-					JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
