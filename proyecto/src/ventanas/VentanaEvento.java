@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,12 +18,14 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import clases.BaseDatos;
+import clases.TipoEvento;
 
 public class VentanaEvento extends JFrame{
 
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtFecha;
+	private JComboBox<TipoEvento> comboEvento;
 	private JFrame ventanaActual, ventanaAnterior;
 	
 	private Connection con;
@@ -67,6 +70,23 @@ public class VentanaEvento extends JFrame{
 		txtNombre = new JTextField();
 		pCentralIzq.add(txtNombre);
 		txtNombre.setColumns(10);
+		
+		JLabel lblTipoEvento = new JLabel("TIPO DE EVENTO: ");
+		pCentralIzq.add(lblTipoEvento);
+		
+		comboEvento = new JComboBox<TipoEvento>(TipoEvento.values());
+		comboEvento.setSelectedIndex(-1);
+		
+		comboEvento.addActionListener(new ActionListener() {
+			
+			@Override
+		    public void actionPerformed(ActionEvent e) {
+		        TipoEvento selectedOption = (TipoEvento) comboEvento.getSelectedItem();
+		        // escribir el código para manejar la selección del usuario
+		    }
+		});
+		
+		pCentralIzq.add(comboEvento);
 		
 		
 		//Panel Drch

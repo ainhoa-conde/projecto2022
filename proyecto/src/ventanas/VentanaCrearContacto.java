@@ -80,7 +80,7 @@ public class VentanaCrearContacto extends JFrame{
 		pCentral.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JLabel lblFav = new JLabel("Añadir a favoritos:");
+		JLabel lblFav = new JLabel("AÑADIR A FAVORITOS:");
 		pCentral.add(lblFav);
 		
 		JLabel lblEspacio1 = new JLabel("");
