@@ -15,6 +15,7 @@ import clases.Utilidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -128,6 +129,8 @@ public class VentanaPrincipal extends JFrame {
 		pCentralDrch.add(pDrchArriba);
 		
 		JLabel lblCalendario = new JLabel("CALENDARIO");
+		lblCalendario.setPreferredSize(new Dimension(200, 30));
+		lblCalendario.setHorizontalAlignment(JLabel.CENTER);
 		pDrchArriba.add(lblCalendario);
 		
 		JPanel pDrchAbajo = new JPanel(new BorderLayout());
@@ -139,6 +142,7 @@ public class VentanaPrincipal extends JFrame {
 		modeloLista = new DefaultListModel<>();
 		lista = new JList<Evento>(modeloLista);
 		scrollLista = new JScrollPane(lista);
+		scrollLista.setPreferredSize(new Dimension(new Dimension(300, 200)));
 		pDrchArriba.add(scrollLista);
 		
 		//Eventos

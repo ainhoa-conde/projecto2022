@@ -120,6 +120,7 @@ public class VentanaContactos extends JFrame{
 		modeloTabla.setColumnIdentifiers(titulos);
 		cargarModelo();
 		pCentralDrch.add(scrollTabla);
+		tabla.getTableHeader().setReorderingAllowed(false);
 		
 		//Eventos
 		btnCerrar.addActionListener(new ActionListener() {

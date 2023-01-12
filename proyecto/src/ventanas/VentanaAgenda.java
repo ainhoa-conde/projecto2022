@@ -84,6 +84,7 @@ public class VentanaAgenda extends JFrame {
 		modeloTabla.setColumnIdentifiers(titulos);
 		cargarModelo();
 		pCentralIzq.add(scrollTabla);
+		tabla.getTableHeader().setReorderingAllowed(false);
 		
 		JPanel pCentralDch = new JPanel();
 		pCentral.add(pCentralDch);
@@ -158,19 +159,43 @@ public class VentanaAgenda extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String fecha = JOptionPane.showInputDialog("Introduce el la fecha del evento, siguiendo el formato yyyy/MM/dd: ", JOptionPane.QUESTION_MESSAGE);
-				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
-				Object[] eventos = TipoEventos.getTipoEventos().getTipos();
-				//BaseDatos.obtenerTodosTipoEventoUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre)
-				Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
-						null, TipoEventos.getTipoEventos().getTipos(), TipoEventos.getTipoEventos().getTipos()[0]);
-				String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
-				if(fecha!=null && nombre!=null && tipo!=null && duracion!=null) {
-					BaseDatos.insertarEvento(VentanaInicioSesion.con, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
-					JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-					while(modeloTabla.getRowCount()>0) {
-						modeloTabla.removeRow(0);
+				if(fecha!=null) {
+					String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo evento: ", JOptionPane.QUESTION_MESSAGE);
+					if(nombre!=null) {
+						Object[] eventosBase = TipoEventos.getTipoEventos().getTipos();
+						Object[] eventosUsuario = BaseDatos.obtenerTodosTipoEventoUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre).toArray();
+						Object [] todos = new Object[eventosBase.length+eventosUsuario.length];
+						int i=0;
+						for(Object o: eventosBase) {
+							todos[i++] = o;
+						}
+						for(Object o: eventosUsuario) {
+							todos[i++] = o;
+						}
+						Object tipo = JOptionPane.showInputDialog(null, "Elija el tipo de evento", "Nuevo evento", JOptionPane.QUESTION_MESSAGE,
+								null, todos, todos[0]);
+						if(tipo!=null) {
+							String duracion = JOptionPane.showInputDialog("Introduce la duración del evento: ", JOptionPane.QUESTION_MESSAGE);
+							if(duracion!=null) {
+								if(fecha!=null && nombre!=null && tipo!=null && duracion!=null) {
+									BaseDatos.insertarEvento(VentanaInicioSesion.con, VentanaInicioSesion.nombre, fecha, nombre, String.valueOf(tipo), Integer.parseInt(duracion), "false");
+									JOptionPane.showMessageDialog(null, "El evento se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+									while(modeloTabla.getRowCount()>0) {
+										modeloTabla.removeRow(0);
+									}
+									cargarModelo();
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
 					}
-					cargarModelo();
+				}else {
+					JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
