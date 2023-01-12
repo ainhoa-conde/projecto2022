@@ -82,6 +82,6 @@ public class Evento  {
 
 	@Override
 	public String toString() {
-		return codigo + " " + Utilidades.sdf.format(fecha) + " " + nombre + " " + tipo + " "+ completo;
+		return Utilidades.sdf.format(fecha) + " - " + nombre + " - " + tipo;
 	}	
 }
