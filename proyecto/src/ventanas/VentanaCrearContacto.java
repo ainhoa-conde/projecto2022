@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -68,16 +69,28 @@ public class VentanaCrearContacto extends JFrame{
 		JLabel lblMail = new JLabel("CORREO: ");
 		pCentral.add(lblMail);
 		
+		txtMail = new JTextField();
+		pCentral.add(txtMail);
+		txtMail.setColumns(10);
+		
+		JLabel lblTelefono = new JLabel("TELEFONO: ");
+		pCentral.add(lblTelefono);
+		
 		txtTelefono = new JTextField();
 		pCentral.add(txtTelefono);
 		txtTelefono.setColumns(10);
 		
-		JLabel lblTelefono = new JLabel("TELEFONO: ");
-		pCentral.add(lblTelefono);
-	
-		txtMail = new JTextField();
-		pCentral.add(txtMail);
-		txtMail.setColumns(10);
+		JLabel lblFav = new JLabel("Añadir a favoritos:");
+		pCentral.add(lblFav);
+		
+		JLabel lblEspacio1 = new JLabel("");
+		pCentral.add(lblEspacio1);
+		
+		JRadioButton radio_si = new JRadioButton("Si");
+		pCentral.add(radio_si);
+		
+		JRadioButton radio_no = new JRadioButton("No");
+		pCentral.add(radio_no);
 		
 		JPanel pSur = new JPanel();
 		contentPane.add(pSur, BorderLayout.SOUTH);
