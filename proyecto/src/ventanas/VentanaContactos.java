@@ -139,26 +139,44 @@ public class VentanaContactos extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String nombre = JOptionPane.showInputDialog("Introduce el nombre del nuevo contacto: ", JOptionPane.QUESTION_MESSAGE);
-				String mail = JOptionPane.showInputDialog("Introduce el mail del contacto: ", JOptionPane.QUESTION_MESSAGE);
-				String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);						boolean existeTelf = BaseDatos.buscartelefonoContacto(VentanaInicioSesion.con, telefono);
-				if(existeTelf) {
-					JOptionPane.showMessageDialog(null, "Ya existe un contacto con ese teléfono", "ERROR", JOptionPane.ERROR_MESSAGE);
-				} else {
-					int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
-					String favorito;
-					if(JOptionPane.OK_OPTION == fav) {
-						favorito = "true";
-						BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
-						JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+				if(nombre!=null) {
+					String mail = JOptionPane.showInputDialog("Introduce el mail del contacto: ", JOptionPane.QUESTION_MESSAGE);
+					if(mail!=null) {
+						String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);						
+						if(telefono!=null) {
+							boolean existeTelf = BaseDatos.buscartelefonoContacto(VentanaInicioSesion.con, telefono);
+							if(existeTelf) {
+								JOptionPane.showMessageDialog(null, "Ya existe un contacto con ese teléfono", "ERROR", JOptionPane.ERROR_MESSAGE);
+							} else {
+								int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
+								if(JOptionPane.CANCEL_OPTION != fav) {
+									String favorito;
+									if(JOptionPane.OK_OPTION == fav) {
+										favorito = "true";
+										BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
+										JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+									} else {
+										favorito = "false";
+										BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
+										JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+									}
+									while(modeloTabla.getRowCount()>0) {
+										modeloTabla.removeRow(0);
+									}
+									cargarModelo();
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+								}
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
+						}
 					} else {
-						favorito = "false";
-						BaseDatos.insertarContacto(VentanaInicioSesion.con, VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
-						JOptionPane.showMessageDialog(null, "El contacto se ha creado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
 					}
-					while(modeloTabla.getRowCount()>0) {
-						modeloTabla.removeRow(0);
-					}
-					cargarModelo();
+				} else {
+					JOptionPane.showMessageDialog(null, "Has cancelado la inserción","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 	});
@@ -181,28 +199,50 @@ public class VentanaContactos extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String nombre = JOptionPane.showInputDialog("Introduce el nuevo nombre del nuevo contacto: ", JOptionPane.QUESTION_MESSAGE);
-				String mail = JOptionPane.showInputDialog("Introduce el mail del contacto: ", JOptionPane.QUESTION_MESSAGE);
-				String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);
-				int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
-				String favorito;
-				if(JOptionPane.OK_OPTION == fav) {
-					favorito = "true";
-					BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
-					JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-					while(modeloTabla.getRowCount()>0) {
-						modeloTabla.removeRow(0);
+				if(nombre!=null) {
+					String mail = JOptionPane.showInputDialog("Introduce el mail del contacto: ", JOptionPane.QUESTION_MESSAGE);
+					if(mail!=null) {
+						String telefono = JOptionPane.showInputDialog("Introduce el telefono del contacto: ", JOptionPane.QUESTION_MESSAGE);
+						if(telefono!=null) {
+							boolean existeTelf = BaseDatos.buscartelefonoContacto(VentanaInicioSesion.con, telefono);
+							if(existeTelf) {
+								JOptionPane.showMessageDialog(null, "Ya existe un contacto con ese teléfono", "ERROR", JOptionPane.ERROR_MESSAGE);
+							} else {
+								int fav = JOptionPane.showConfirmDialog(null, "¿Quieres añadir este contacto a tus favoritos?");
+								if(JOptionPane.CANCEL_OPTION != fav) {
+									String favorito;
+									if(JOptionPane.OK_OPTION == fav) {
+										favorito = "true";
+										BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
+										JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+										while(modeloTabla.getRowCount()>0) {
+											modeloTabla.removeRow(0);
+										}
+										cargarModelo();
+									} else {
+										favorito = "false";
+										BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
+										JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
+										while(modeloTabla.getRowCount()>0) {
+											modeloTabla.removeRow(0);
+										}
+										cargarModelo();
+									}
+								}
+								else {
+									JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
+								}
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
 					}
-					cargarModelo();
 				} else {
-					favorito = "false";
-					BaseDatos.updateContacto(VentanaInicioSesion.con, al.get(filaSeleccionada).getCodigo(), VentanaInicioSesion.nombre, nombre, mail, telefono, favorito);
-					JOptionPane.showMessageDialog(null, "El contacto se ha actualizado correctamente", "¡Bien hecho!", JOptionPane.PLAIN_MESSAGE);
-					while(modeloTabla.getRowCount()>0) {
-						modeloTabla.removeRow(0);
-					}
-					cargarModelo();
+					JOptionPane.showMessageDialog(null, "Has cancelado la actualización","ERROR",JOptionPane.ERROR_MESSAGE);
 				}
-					}
+			}
 		});
 		
 		tabla.addMouseListener(new MouseAdapter() {
