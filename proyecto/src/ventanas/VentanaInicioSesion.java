@@ -244,7 +244,7 @@ public class VentanaInicioSesion extends JFrame {
 		String nom = txtNombre.getText();
 		String ape = txtApellido.getText();
 		String mail = txtMail.getText();
-		String comprobarUsuario= "[A-Za-z0-9]{3,}";
+		String comprobarUsuario= "[A-Za-z]{1,}";
 		String comprobarMail = "[A-Za-z0-9]{1,}[@]?[a-z]{1,}[.]?[a-z]{2,}";
 		String nomUsu = txtCreaNombreUsuario.getText();
 		String cont = txtCreaContrasenia.getText();
