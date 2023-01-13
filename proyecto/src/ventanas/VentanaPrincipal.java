@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JCalendar;
@@ -25,6 +26,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -146,6 +148,9 @@ public class VentanaPrincipal extends JFrame {
 		pDrchArriba.add(scrollLista);
 		
 		//Eventos
+		DefaultListCellRenderer render = (DefaultListCellRenderer)lista.getCellRenderer();
+		render.setHorizontalAlignment(SwingConstants .CENTER);
+		
 		btnCerrar.addActionListener(new ActionListener() {
 			
 			@Override
