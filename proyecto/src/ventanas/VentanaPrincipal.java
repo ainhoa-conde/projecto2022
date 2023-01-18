@@ -34,7 +34,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipal extends JFrame implements Runnable {
 
 	//Elementos de la ventana
 	private JPanel contentPane;
@@ -46,6 +46,14 @@ public class VentanaPrincipal extends JFrame {
 	private DefaultListModel<Evento> modeloLista;
 	private JScrollPane scrollLista;
 	
+	//Elementos para actualizar la imagen
+	private ImageIcon imagen;
+	private boolean f1 = true;
+	private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");;
+	private ImageIcon frame2 = new ImageIcon("imagenes/icono_proyecto");
+	private Thread t;
+	private JPanel panelTaskMan = new JPanel();
+	
 	
 	/**
 	 * Launch the application.
@@ -56,6 +64,7 @@ public class VentanaPrincipal extends JFrame {
 				try {
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setVisible(true);
+					//frame.animationThread();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -80,6 +89,7 @@ public class VentanaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		
 		//Panel Central: Contenedor para todos los elementos
 		JPanel pCentral = new JPanel();
 		contentPane.add(pCentral, BorderLayout.CENTER);
@@ -91,8 +101,12 @@ public class VentanaPrincipal extends JFrame {
 		//Panel Izq. Arriba: Imagen de TaskMan
 		JPanel pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
-		ImageIcon imagen1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-		JLabel pIzqImagen = new JLabel(imagen1);
+		//panelTaskMan.setPreferredSize(new Dimension(frame1.getIconWidth(), frame1.getIconHeight()));
+		//pCentralIzq.add(panelTaskMan);
+		
+		ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+		JLabel pIzqImagen = new JLabel(frame1);
+		//panelTaskMan.add(pIzqImagen);
 		pIzqArriba.add(pIzqImagen);
 		
 		//Panel Izq. Abajo: Botones "agenda", "contactos", "cerrar" y "eliminar usuario"
@@ -213,7 +227,40 @@ public class VentanaPrincipal extends JFrame {
 				}
 			}
 		});
+
 		
+	}
+	
+	public void animationThread() {
+		t = new Thread(this);
+		t.start();
+	}
+	
+	@Override
+	public void run(){
+		while(t != null) {
+			JLabel pIzqImagen;
+			
+			try {
+				t.sleep(1000);
+				if(f1 == true) {
+					pIzqImagen = new JLabel(frame2);
+					f1 = false;
+					panelTaskMan.add(pIzqImagen);
+					this.repaint();
+					System.out.println("prueba");
+					
+				} else {
+					pIzqImagen = new JLabel(frame1);
+					f1 = true;
+					System.out.println("false");
+					panelTaskMan.add(pIzqImagen);
+					this.repaint();
+				}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
 	}
 
 }
