@@ -48,9 +48,8 @@ public class VentanaPrincipal extends JFrame  {
 	
 	//Elementos para actualizar la imagen
 	private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-	private ImageIcon frame2 = new ImageIcon("imagenes/icono_proyecto");
+	private ImageIcon frame2 = new ImageIcon("imagenes/ventanaPrincipal1.png");
 	private JLabel imagen = new JLabel(frame1);
-	
 	private Thread t;
 	private JPanel pIzqArriba;
 	
@@ -99,7 +98,10 @@ public class VentanaPrincipal extends JFrame  {
 		
 		//Panel Izq. Arriba: Imagen de TaskMan
 		pIzqArriba = new JPanel();
+		//pIzqArriba.setSize(new Dimension(208, 253));
+		
 		pCentralIzq.add(pIzqArriba);
+		//imagen.setSize(new Dimension(208, 253));
 		pIzqArriba.add(imagen);
 		
 		
