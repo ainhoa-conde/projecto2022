@@ -18,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -99,6 +100,7 @@ public class VentanaPrincipal extends JFrame  {
 		//Panel Izq. Arriba: Imagen de TaskMan
 		pIzqArriba = new JPanel();
 		//pIzqArriba.setSize(new Dimension(208, 253));
+		frame2.getImage().getScaledInstance(208, 253, Image.SCALE_SMOOTH);
 		
 		pCentralIzq.add(pIzqArriba);
 		//imagen.setSize(new Dimension(208, 253));

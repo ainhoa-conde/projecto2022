@@ -34,6 +34,10 @@ public class BaseDatos {
 			return con;
 		}
 		
+		/** Cierra la base de datos
+		 * @param con	Conexion abierta de la base de datos
+		 */
+		
 		public static void closeBD(Connection con) {
 			if(con!=null) {
 				try {
@@ -45,6 +49,10 @@ public class BaseDatos {
 			}
 		}
 		
+		/**
+		 * Crea las tablas de la base de datos si no existen todavia.
+		 * @param con	Conexion creada con la base de datos.
+		 */
 		public static void crearTablas(Connection con) {
 			String sql1 = "CREATE TABLE IF NOT EXISTS usuario (nombre String, apellido String, mail String, nomUsuario String, contrasenia String)";
 			String sql2 = "CREATE TABLE IF NOT EXISTS evento (codigo String, usuario String,  fecha String, nombre String, tipo String, duracion Integer, completo String)";
@@ -60,6 +68,12 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 		}
+		
+		/**
+		 * Consigue el mayor codigo entre los eventos de la base de datos.
+		 * @param con	Conexion con la base de datos
+		 * @return max	Codigo mayor de los eventos
+		 */
 		public static int getMaxCodigoEvento(Connection con) {
 			String sql = "SELECT MAX(codigo) FROM evento";
 			int max = 0;
@@ -75,6 +89,12 @@ public class BaseDatos {
 			return max;
 		}
 		
+		
+		/**
+		 * Consigue el mayor codigo entre los contactos de la base de datos.
+		 * @param con	Conexion con la base de datos
+		 * @return max	Codigo mayor de los contactos
+		 */
 		public static int getMaxCodigoContacto(Connection con) {
 			String sql = "SELECT MAX(codigo) FROM contacto";
 			int max = 0;
@@ -90,6 +110,16 @@ public class BaseDatos {
 			return max;
 		}
 		
+		/**
+		 * Añade un usuario a la tabla Usuario, usando la sentencia INSERT de SQL desde los datos introducidos por el usuario
+		 * @param con	Conexion a la base de datos
+		 * @param nombre	Nombre del usuario
+		 * @param apellido	Apellido del usuario
+		 * @param mail		Direccion de correo electronico del usuario
+		 * @param nomUsuario	"Nickname" del usuario
+		 * @param contrasenia	Contraseña para acceder a la cuenta
+		 */
+		
 		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
 			try (Statement st = con.createStatement();){
@@ -99,6 +129,18 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 		}
+		
+		
+		/**
+		 * Añade un evento a la tabla Evento, usando la sentencia INSERT de SQL desde los datos introducidos por el usuario
+		 * @param con	Conexion con la base de datos
+		 * @param usuario	"Nickname" del usuario que crea el evento
+		 * @param fecha		Fecha en la que ocurre el evento
+		 * @param nombre	Nombre del evento
+		 * @param tipo		Tipo de evento
+		 * @param duracion	Duracion del evento
+		 * @param completo	Boolean para marcar si se ha realizado o no
+		 */
 		
 		public static void insertarEvento(Connection con ,String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
 			int codigo = getMaxCodigoEvento(con) + 1;
@@ -111,6 +153,16 @@ public class BaseDatos {
 			}
 		}
 		
+		/**
+		 * Añade un contacto a la tabla Contacto, usando la sentencia INSERT de SQL desde los datos introducidos por el usuario
+		 * @param con	Conexion con la base de datos
+		 * @param usuario	"Nickname" del usuario que crea el contacto
+		 * @param nombre	Nombre del contacto
+		 * @param mail		Correo electronico del contacto
+		 * @param telf		Telefono del contacto
+		 * @param favorito	Boolean para marcar si es un contacto favorito o no
+		 */
+		
 		public static void insertarContacto(Connection con, String usuario, String nombre, String mail, String telf, String favorito) {
 			int codigo = getMaxCodigoContacto(con) + 1;
 			String sql = "INSERT INTO contacto VALUES('"+codigo+"','"+usuario+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
@@ -122,6 +174,13 @@ public class BaseDatos {
 			}
 		}
 		
+		/**
+		 * Añade un tipo de evento a la tabla Tipo, usando la sentencia INSERT de SQL desde los datos introducidos por el usuario
+		 * @param con	Conexion con la base de datos
+		 * @param nombre	Nombre del tipo de evento a añadir
+		 * @param usuario	"Nickname" del usuario que crea el tipo de evento
+		 */
+		
 		public static void insertarTipoEvento(Connection con, String nombre, String usuario) {
 			String sql = "INSERT INTO tipo VALUES('"+nombre+"','"+usuario+"')";
 			try (Statement st = con.createStatement();){
@@ -131,6 +190,13 @@ public class BaseDatos {
 				e.printStackTrace();
 			}
 		}
+		
+		/**
+		 * Busca un usuario en la tabla Usuario, usando la sentencia SELECT de SQL y el "nickname" o nombre de usuario
+		 * @param con	Conexion con la base de datos
+		 * @param nomUsuario	"Nickname" del usuario
+		 * @return usuarioEncontrado	True si se ha encontrado un usuario con ese nick, si no false
+		 */
 		
 		public static boolean buscarUsuario(Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM usuario WHERE nomUsuario='"+nomUsuario+"'";
@@ -147,6 +213,14 @@ public class BaseDatos {
 			return usuarioEncontrado;
 		}
 		
+		
+		/**
+		 * Busca un usuario en la tabla Usuario, usando la sentencia SELECT de SQL y el correo del usuario
+		 * @param con	Conexion con la base de datos
+		 * @param mail	Correo electronico del usuario
+		 * @return mailEncontrado True si se ha encontrado un usuario con ese correo, si no false
+		 */
+		
 		public static boolean buscarMailUsuario(Connection con, String mail) {
 			String sql = "SELECT * FROM usuario WHERE mail='"+mail+"'";
 			boolean mailEncontrado = false;
@@ -162,6 +236,13 @@ public class BaseDatos {
 			return mailEncontrado;
 		}
 		
+		/**
+		 * Busca un contacto en la tabla Contacto, usando la sentencia SELECT de SQL y el telefono del contacto
+		 * @param con	Conexion con la base de datos
+		 * @param telf	Numero de telefono del contacto
+		 * @return telfEncontrado	True si se ha encontrado un contacto con ese telefono, si no false
+		 */
+		
 		public static boolean buscartelefonoContacto(Connection con, String telf) {
 			String sql = "SELECT * FROM contacto WHERE telf='"+telf+"'";
 			boolean telfEncontrado = false;
@@ -176,6 +257,13 @@ public class BaseDatos {
 			}
 			return telfEncontrado;
 		}
+		
+		/**
+		 * Obten un usuario de la tabla Usuario, usando la sentencia SELECT de SQL y el "nickname" o nombre del usuario
+		 * @param con	Conexion con la base de datos
+		 * @param nomUsuario	"Nickname" del usuario
+		 * @return u	Nuevo usuario con los datos de la tabla, con el mismo "nick" que el introducido
+		 */
 		
 		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM usuario WHERE nomUsuario='"+nomUsuario+"'";
@@ -198,6 +286,13 @@ public class BaseDatos {
 			return u;
 		}
 		
+		
+		/**
+		 * Devuelve una lista de eventos desde la tabla Evento, usando la sentencia SELECT de SQL y el usuario que ha creado los eventos
+		 * @param con	Conexion con la base de datos
+		 * @param usuario	"Nickname" del usuario que ha creado los eventos
+		 * @return ale	ArrayList con todos los eventos de un usuario
+		 */
 		
 		public static ArrayList<Evento> obtenerEventosUsuario (Connection con, String usuario) {
 			String sql = "SELECT * FROM evento WHERE usuario='"+usuario+"' ORDER BY fecha";
@@ -230,6 +325,13 @@ public class BaseDatos {
 			return ale;
 		}
 		
+		/**
+		 * Devuelve una lista de eventos desde la tabla Evento, usando la sentencia SELECT de SQL y el usuario que ha creado los eventos
+		 * @param con	Conexion con la base de datos
+		 * @param usuario	"Nickname" del usuario que ha creado los eventos
+		 * @return ale	ArrayList con todos los eventos de un usuario
+		 */
+		
 		public static ArrayList<Evento> obtenerEventosFechaUsuario (Connection con, String us, String fe) {
 			String sql = "SELECT * FROM evento WHERE fecha='"+fe+"' and usuario='"+us+"'";
 			ArrayList<Evento> ale = new ArrayList<>();
@@ -260,6 +362,14 @@ public class BaseDatos {
 			return ale;
 		}
 		
+		
+		/**
+		 * Devuelve un contacto desde la tabla Contacto, usando la sentencia SELECT de SQL y el nombre del contacto
+		 * @param con	Conexion con la base de datos
+		 * @param nombre	Nombre del contacto
+		 * @return c	Contacto creado con los datos de la base de datos
+		 */
+		
 		public static Contacto obtenerDatosContacto (Connection con, String nombre) {
 			String sql = "SELECT * FROM contacto WHERE nombre='"+nombre+"'";
 			Contacto c = null;
@@ -285,6 +395,13 @@ public class BaseDatos {
 			return c;
 		}
 		
+		
+		/**
+		 * Devuelve una lista de contactos de la tabla Contacto, usando la sentencia SELECT de SQL y el nombre de usuario que los ha creado
+		 * @param con	Conexion con la base de datos
+		 * @param usuario	Nombre del usuario que ha creado los contacto
+		 * @return	alc 	ArrayList con todos los contactos de un usuario
+		 */
 		public static ArrayList<Contacto> obtenerContactosUsuario (Connection con, String usuario) {
 			String sql = "SELECT * FROM contacto WHERE usuario='"+usuario+"'";
 			ArrayList<Contacto> alc = new ArrayList<>();
@@ -311,6 +428,14 @@ public class BaseDatos {
 			return alc;
 		}
 		
+		
+		/**
+		 * 
+		 * @param con
+		 * @param usuario
+		 * @return
+		 */
+		
 		public static ArrayList<String> obtenerTodosTipoEventoUsuario(Connection con, String usuario) {
 			String sql = "SELECT * FROM tipo WHERE usuario = '"+usuario+"'";
 			ArrayList<String> ate = new ArrayList<>();
@@ -328,6 +453,12 @@ public class BaseDatos {
 			return ate;
 		}
 		
+		
+		/**
+		 * Elimina un usuario de la tabla Usuario, usando la sentencia DELETE de SQL y el "nickname" del usuario
+		 * @param con	Conexion con la base de datos
+		 * @param nomUsu	"Nickname" del usuario
+		 */
 		public static void eliminarUsuario(Connection con, String nomUsu) {
 			String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsu+"'";
 			try {
@@ -340,6 +471,12 @@ public class BaseDatos {
 			}
 		}
 		
+		
+		/**
+		 * Elimina un contacto de la tabla Contacto, usando la sentencia DELETE de SQL y el nombre del contacto
+		 * @param con	Conexion con la base de datos
+		 * @param nombre	Nombre del contacto
+		 */
 		public static void eliminarContacto(Connection con, String nombre) {
 			String sentSQL = "DELETE FROM contacto WHERE nombre ='"+nombre+"'";
 			try {
@@ -352,6 +489,12 @@ public class BaseDatos {
 			}
 		}
 		
+		
+		/**
+		 * Elimina un evento de la tabla Evento, usando la sentencia DELETE de SQL y el codigo del evento
+		 * @param con	Conexion con la base de datos
+		 * @param codigo	Codigo del evento
+		 */
 		public static void eliminarEvento(Connection con, int codigo) {
 			String sentSQL = "DELETE FROM evento WHERE codigo ="+codigo;
 			try {
@@ -363,6 +506,16 @@ public class BaseDatos {
 			}
 		}
 		
+		
+		/**
+		 * Actualiza los valores de una de las filas de la tabla Evento, usando la funcion UPDATE de SQL y los datos introducidos por el usuario
+		 * @param con	Conexion con la base de datos
+		 * @param codigo	Codigo del evento
+		 * @param fecha		Fecha del evento
+		 * @param nombre	Nombre del evento
+		 * @param tipo		Tipo de evento
+		 * @param duracion	Duracion del evento
+		 */
 		public static void updateEvento(Connection con, String codigo, String fecha, String nombre, String tipo, int duracion) {
 			String sentSQL = "UPDATE evento SET fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = "+duracion+" WHERE codigo ='"+codigo+"'";
 			System.out.println(sentSQL);
@@ -375,6 +528,17 @@ public class BaseDatos {
 			}
 		}
 		
+		
+		/**
+		 * Actualiza los valores de una de las filas de la tabla Contacto, usando la funcion UPDATE de SQL y los datos introducidos por el usuario
+		 * @param con	Conexion con la base de datos
+		 * @param codigo	Codigo del contacto
+		 * @param usuario	"Nickname" del usuario que ha creado el contacto
+		 * @param nombre	Nombre del contacto
+		 * @param mail		Correo electronico del contacto
+		 * @param telf		Numero de telefono del contacto
+		 * @param favorito	Boolean para indicar si el contacto es favorito o no
+		 */
 		public static void updateContacto(Connection con, int codigo, String usuario, String nombre, String mail, String telf, String favorito) {
 			String sentSQL = "UPDATE contacto SET nombre = '"+nombre+"', mail = '"+mail+"', telf = '"+telf+"', favorito = '"+favorito+"' WHERE codigo ="+codigo+" AND usuario = '"+usuario+"'";
 			try {
@@ -386,6 +550,13 @@ public class BaseDatos {
 			}
 		}
 		
+		
+		/**
+		 * Actualiza el estado de un evento en la tabla Evento, usando la sentencia UPDATE de SQL y el codigo del evento
+		 * @param con	Conexion con la base de datos
+		 * @param codigo	Codigo del evento
+		 * @param estado	Boolean para indicar si el evento se ha completado o no
+		 */
 		public static void updateCompleto(Connection con, int codigo, boolean estado) {
 			String sentSQL;
 			if(estado)
@@ -402,6 +573,13 @@ public class BaseDatos {
 			}
 		}
 		
+		
+		/**
+		 * Devuelve el estado de un evento de la tabla Evento, usando la sentencia SELECT de SQL y el codigo del evento
+		 * @param con	Conexion con la base de datos
+		 * @param codigo	Codigo del evento
+		 * @return completo	Boolean para indicar si el evento ha sido completado o no
+		 */
 		public static boolean getCompleto(Connection con, int codigo) {
 			String sentSQL = "SELECT completo FROM evento WHERE codigo="+codigo;
 			boolean completo = false;
