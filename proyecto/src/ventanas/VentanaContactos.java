@@ -39,6 +39,15 @@ public class VentanaContactos extends JFrame{
 	
 	private ArrayList<Contacto> al;
 	
+	//Elementos para animacion
+		private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+		private ImageIcon frame2 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+		private JLabel imagen = new JLabel(frame1);
+		
+		private Thread t;
+		
+
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -75,9 +84,7 @@ public class VentanaContactos extends JFrame{
 		//Panel Izq. Arriba: Imagen de TaskMan
 		JPanel pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
-		ImageIcon imagen = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-		JLabel pnlIzqImagen = new JLabel(imagen);
-		pIzqArriba.add(pnlIzqImagen);
+		pIzqArriba.add(imagen);
 		
 		//Panel Izq. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pIzqAbajo = new JPanel();
@@ -263,6 +270,31 @@ public class VentanaContactos extends JFrame{
 			return label;
 			
 		});
+		
+		Runnable r = new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(true) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					imagen.setIcon(frame2);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					imagen.setIcon(frame1);				}
+			}
+		};
+		t = new Thread(r);
+		t.start();
 		
 	}
 	

@@ -40,7 +40,14 @@ public class VentanaAgenda extends JFrame {
 	private JScrollPane scrollTabla;
 	
 	private int filaSeleccionada = -1;
-
+	
+	//Elementos para animacion
+	private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+	private ImageIcon frame2 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+	private JLabel imagen = new JLabel(frame1);
+	
+	private Thread t;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -92,9 +99,7 @@ public class VentanaAgenda extends JFrame {
 		//Panel Dch. Arriba: Imagen TaskMan
 		JPanel pDchArriba = new JPanel();
 		pCentralDch.add(pDchArriba);
-		ImageIcon imagen = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-		JLabel pDchImagen = new JLabel(imagen);
-		pDchArriba.add(pDchImagen);
+		pDchArriba.add(imagen);
 		
 		//Panel Dch. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pDchAbajo = new JPanel();
@@ -325,6 +330,31 @@ public class VentanaAgenda extends JFrame {
 			}
 		});
 		
+		Runnable r = new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(true) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					imagen.setIcon(frame2);
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					imagen.setIcon(frame1);				}
+			}
+		};
+		t = new Thread(r);
+		t.start();
+		
 	}
 	
 	private void addCheckBox(int col, JTable t) {
@@ -344,4 +374,6 @@ public class VentanaAgenda extends JFrame {
 			f++;
 		}
 	}
+	
+	
 }
