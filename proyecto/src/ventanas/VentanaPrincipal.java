@@ -48,8 +48,8 @@ public class VentanaPrincipal extends JFrame  {
 	private JScrollPane scrollLista;
 	
 	//Elementos para actualizar la imagen
-	private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-	private ImageIcon frame2 = new ImageIcon("imagenes/ventanaPrincipal1.png");
+	private ImageIcon frame1 = new ImageIcon("imagenes/ventanaPrincipal1.png");
+	private ImageIcon frame2 = new ImageIcon("imagenes/ventanaPrincipal2.png");
 	private JLabel imagen = new JLabel(frame1);
 	private Thread t;
 	private JPanel pIzqArriba;
@@ -99,13 +99,13 @@ public class VentanaPrincipal extends JFrame  {
 		
 		//Panel Izq. Arriba: Imagen de TaskMan
 		pIzqArriba = new JPanel();
-		//pIzqArriba.setSize(new Dimension(208, 253));
-		frame2.getImage().getScaledInstance(208, 253, Image.SCALE_SMOOTH);
-		
 		pCentralIzq.add(pIzqArriba);
-		//imagen.setSize(new Dimension(208, 253));
-		pIzqArriba.add(imagen);
 		
+		imagen.setSize(400, 253);
+		
+		ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
+		imagen.setIcon(imagenDimension);
+		pIzqArriba.add(imagen);
 		
 		
 		//Panel Izq. Abajo: Botones "agenda", "contactos", "cerrar" y "eliminar usuario"
@@ -238,14 +238,16 @@ public class VentanaPrincipal extends JFrame  {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					imagen.setIcon(frame2);
+					ImageIcon imagen2 = new ImageIcon(frame2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
+					imagen.setIcon(imagen2);
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					imagen.setIcon(frame1);				}
+					ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
+					imagen.setIcon(imagenDimension);			}
 			}
 		};
 		t = new Thread(r);
