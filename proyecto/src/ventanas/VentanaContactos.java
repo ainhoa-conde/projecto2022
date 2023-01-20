@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,6 +85,10 @@ public class VentanaContactos extends JFrame{
 		//Panel Izq. Arriba: Imagen de TaskMan
 		JPanel pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
+		
+		imagen.setSize(400, 260);
+		ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
+		imagen.setIcon(imagenDimension);
 		pIzqArriba.add(imagen);
 		
 		//Panel Izq. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
@@ -296,14 +301,15 @@ public class VentanaContactos extends JFrame{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					imagen.setIcon(frame2);
+					ImageIcon imagen2 = new ImageIcon(frame2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
+					imagen.setIcon(imagen2);
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					imagen.setIcon(frame1);				}
+					imagen.setIcon(imagenDimension);				}
 			}
 		};
 		t = new Thread(r);

@@ -101,7 +101,7 @@ public class VentanaPrincipal extends JFrame  {
 		pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
 		
-		imagen.setSize(400, 253);
+		imagen.setSize(400, 260);
 		
 		ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
 		imagen.setIcon(imagenDimension);
@@ -246,7 +246,6 @@ public class VentanaPrincipal extends JFrame  {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
 					imagen.setIcon(imagenDimension);			}
 			}
 		};
