@@ -27,7 +27,6 @@ import javax.swing.table.TableColumn;
 
 import clases.BaseDatos;
 import clases.Evento;
-import clases.TipoEvento;
 import clases.TipoEventos;
 
 public class VentanaAgenda extends JFrame {
