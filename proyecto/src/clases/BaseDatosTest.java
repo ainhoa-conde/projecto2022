@@ -28,15 +28,18 @@ public class BaseDatosTest {
 		
 		assertEquals(BaseDatos.obtenerEventosUsuario(con, "ane").size(), 0);
 		
+		int codigo = BaseDatos.getMaxCodigoEvento(con);
+		
 		for(int i = 1; i <= 5; i++) {
 			BaseDatos.insertarEvento(con, "ane", "2023/01/01", "evento"+i, "tipo", 1, "false");
 		}
 		
 		assertEquals(BaseDatos.obtenerEventosUsuario(con, "ane").size(), 5);
+		assertEquals(BaseDatos.getMaxCodigoEvento(con), codigo + 5);
 		
-		BaseDatos.eliminarEvento(con, 15); //previamente hay 14 eventos cargados para pruebas
+		BaseDatos.eliminarEvento(con, codigo + 5); //previamente hay 14 eventos cargados para pruebas
 		assertEquals(BaseDatos.obtenerEventosUsuario(con, "ane").size(), 4);
-		BaseDatos.eliminarUsuario(con, "ane");
+		
 	}
 	
 	@After

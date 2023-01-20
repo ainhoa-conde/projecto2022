@@ -461,6 +461,16 @@ public class BaseDatos {
 		public static void eliminarUsuario(Connection con, String nomUsu) {
 			String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsu+"'";
 			try {
+				ArrayList<Evento> lEventos = obtenerEventosUsuario(con, nomUsu);
+				ArrayList<Contacto> lContactos = obtenerContactosUsuario(con, nomUsu);
+				
+				for(Evento e: lEventos) {
+					eliminarEvento(con, e.getCodigo());
+				}
+				for(Contacto c: lContactos) {
+					eliminarContacto(con, c.getNombre());
+				}
+				
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
