@@ -120,7 +120,12 @@ public class VentanaContactos extends JFrame{
 		JPanel pDrchArriba = new JPanel();
 		pCentralDrch.add(pDrchArriba);
 				
-		modeloTabla = new DefaultTableModel();
+		modeloTabla = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) { 
+				return false;
+			}
+		};
 		tabla = new JTable(modeloTabla);
 		scrollTabla = new JScrollPane(tabla);
 		String [] titulos = {"NOMBRE", "MAIL", "TELÉFONO"};

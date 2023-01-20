@@ -84,7 +84,12 @@ public class VentanaAgenda extends JFrame {
 		pCentral.add(pCentralIzq);
 		
 				
-		modeloTabla = new DefaultTableModel();
+		modeloTabla = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) { 
+				return false;
+			}
+		};
 		tabla = new JTable(modeloTabla);
 		scrollTabla = new JScrollPane(tabla);
 		String [] titulos = {"CÓDIGO","NOMBRE","FECHA","DURACIÓN","TIPO", "COMPLETO"};
