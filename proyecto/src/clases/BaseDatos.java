@@ -470,7 +470,6 @@ public class BaseDatos {
 				for(Contacto c: lContactos) {
 					eliminarContacto(con, c.getNombre());
 				}
-				
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
