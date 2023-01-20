@@ -41,8 +41,8 @@ public class VentanaAgenda extends JFrame {
 	private int filaSeleccionada = -1;
 	
 	//Elementos para animacion
-	private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-	private ImageIcon frame2 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+	private ImageIcon frame1 = new ImageIcon("imagenes/ventanaAgenda1.png");
+	private ImageIcon frame2 = new ImageIcon("imagenes/ventanaAgenda2.png");
 	private JLabel imagen = new JLabel(frame1);
 	
 	private Thread t;

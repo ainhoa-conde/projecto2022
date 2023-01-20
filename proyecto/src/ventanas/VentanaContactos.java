@@ -40,8 +40,8 @@ public class VentanaContactos extends JFrame{
 	private ArrayList<Contacto> al;
 	
 	//Elementos para animacion
-		private ImageIcon frame1 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
-		private ImageIcon frame2 = new ImageIcon("imagenes/imagenventanaInicioSesion.png");
+		private ImageIcon frame1 = new ImageIcon("imagenes/ventanaContactos1.png");
+		private ImageIcon frame2 = new ImageIcon("imagenes/ventanaContactos2.png");
 		private JLabel imagen = new JLabel(frame1);
 		
 		private Thread t;
