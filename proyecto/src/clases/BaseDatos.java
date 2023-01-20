@@ -138,7 +138,7 @@ public class BaseDatos {
 		 * @param nombre	Nombre del evento
 		 * @param tipo		Tipo de evento
 		 * @param duracion	Duracion del evento
-		 * @param completo	Boolean para marcar si se ha realizado o no
+		 * @param completo	Marcador para saber si el evento se ha completado o no
 		 */
 		
 		public static void insertarEvento(Connection con ,String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
@@ -159,7 +159,7 @@ public class BaseDatos {
 		 * @param nombre	Nombre del contacto
 		 * @param mail		Correo electronico del contacto
 		 * @param telf		Telefono del contacto
-		 * @param favorito	Boolean para marcar si es un contacto favorito o no
+		 * @param favorito	Marcar si es un contacto favorito o no
 		 */
 		
 		public static void insertarContacto(Connection con, String usuario, String nombre, String mail, String telf, String favorito) {
