@@ -103,7 +103,13 @@ public class VentanaAgenda extends JFrame {
 		//Panel Dch. Arriba: Imagen TaskMan
 		JPanel pDchArriba = new JPanel();
 		pCentralDch.add(pDchArriba);
+		
+		JLabel info = new JLabel("<html><body>Selecciona un evento antes<br>de borrar o editarlo.</body></html>");
+		info.setOpaque(true);
+		info.setBackground(new Color(114, 229, 245));
+		
 		pDchArriba.add(imagen);
+		pDchArriba.add(info);
 		
 		//Panel Dch. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pDchAbajo = new JPanel();
