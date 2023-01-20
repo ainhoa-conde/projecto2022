@@ -309,9 +309,18 @@ public class VentanaAgenda extends JFrame {
 			if(valor==true) {
 				label.setOpaque(true);
 				label.setBackground(new Color(112, 219, 147));
+			
 			}else {
 				label.setOpaque(true);
 				label.setBackground(new Color(255, 64, 64));
+			}
+			if(isSelected && valor==true) {
+				label.setOpaque(true);
+				label.setBackground(Color.GREEN);
+			}
+			if(isSelected && valor==false) {
+				label.setOpaque(true);
+				label.setBackground(Color.RED);
 			}
 			return label;
 			

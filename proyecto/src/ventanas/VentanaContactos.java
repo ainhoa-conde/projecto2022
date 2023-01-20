@@ -267,6 +267,14 @@ public class VentanaContactos extends JFrame{
 				label.setOpaque(true);
 				label.setBackground(new Color(201, 100, 217));
 			}
+			if(isSelected && valor==true) {
+				label.setOpaque(true);
+				label.setBackground(Color.PINK);
+			}
+			if(isSelected && valor==false) {
+				label.setOpaque(true);
+				label.setBackground(Color.LIGHT_GRAY);
+			}
 			return label;
 			
 		});
