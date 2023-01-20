@@ -321,11 +321,11 @@ public class VentanaAgenda extends JFrame {
 			}
 			if(isSelected && valor==true) {
 				label.setOpaque(true);
-				label.setBackground(Color.GREEN);
+				label.setBackground(new Color(23, 188, 77));
 			}
 			if(isSelected && valor==false) {
 				label.setOpaque(true);
-				label.setBackground(Color.RED);
+				label.setBackground(new Color(225, 7, 7));
 			}
 			return label;
 			

@@ -274,11 +274,11 @@ public class VentanaContactos extends JFrame{
 			}
 			if(isSelected && valor==true) {
 				label.setOpaque(true);
-				label.setBackground(Color.PINK);
+				label.setBackground(new Color(186, 32, 210));
 			}
 			if(isSelected && valor==false) {
 				label.setOpaque(true);
-				label.setBackground(Color.LIGHT_GRAY);
+				label.setBackground(new Color(194, 179, 196));
 			}
 			return label;
 			
