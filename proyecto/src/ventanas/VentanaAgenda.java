@@ -41,7 +41,7 @@ public class VentanaAgenda extends JFrame {
 	
 	private int filaSeleccionada = -1;
 	
-	//Elementos para animacion
+	//Elementos visuales
 	private ImageIcon frame1 = new ImageIcon("imagenes/ventanaAgenda1.png");
 	private ImageIcon frame2 = new ImageIcon("imagenes/ventanaAgenda2.png");
 	private JLabel imagen = new JLabel(frame1);
@@ -299,7 +299,7 @@ public class VentanaAgenda extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int confirmacion = JOptionPane.showConfirmDialog(btnEliminarTodosEventos, "¿Está seguro de que quiere eliminar todos los datos?");
-				if(confirmacion==0) {
+				if(confirmacion==JOptionPane.YES_OPTION) {
 					while(modeloTabla.getRowCount()>0) {
 						modeloTabla.removeRow(0);
 					}
