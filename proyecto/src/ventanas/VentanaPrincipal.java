@@ -170,7 +170,7 @@ public class VentanaPrincipal extends JFrame  {
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior = new VentanaInicioSesion();
 				ventanaActual = VentanaPrincipal.this;
-				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "REGISTRADO", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Cerrando sesión...", "CERRANDO SESIÓN", JOptionPane.INFORMATION_MESSAGE);
 				ventanaAnterior.setVisible(true);
 				ventanaActual.dispose();
 			}

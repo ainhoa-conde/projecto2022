@@ -24,6 +24,8 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.util.regex.Pattern;
 import java.awt.Color;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
@@ -89,6 +91,7 @@ public class VentanaInicioSesion extends JFrame {
 		pNorte.setLayout(new GridLayout(1, 0, 0, 0));
 
 		JLabel lblNorteIzq = new JLabel("INICIO SESIÓN");
+		lblNorteIzq.setOpaque(false);
 		lblNorteIzq.setBackground(new Color(240, 240, 240));
 		lblNorteIzq.setForeground(new Color(128, 0, 255));
 		lblNorteIzq.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
