@@ -366,7 +366,6 @@ public class VentanaAgenda extends JFrame {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					ImageIcon imagen2 = new ImageIcon(frame2.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
@@ -374,7 +373,6 @@ public class VentanaAgenda extends JFrame {
 					try {
 						Thread.sleep(500);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					imagen.setIcon(imagenDimension);				}
@@ -385,12 +383,20 @@ public class VentanaAgenda extends JFrame {
 		
 	}
 	
+	/**
+	 * Añadir checkboxes en la columna indicada
+	 * @param col	Columna de la tabla
+	 * @param t		Tabla a la que añadir los checkboxes
+	 */
 	private void addCheckBox(int col, JTable t) {
 		TableColumn tc = t.getColumnModel().getColumn(col);
 		tc.setCellEditor(t.getDefaultEditor(Boolean.class));
 		tc.setCellRenderer(t.getDefaultRenderer(Boolean.class));
 	}
 	
+	/**
+	 * Cargar la tabla con los datos de la base de datos
+	 */
 	private void cargarModelo() {
 		ArrayList<Evento> a = BaseDatos.obtenerEventosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
 		int f = 0;

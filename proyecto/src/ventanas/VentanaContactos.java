@@ -322,7 +322,9 @@ public class VentanaContactos extends JFrame{
 		
 	}
 	
-	//Función que carga los contactoa a la lista
+	/**
+	 * Cargar la tabla con los datos de la base de datos
+	 */
 	private void cargarModelo() {
 		al = BaseDatos.obtenerContactosUsuario(VentanaInicioSesion.con, VentanaInicioSesion.nombre);
 		for(Contacto c: al) {

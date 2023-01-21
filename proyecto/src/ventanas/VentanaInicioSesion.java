@@ -219,6 +219,9 @@ public class VentanaInicioSesion extends JFrame {
 	
 	}
 
+	/**
+	 * Iniciar sesion del usuario con los datos ingresados en la ventana
+	 */
 	private void iniciarSesion() {
 		String nomUsu = txtNombreUsuario.getText();
 		String contra = txtContrasenia.getText();
@@ -242,6 +245,9 @@ public class VentanaInicioSesion extends JFrame {
 		txtNombreUsuario.requestFocus();
 	}
 
+	/**
+	 * Registrar el usuario con los datos ingresados
+	 */
 	private void registrarse() {
 		String nom = txtNombre.getText();
 		String ape = txtApellido.getText();
@@ -286,6 +292,10 @@ public class VentanaInicioSesion extends JFrame {
 		txtNombre.requestFocus();
 	}
 
+	/**
+	 * Guardar el nombre del usuario para poder acceder a el desde otras ventanas
+	 * @return nombre	"Nickname" del usuario
+	 */
 	public static String nombreUsuario() {
 		return nombre;
 	}

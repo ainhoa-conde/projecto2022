@@ -438,10 +438,10 @@ public class BaseDatos {
 		
 		
 		/**
-		 * 
-		 * @param con
-		 * @param usuario
-		 * @return
+		 * Devuelve una lista de todos los tipos de evento creados por el usuario, usando la sentencia SELECT de SQL y el nombre de usuario que los ha creado
+		 * @param con	Conexion con la base de datos
+		 * @param usuario	"Nickname" del usuario que ha creado los eventos
+		 * @return ate 		ArrayList con todos los tipos de evento creados por el usuario
 		 */
 		
 		public static ArrayList<String> obtenerTodosTipoEventoUsuario(Connection con, String usuario) {

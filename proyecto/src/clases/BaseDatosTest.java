@@ -13,13 +13,22 @@ import ventanas.VentanaInicioSesion;
 
 public class BaseDatosTest {
 	Connection con ;
-	VentanaInicioSesion vi = new VentanaInicioSesion();
 	
+	/*Abrir conexion con la base de datos y creacion de las tablas
+	 */
 	@Before
 	public void setUp() {
 		con = BaseDatos.initBD("proyecto.db");
+		BaseDatos.crearTablas(con);
 	}
 	
+	/*Tests de la clase eventos
+	 * 1. Comprobar que al crear un usuario no tiene ningun evento
+	 * 2. Al insertar 5 eventos, comprobar que el usuario tiene el numero correcto de eventos
+	 * 3. Asegurar que el mayor codigo mayor de los eventos se ha actualizado
+	 * 4. Comprobar que la operacion para actualizar el estado funciona
+	 * 5. Comprobar que los eventos se eliminan correctamente
+	 */
 	@Test
 	public void eventosTest() {
 		
@@ -45,7 +54,12 @@ public class BaseDatosTest {
 		BaseDatos.eliminarUsuario(con, "ane");
 	}
 	
-	
+	/*Tests de la clase contactos
+	 * 1. Comprobar que al crear un usuario no tiene ningun contacto
+	 * 2. Al insertar 5 contactos, comprobar que el usuario tiene el numero correcto de contactos
+	 * 3. Asegurar que el mayor codigo mayor de los contactos se ha actualizado
+	 * 4. Comprobar que los contactos se eliminan correctamente
+	 */
 	@Test
 	public void contactosTest() {
 		BaseDatos.insertarUsuario(con, "Ane", "Conde", "ane@gmail.com","ane", "123");
@@ -65,6 +79,8 @@ public class BaseDatosTest {
 		BaseDatos.eliminarUsuario(con, "ane");
 	}
 	
+	/*Cerrar conexion con la base de datos
+	 */
 	@After
 	public void tearDown() {
 		BaseDatos.closeBD(con);
