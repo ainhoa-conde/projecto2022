@@ -114,7 +114,7 @@ public class VentanaAgenda extends JFrame {
 		
 		JLabel info = new JLabel("<html><body>Selecciona un evento antes<br>de borrar o editarlo.</body></html>");
 		info.setOpaque(true);
-		info.setBackground(new Color(114, 229, 245));
+		info.setBackground(new Color(152, 232, 193));
 		
 		pDchArriba.add(imagen);
 		pDchArriba.add(info);
@@ -326,19 +326,19 @@ public class VentanaAgenda extends JFrame {
 			boolean valor = (Boolean) modeloTabla.getValueAt(row, 5);
 			if(valor==true) {
 				label.setOpaque(true);
-				label.setBackground(new Color(112, 219, 147));
+				label.setBackground(new Color(255, 154, 86));
 			
 			}else {
 				label.setOpaque(true);
-				label.setBackground(new Color(255, 64, 64));
+				label.setBackground(new Color(209, 98, 164));
 			}
 			if(isSelected && valor==true) {
 				label.setOpaque(true);
-				label.setBackground(new Color(23, 188, 77));
+				label.setBackground(new Color(239, 118, 39));
 			}
 			if(isSelected && valor==false) {
 				label.setOpaque(true);
-				label.setBackground(new Color(225, 7, 7));
+				label.setBackground(new Color(181, 86, 144));
 			}
 			return label;
 			

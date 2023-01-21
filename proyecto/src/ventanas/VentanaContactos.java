@@ -88,7 +88,7 @@ public class VentanaContactos extends JFrame{
 		
 		JLabel info = new JLabel("<html><body>Selecciona un<br>contacto antes de borrar<br>o editarlo.</body></html>");
 		info.setOpaque(true);
-		info.setBackground(new Color(114, 229, 245));
+		info.setBackground(new Color(152, 232, 193));
 		
 		imagen.setSize(400, 260);
 		ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
@@ -280,15 +280,15 @@ public class VentanaContactos extends JFrame{
 			boolean valor = al.get(row).isFavorito();
 			if(valor==true) {
 				label.setOpaque(true);
-				label.setBackground(new Color(201, 100, 217));
+				label.setBackground(new Color(85, 205, 252));
 			}
 			if(isSelected && valor==true) {
 				label.setOpaque(true);
-				label.setBackground(new Color(186, 32, 210));
+				label.setBackground(new Color(94, 185, 221));
 			}
 			if(isSelected && valor==false) {
 				label.setOpaque(true);
-				label.setBackground(new Color(194, 179, 196));
+				label.setBackground(new Color(178, 221, 238));
 			}
 			return label;
 			

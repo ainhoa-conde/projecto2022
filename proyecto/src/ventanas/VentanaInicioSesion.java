@@ -92,15 +92,11 @@ public class VentanaInicioSesion extends JFrame {
 
 		JLabel lblNorteIzq = new JLabel("INICIO SESIÓN");
 		lblNorteIzq.setOpaque(false);
-		lblNorteIzq.setBackground(new Color(240, 240, 240));
-		lblNorteIzq.setForeground(new Color(128, 0, 255));
-		lblNorteIzq.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
+		lblNorteIzq.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pNorte.add(lblNorteIzq);
 
 		JLabel lblNorteDrch = new JLabel("RESGISTRO");
-		lblNorteDrch.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
-		lblNorteDrch.setForeground(new Color(128, 0, 255));
-		lblNorteDrch.setBackground(new Color(255, 255, 255));
+		lblNorteDrch.setFont(new Font("Tahoma", Font.BOLD, 16));
 		pNorte.add(lblNorteDrch);
 
 		// Panel Sur: botones de inicio sesión + registro
@@ -109,7 +105,7 @@ public class VentanaInicioSesion extends JFrame {
 
 		JButton btnInicioSesion = new JButton("INICIAR SESIÓN");
 		btnInicioSesion.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnInicioSesion.setBackground(new Color(0, 128, 255));
+		btnInicioSesion.setBackground(new Color(123, 173, 226));
 		pSur.add(btnInicioSesion);
 
 		btnInicioSesion.addActionListener(new ActionListener() {
@@ -122,8 +118,7 @@ public class VentanaInicioSesion extends JFrame {
 
 		JButton btnRegistrar = new JButton("REGISTRAR");
 		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnRegistrar.setBackground(new Color(0, 128, 255));
-		btnRegistrar.setForeground(new Color(0, 0, 0));
+		btnRegistrar.setBackground(new Color(123, 173, 226));
 		pSur.add(btnRegistrar);
 
 		btnRegistrar.addActionListener(new ActionListener() {
