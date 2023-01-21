@@ -64,7 +64,7 @@ public class VentanaAgenda extends JFrame {
 	
 	public VentanaAgenda() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 600);
+		setBounds(80, 80, 1200, 600);
 		setTitle("Agenda");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
 		contentPane = new JPanel();
