@@ -205,11 +205,14 @@ public class VentanaPrincipal extends JFrame  {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ventanaSiguiente = new VentanaInicioSesion();
-				ventanaActual = VentanaPrincipal.this;
-				BaseDatos.eliminarUsuario(BaseDatos.initBD("proyecto.db"), VentanaInicioSesion.nombreUsuario());
-				ventanaSiguiente.setVisible(true);
-				ventanaActual.dispose();		
+				int confirmacion = JOptionPane.showConfirmDialog(null, "¿De verdad quieres eliminar la cuenta?", "Eliminar la cuenta", JOptionPane.YES_NO_OPTION);
+				if(confirmacion != JOptionPane.NO_OPTION) {
+					ventanaSiguiente = new VentanaInicioSesion();
+					ventanaActual = VentanaPrincipal.this;
+					BaseDatos.eliminarUsuario(BaseDatos.initBD("proyecto.db"), VentanaInicioSesion.nombreUsuario());
+					ventanaSiguiente.setVisible(true);
+					ventanaActual.dispose();
+				}		
 			}
 		});
 		
