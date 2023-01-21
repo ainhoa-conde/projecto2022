@@ -64,7 +64,7 @@ public class VentanaContactos extends JFrame{
 	
 	public VentanaContactos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 560);
+		setBounds(100, 100, 1100, 560);
 		setTitle("Contactos");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
 		contentPane = new JPanel();
@@ -80,16 +80,21 @@ public class VentanaContactos extends JFrame{
 		pCentral.setLayout(new GridLayout(1, 2, 0, 0));
 		
 		JPanel pCentralIzq = new JPanel();
-		pCentral.add(pCentralIzq);
+		pCentral.add(pCentralIzq, BorderLayout.WEST);
 		
-		//Panel Izq. Arriba: Imagen de TaskMan
+		//Panel Izq. Arriba: Imagen de TaskMan y JLabel de infromación
 		JPanel pIzqArriba = new JPanel();
 		pCentralIzq.add(pIzqArriba);
+		
+		JLabel info = new JLabel("<html><body>Selecciona un<br>contacto antes de borrar<br>o editarlo.</body></html>");
+		info.setOpaque(true);
+		info.setBackground(new Color(114, 229, 245));
 		
 		imagen.setSize(400, 260);
 		ImageIcon imagenDimension = new ImageIcon(frame1.getImage().getScaledInstance(imagen.getWidth(), imagen.getHeight(), Image.SCALE_DEFAULT));
 		imagen.setIcon(imagenDimension);
-		pIzqArriba.add(imagen);
+		pIzqArriba.add(imagen, BorderLayout.WEST);
+		pIzqArriba.add(info, BorderLayout.EAST);
 		
 		//Panel Izq. Abajo: Botones "añadir", "eliminar", "editar" y "cerrar"
 		JPanel pIzqAbajo = new JPanel();
@@ -119,7 +124,7 @@ public class VentanaContactos extends JFrame{
 		
 		//Panel Drch
 		JPanel pCentralDrch = new JPanel();
-		pCentral.add(pCentralDrch);
+		pCentral.add(pCentralDrch, BorderLayout.EAST);
 				
 		//Panel Drch. Arriba: Lista de contactos
 		JPanel pDrchArriba = new JPanel();
