@@ -8,8 +8,12 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BaseDatos {
+	
+	private static Logger logger = Logger.getLogger("BaseDatos");
 
 		/**
 		 * Método que realiza la conexión con la base de datos
@@ -19,15 +23,16 @@ public class BaseDatos {
 		public static Connection initBD(String nombreBD) {
 			Connection con = null;
 			try {
+				logger.log(Level.INFO, "Carga de librería org.sqlite.JDBC");
 				Class.forName("org.sqlite.JDBC");
+				logger.log(Level.INFO, "Abriendo conexión con " + nombreBD);
 				con = DriverManager.getConnection("jdbc:sqlite:"+nombreBD);
-						
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepcón", e);
 			}
 			
 			return con;
@@ -40,10 +45,10 @@ public class BaseDatos {
 		public static void closeBD(Connection con) {
 			if(con!=null) {
 				try {
+					logger.log(Level.INFO, "Cerrando conexión");
 					con.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.log(Level.SEVERE, "Excepción", e);
 				}
 			}
 		}
@@ -58,13 +63,19 @@ public class BaseDatos {
 			String sql3 = "CREATE TABLE IF NOT EXISTS contacto (codigo String, usuario String, nombre String, mail String, telf String, favorito String)";
 			String sql4 = "CREATE TABLE IF NOT EXISTS tipo (nombre String, usuario String)";
 			try (Statement st = con.createStatement();){
+				logger.log(Level.INFO, "Statement: " + sql1);
 				st.executeUpdate(sql1);
+				
+				logger.log(Level.INFO, "Statement: " + sql2);
 				st.executeUpdate(sql2);
+				
+				logger.log(Level.INFO, "Statement: " + sql3);
 				st.executeUpdate(sql3);
+				
+				logger.log(Level.INFO, "Statement: " + sql4);
 				st.executeUpdate(sql4);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -75,6 +86,7 @@ public class BaseDatos {
 		 */
 		public static int getMaxCodigoEvento(Connection con) {
 			String sql = "SELECT MAX(codigo) FROM evento";
+			logger.log(Level.INFO, "Statement: " + sql);
 			int max = 0;
 			try (Statement st = con.createStatement();){
 				ResultSet rs = st.executeQuery(sql);
@@ -82,8 +94,7 @@ public class BaseDatos {
 					max = rs.getInt(1);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return max;
 		}
@@ -96,6 +107,7 @@ public class BaseDatos {
 		 */
 		public static int getMaxCodigoContacto(Connection con) {
 			String sql = "SELECT MAX(codigo) FROM contacto";
+			logger.log(Level.INFO, "Statement: " + sql);
 			int max = 0;
 			try (Statement st = con.createStatement();){
 				ResultSet rs = st.executeQuery(sql);
@@ -103,8 +115,7 @@ public class BaseDatos {
 					max = rs.getInt(1);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return max;
 		}
@@ -121,11 +132,11 @@ public class BaseDatos {
 		
 		public static void insertarUsuario(Connection con, String nombre, String apellido, String mail, String nomUsuario, String contrasenia) {
 			String sql = "INSERT INTO usuario VALUES('"+nombre+"','"+apellido+"','"+mail+"','"+nomUsuario+"','"+contrasenia+"')";
+			logger.log(Level.INFO, "Statement: " + sql);
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -144,11 +155,11 @@ public class BaseDatos {
 		public static void insertarEvento(Connection con ,String usuario, String fecha, String nombre, String tipo, int duracion, String completo) {
 			int codigo = getMaxCodigoEvento(con) + 1;
 			String sql = "INSERT INTO evento VALUES('"+codigo+"','"+usuario+"','"+fecha+"','"+nombre+"','"+tipo+"','"+duracion+"','"+completo+"')";
+			logger.log(Level.INFO, "Statement: " + sql);
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -165,11 +176,11 @@ public class BaseDatos {
 		public static void insertarContacto(Connection con, String usuario, String nombre, String mail, String telf, String favorito) {
 			int codigo = getMaxCodigoContacto(con) + 1;
 			String sql = "INSERT INTO contacto VALUES('"+codigo+"','"+usuario+"','"+nombre+"','"+mail+"','"+telf+"','"+favorito+"')";
+			logger.log(Level.INFO, "Statement: " + sql);
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -182,11 +193,11 @@ public class BaseDatos {
 		
 		public static void insertarTipoEvento(Connection con, String nombre, String usuario) {
 			String sql = "INSERT INTO tipo VALUES('"+nombre+"','"+usuario+"')";
+			logger.log(Level.INFO, "Statement: " + sql);
 			try (Statement st = con.createStatement();){
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -199,6 +210,7 @@ public class BaseDatos {
 		
 		public static boolean buscarUsuario(Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM usuario WHERE nomUsuario='"+nomUsuario+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			boolean usuarioEncontrado = false;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -206,8 +218,7 @@ public class BaseDatos {
 					usuarioEncontrado = true;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return usuarioEncontrado;
 		}
@@ -222,6 +233,7 @@ public class BaseDatos {
 		
 		public static boolean buscarMailUsuario(Connection con, String mail) {
 			String sql = "SELECT * FROM usuario WHERE mail='"+mail+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			boolean mailEncontrado = false;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -229,8 +241,7 @@ public class BaseDatos {
 					mailEncontrado = true;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return mailEncontrado;
 		}
@@ -244,6 +255,7 @@ public class BaseDatos {
 		
 		public static boolean buscartelefonoContacto(Connection con, String telf) {
 			String sql = "SELECT * FROM contacto WHERE telf='"+telf+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			boolean telfEncontrado = false;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -251,8 +263,7 @@ public class BaseDatos {
 					telfEncontrado = true;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return telfEncontrado;
 		}
@@ -266,6 +277,7 @@ public class BaseDatos {
 		
 		public static Usuario obtenerDatosUsuario (Connection con, String nomUsuario) {
 			String sql = "SELECT * FROM usuario WHERE nomUsuario='"+nomUsuario+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			Usuario u = null;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -278,8 +290,7 @@ public class BaseDatos {
 					u = new Usuario(n, a, m, nu, c);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			
 			return u;
@@ -295,6 +306,7 @@ public class BaseDatos {
 		
 		public static ArrayList<Evento> obtenerEventosUsuario (Connection con, String usuario) {
 			String sql = "SELECT * FROM evento WHERE usuario='"+usuario+"' ORDER BY fecha";
+			logger.log(Level.INFO, "Statement: " + sql);
 			ArrayList<Evento> ale = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -314,11 +326,9 @@ public class BaseDatos {
 					ale.add(ev);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			
 			return ale;
@@ -333,6 +343,7 @@ public class BaseDatos {
 		
 		public static ArrayList<Evento> obtenerEventosFechaUsuario (Connection con, String us, String fe) {
 			String sql = "SELECT * FROM evento WHERE fecha='"+fe+"' and usuario='"+us+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			ArrayList<Evento> ale = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -352,11 +363,9 @@ public class BaseDatos {
 					ale.add(ev);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return ale;
 		}
@@ -371,6 +380,7 @@ public class BaseDatos {
 		
 		public static Contacto obtenerDatosContacto (Connection con, String nombre) {
 			String sql = "SELECT * FROM contacto WHERE nombre='"+nombre+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			Contacto c = null;
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -387,8 +397,7 @@ public class BaseDatos {
 					c = new Contacto(cod, u, n, m, t, fav);
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			
 			return c;
@@ -403,6 +412,7 @@ public class BaseDatos {
 		 */
 		public static ArrayList<Contacto> obtenerContactosUsuario (Connection con, String usuario) {
 			String sql = "SELECT * FROM contacto WHERE usuario='"+usuario+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			ArrayList<Contacto> alc = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);){
@@ -421,8 +431,7 @@ public class BaseDatos {
 				}
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			} 
 			return alc;
 		}
@@ -437,6 +446,7 @@ public class BaseDatos {
 		
 		public static ArrayList<String> obtenerTodosTipoEventoUsuario(Connection con, String usuario) {
 			String sql = "SELECT * FROM tipo WHERE usuario = '"+usuario+"'";
+			logger.log(Level.INFO, "Statement: " + sql);
 			ArrayList<String> ate = new ArrayList<>();
 			try (Statement st = con.createStatement();
 				ResultSet rs = st.executeQuery(sql);) {
@@ -446,8 +456,7 @@ public class BaseDatos {
 				}
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return ate;
 		}
@@ -460,6 +469,7 @@ public class BaseDatos {
 		 */
 		public static void eliminarUsuario(Connection con, String nomUsu) {
 			String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsu+"'";
+			logger.log(Level.INFO, "Statement: " + sentSQL);
 			try {
 				ArrayList<Evento> lEventos = obtenerEventosUsuario(con, nomUsu);
 				ArrayList<Contacto> lContactos = obtenerContactosUsuario(con, nomUsu);
@@ -474,8 +484,7 @@ public class BaseDatos {
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -487,13 +496,13 @@ public class BaseDatos {
 		 */
 		public static void eliminarContacto(Connection con, String nombre) {
 			String sentSQL = "DELETE FROM contacto WHERE nombre ='"+nombre+"'";
+			logger.log(Level.INFO, "Statement: " + sentSQL);
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -505,12 +514,13 @@ public class BaseDatos {
 		 */
 		public static void eliminarEvento(Connection con, int codigo) {
 			String sentSQL = "DELETE FROM evento WHERE codigo ="+codigo;
+			logger.log(Level.INFO, "Statement: " + sentSQL);
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -526,13 +536,13 @@ public class BaseDatos {
 		 */
 		public static void updateEvento(Connection con, String codigo, String fecha, String nombre, String tipo, int duracion) {
 			String sentSQL = "UPDATE evento SET fecha = '"+fecha+"', nombre = '"+nombre+"', tipo = '"+tipo+"', duracion = "+duracion+" WHERE codigo ='"+codigo+"'";
-			System.out.println(sentSQL);
+			logger.log(Level.INFO, "Statement: " + sentSQL);
 			try {
 				Statement st = con.createStatement();
 				st.executeUpdate(sentSQL);
 				st.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e); 
 			}
 		}
 		
@@ -549,12 +559,13 @@ public class BaseDatos {
 		 */
 		public static void updateContacto(Connection con, int codigo, String usuario, String nombre, String mail, String telf, String favorito) {
 			String sentSQL = "UPDATE contacto SET nombre = '"+nombre+"', mail = '"+mail+"', telf = '"+telf+"', favorito = '"+favorito+"' WHERE codigo ="+codigo+" AND usuario = '"+usuario+"'";
+			logger.log(Level.INFO, "Statement: " + sentSQL);
 			try {
 				Statement st = con.createStatement();
 				st.executeUpdate(sentSQL);
 				st.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -567,17 +578,21 @@ public class BaseDatos {
 		 */
 		public static void updateCompleto(Connection con, int codigo, boolean estado) {
 			String sentSQL;
-			if(estado)
+			if(estado) {
 			 sentSQL= "UPDATE evento SET completo='true' WHERE codigo ="+codigo;
-			else
+			 logger.log(Level.INFO, "Statement: " + sentSQL);
+			}
+			else {
 				sentSQL= "UPDATE evento SET completo='false' WHERE codigo ="+codigo;
+				logger.log(Level.INFO, "Statement: " + sentSQL);
+			}
+				
 			try {
 				Statement stmt = con.createStatement();
 				stmt.executeUpdate(sentSQL);
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 		}
 		
@@ -590,6 +605,7 @@ public class BaseDatos {
 		 */
 		public static boolean getCompleto(Connection con, int codigo) {
 			String sentSQL = "SELECT completo FROM evento WHERE codigo="+codigo;
+			logger.log(Level.INFO, "Statement: " + sentSQL);
 			boolean completo = false;
 			try {
 				Statement stmt = con.createStatement();
@@ -600,8 +616,7 @@ public class BaseDatos {
 						completo = true;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log(Level.SEVERE, "Excepción", e);
 			}
 			return completo;
 		}
