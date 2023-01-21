@@ -29,6 +29,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+/**
+ * Ventana que muestra los paneles para iniciar sesion/registrarse
+ */
+
 public class VentanaInicioSesion extends JFrame {
 
 	// Elementos de la ventana

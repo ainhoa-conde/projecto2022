@@ -26,6 +26,9 @@ import javax.swing.table.DefaultTableModel;
 import clases.BaseDatos;
 import clases.Contacto;
 
+/**
+ * Ventana que muestra los contactos de un usuario
+ */
 
 public class VentanaContactos extends JFrame{
 
@@ -49,18 +52,9 @@ public class VentanaContactos extends JFrame{
 		
 
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaContactos frame = new VentanaContactos();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	/**
+	 * Se inicializa la ventana
+	 */
 	
 	public VentanaContactos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

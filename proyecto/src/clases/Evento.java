@@ -2,6 +2,12 @@ package clases;
 
 import java.util.Date;
 
+/**
+ * 
+ * Clase que inicializa los datos de un evento
+ *
+ */
+
 public class Evento  {
 	
 	public int codigo;

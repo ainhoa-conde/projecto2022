@@ -2,6 +2,10 @@ package clases;
 
 import java.util.ArrayList;
 
+/**
+ * Clase que inicializa los tipos de evntos creados por un usuario
+ */
+
 public class TipoEventos {
 	private static TipoEventos miTipoEventos = null;
 	private ArrayList<String> tipos ;

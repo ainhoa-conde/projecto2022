@@ -35,6 +35,10 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
+/**
+ * Ventana principal que muestra los eventos del dia seleccionados y botones que llevan a las otras ventanas
+ */
+
 public class VentanaPrincipal extends JFrame  {
 
 	//Elementos de la ventana
@@ -53,22 +57,6 @@ public class VentanaPrincipal extends JFrame  {
 	private JLabel imagen = new JLabel(frame1);
 	private Thread t;
 	private JPanel pIzqArriba;
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

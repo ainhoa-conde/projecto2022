@@ -11,6 +11,14 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * 
+ * @author ainho, maren
+ * 
+ * Clase que almacena/coge los datos de la base de datos
+ *
+ */
 public class BaseDatos {
 	
 	private static Logger logger = Logger.getLogger("BaseDatos");
@@ -337,7 +345,8 @@ public class BaseDatos {
 		/**
 		 * Devuelve una lista de eventos desde la tabla Evento, usando la sentencia SELECT de SQL y el usuario que ha creado los eventos
 		 * @param con	Conexion con la base de datos
-		 * @param usuario	"Nickname" del usuario que ha creado los eventos
+		 * @param us	"Nickname" del usuario que ha creado los eventos
+		 * @param fe	Fecha en la que se quiera seleccionar los eventos
 		 * @return ale	ArrayList con todos los eventos de un usuario
 		 */
 		

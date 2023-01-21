@@ -1,5 +1,9 @@
 package clases;
 
+/**
+ * Clase que inicializa los datos de un usuario
+ */
+
 public class Usuario {
 	
 	private String nombre;

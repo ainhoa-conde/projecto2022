@@ -8,11 +8,18 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author maren
+ * 
+ * JUnit que hace pruebas para asegurarse de que los datos se insertan correctamente
+ *
+ */
 
 public class BaseDatosTest {
 	Connection con ;
 	
-	/*Abrir conexion con la base de datos y creacion de las tablas
+	/**Abrir conexion con la base de datos y creacion de las tablas
 	 */
 	@Before
 	public void setUp() {
@@ -20,7 +27,7 @@ public class BaseDatosTest {
 		BaseDatos.crearTablas(con);
 	}
 	
-	/*Tests de la clase eventos
+	/**Tests de la clase eventos
 	 * 1. Comprobar que al crear un usuario no tiene ningun evento
 	 * 2. Al insertar 5 eventos, comprobar que el usuario tiene el numero correcto de eventos
 	 * 3. Asegurar que el mayor codigo mayor de los eventos se ha actualizado
@@ -52,7 +59,7 @@ public class BaseDatosTest {
 		BaseDatos.eliminarUsuario(con, "ane");
 	}
 	
-	/*Tests de la clase contactos
+	/**Tests de la clase contactos
 	 * 1. Comprobar que al crear un usuario no tiene ningun contacto
 	 * 2. Al insertar 5 contactos, comprobar que el usuario tiene el numero correcto de contactos
 	 * 3. Asegurar que el mayor codigo mayor de los contactos se ha actualizado
@@ -77,7 +84,7 @@ public class BaseDatosTest {
 		BaseDatos.eliminarUsuario(con, "ane");
 	}
 	
-	/*Cerrar conexion con la base de datos
+	/**Cerrar conexion con la base de datos
 	 */
 	@After
 	public void tearDown() {

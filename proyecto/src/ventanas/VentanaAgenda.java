@@ -30,6 +30,10 @@ import clases.BaseDatos;
 import clases.Evento;
 import clases.TipoEventos;
 
+/**
+ * Ventana que muestra los eventos de una persona en una lista
+ */
+
 public class VentanaAgenda extends JFrame {
 
 	private JPanel contentPane;
@@ -48,19 +52,9 @@ public class VentanaAgenda extends JFrame {
 	
 	private Thread t;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAgenda frame = new VentanaAgenda();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}
-		});
-	}
+	/**
+	 * Se inicializa la ventana
+	 */
 	
 	public VentanaAgenda() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

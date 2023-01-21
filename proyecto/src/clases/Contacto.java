@@ -1,5 +1,11 @@
 package clases;
 
+/**
+ * 
+ * Clase que inicializa la información sobre un contacto
+ *
+ */
+
 public class Contacto {
 	private int codigo;
 	private String usuario;
@@ -20,8 +26,8 @@ public class Contacto {
 	 * Constructor con parametros de la clase Contacto
 	 * @param codigo	Codigo del contacto
 	 * @param usuario	Usuario que ha creado el contacto
-	 * @param Nombre 	Nombre del contacto
-	 * @param Mail 		Correo electronico del mail
+	 * @param nombre 	Nombre del contacto
+	 * @param mail 		Correo electronico del mail
 	 * @param telf		Telefono del contacto
 	 * @param favorito	Marcar si es un contacto es favorito
 	 */
