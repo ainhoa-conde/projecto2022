@@ -66,7 +66,7 @@ public class VentanaContactos extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1100, 560);
 		setTitle("Contactos");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/ventana_principal.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/iconoVentanaContactos.png"));
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setBackground(Color.WHITE);

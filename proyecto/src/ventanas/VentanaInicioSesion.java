@@ -73,7 +73,7 @@ public class VentanaInicioSesion extends JFrame {
 
 		// Elementos base + funcionalidad de la ventana
 		setTitle("¡BIENVENIDO!");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/icono_proyecto.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("imagenes/iconoVentanaInicioSesion.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 500, 300);
 		contentPane = new JPanel();
